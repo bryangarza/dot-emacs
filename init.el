@@ -32,3 +32,8 @@
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'noctilux t)
+
+(let ((default-directory "~/.emacs.d/lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
+(require 'navigate)
