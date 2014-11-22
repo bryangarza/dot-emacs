@@ -67,3 +67,6 @@
 
 (load "elisp-editing.el")
 (load "setup-clojure.el")
+
+;; Stop littering everywhere w save files, put them somewhere
+(setq backup-directory-alist '(("." . "~/.emacs-backups")))
