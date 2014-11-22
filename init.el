@@ -14,9 +14,10 @@
 		      ;; http://www.emacswiki.org/emacs/PareditCheatsheet
 		      ;; http://mumble.net/~campbell/emacs/paredit.html
 		      smartparens
-		      clojure-mode clojure-mode-extra-font-locking
+		      clojure-mode-extra-font-locking
 		      cider
-		      magit))
+		      magit
+		      linum-relative))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -34,7 +35,7 @@
 
 (require 'evil)
 (evil-mode 1)
-(global-rainbow-delimiters-mode t)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 (setq electric-indent-mode nil)
 
 ;; change mode-line color by evil state
@@ -59,6 +60,7 @@
   (normal-top-level-add-subdirs-to-load-path))
 
 (require 'navigate)
+(require 'linum-relative)
 
 ;; Changes all yes/no questions to y/n type
 (fset 'yes-or-no-p 'y-or-n-p)
