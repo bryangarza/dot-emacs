@@ -61,6 +61,7 @@
 
 (require 'navigate)
 (require 'linum-relative)
+(setq linum-relative-current-symbol "")
 
 ;; Changes all yes/no questions to y/n type
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -70,3 +71,7 @@
 
 ;; Stop littering everywhere w save files, put them somewhere
 (setq backup-directory-alist '(("." . "~/.emacs-backups")))
+
+(ido-mode 1)
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
