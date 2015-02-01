@@ -17,7 +17,8 @@
 		      clojure-mode-extra-font-locking
 		      cider
 		      magit
-		      linum-relative))
+		      linum-relative
+		      company))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -29,6 +30,7 @@
 (menu-bar-mode -1)
 (global-linum-mode 1) ; display line numbers
 (column-number-mode 1) ; display column and row of cursor in mode-line
+(show-paren-mode 1)
 
 (add-hook 'text-mode-hook
 	  (lambda ()
@@ -78,3 +80,27 @@
 (ido-mode 1)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
+
+(setq scheme-program-name "/usr/local/bin/mit-scheme")
+
+(require 'paren)
+(set-face-background 'show-paren-match (face-background 'default))
+(set-face-foreground 'show-paren-match "#def")
+(set-face-attribute 'show-paren-match nil :weight 'extra-bold
+		    :underline t)
+
+(setq show-paren-delay 0)
+
+;; Cider settings
+;; Enable `eldoc` in Clojure buffers
+(add-hook 'cider-mode-hool #'eldoc-mode)
+;; Log communication with the nREPL server
+(setq nrepl-log-messages t)
+;; Hide *nrepl-connection* and *nrepl-server* from some buffer switching
+;; comands like `switch-to-buffer` (C-x b)
+(setq nrepl-hide-special-buffers t)
+;; Enable paredit in the REPL buffer
+(add-hook 'cider-repl-mode-hook #'paredit-mode)
+
+;; Use company-mode in all buffers
+(add-hook 'after-init-hook 'global-company-mode)
