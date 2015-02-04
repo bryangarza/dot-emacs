@@ -18,7 +18,8 @@
 		      cider
 		      magit
 		      linum-relative
-		      company))
+		      company
+		      nyan-mode))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -32,6 +33,8 @@
 (column-number-mode 1) ; display column and row of cursor in mode-line
 (show-paren-mode 1)
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 (add-hook 'text-mode-hook
 	  (lambda ()
             ;; ask to turn on hard line wrapping
@@ -44,17 +47,17 @@
 (setq electric-indent-mode nil)
 
 ;; change mode-line color by evil state
-;; (lexical-let ((default-color (cons (face-background 'mode-line)
-;; 				   (face-foreground 'mode-line))))
-;;   (add-hook 'post-command-hook
-;; 	    (lambda ()
-;; 	      (let ((color (cond ((minibufferp) default-color)
-;; 				 ((evil-insert-state-p) '("#e80000" . "#ffffff"))
-;; 				 ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
-;; 				 ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
-;; 				 (t default-color))))
-;; 		(set-face-background 'mode-line (car color))
-;; 		(set-face-foreground 'mode-line (cdr color))))))
+(lexical-let ((default-color (cons (face-background 'mode-line)
+				   (face-foreground 'mode-line))))
+  (add-hook 'post-command-hook
+	    (lambda ()
+	      (let ((color (cond ((minibufferp) default-color)
+				 ((evil-insert-state-p) '("#e80000" . "#ffffff"))
+				 ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
+				 ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
+				 (t default-color))))
+		(set-face-background 'mode-line (car color))
+		(set-face-foreground 'mode-line (cdr color))))))
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/customizations")
@@ -104,3 +107,31 @@
 
 ;; Use company-mode in all buffers
 (add-hook 'after-init-hook 'global-company-mode)
+
+;; fix the terminal
+(setq system-uses-terminfo nil)
+
+(desktop-save-mode 1)
+
+(nyan-mode)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(rainbow-delimiters-depth-1-face ((t (:foreground "White"))))
+ '(rainbow-delimiters-depth-2-face ((t (:foreground "Yellow"))))
+ '(rainbow-delimiters-depth-3-face ((t (:foreground "Green"))))
+ '(rainbow-delimiters-depth-4-face ((t (:foreground "Orange"))))
+ '(rainbow-delimiters-depth-5-face ((t (:foreground "Cyan"))))
+ '(rainbow-delimiters-depth-6-face ((t (:foreground "Purple"))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "Yellow"))))
+ '(rainbow-delimiters-depth-8-face ((t (:foreground "Brown"))))
+ '(rainbow-delimiters-depth-9-face ((t (:foreground "Magenta")))))
