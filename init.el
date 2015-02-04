@@ -126,7 +126,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(linum-relative-current-face ((t (:inherit linum :background "#292929" :foreground "secondarySelectedControlColor" :weight bold))))
+ '(linum-relative-current-face ((t (:inherit linum :background "#292929" :foreground "White" :weight bold))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "White"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "Yellow"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "Green"))))
