@@ -136,3 +136,5 @@
  '(rainbow-delimiters-depth-7-face ((t (:foreground "Yellow"))))
  '(rainbow-delimiters-depth-8-face ((t (:foreground "Brown"))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "Magenta")))))
+
+;; a comment
