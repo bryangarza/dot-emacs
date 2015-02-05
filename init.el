@@ -8,8 +8,10 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(evil paredit
-		      evil-paredit evil-surround
+(defvar my-packages '(evil
+		      paredit
+		      evil-paredit
+		      evil-surround
 		      rainbow-delimiters
 		      ;; http://www.emacswiki.org/emacs/PareditCheatsheet
 		      ;; http://mumble.net/~campbell/emacs/paredit.html
@@ -137,4 +139,16 @@
  '(rainbow-delimiters-depth-8-face ((t (:foreground "Brown"))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "Magenta")))))
 
-;; a comment
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))
+
+(defun custom-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2))
+
+(add-hook 'web-mode-hook  'custom-web-mode-hook)

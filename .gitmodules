@@ -1,0 +1,3 @@
+[submodule "lisp/web-mode"]
+	path = lisp/web-mode
+	url = git@github.com:fxbois/web-mode.git
