@@ -69,7 +69,6 @@
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-(require 'navigate)
 (require 'linum-relative)
 (setq linum-relative-current-symbol "")
 
@@ -152,3 +151,8 @@
   (setq web-mode-code-indent-offset 2))
 
 (add-hook 'web-mode-hook  'custom-web-mode-hook)
+
+(require 'markdown-mode)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
