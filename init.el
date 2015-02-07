@@ -9,19 +9,19 @@
   (package-refresh-contents))
 
 (defvar my-packages '(evil
-		      paredit
-		      evil-paredit
-		      evil-surround
-		      rainbow-delimiters
-		      ;; http://www.emacswiki.org/emacs/PareditCheatsheet
-		      ;; http://mumble.net/~campbell/emacs/paredit.html
-		      smartparens
-		      clojure-mode-extra-font-locking
-		      cider
-		      magit
-		      linum-relative
-		      company
-		      nyan-mode))
+                      paredit
+                      evil-paredit
+                      evil-surround
+                      rainbow-delimiters
+                      ;; http://www.emacswiki.org/emacs/PareditCheatsheet
+                      ;; http://mumble.net/~campbell/emacs/paredit.html
+                      smartparens
+                      clojure-mode-extra-font-locking
+                      cider
+                      magit
+                      linum-relative
+                      company
+                      nyan-mode))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -38,7 +38,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (add-hook 'text-mode-hook
-	  (lambda ()
+          (lambda ()
             ;; ask to turn on hard line wrapping
             (when (y-or-n-p "Hard wrap text?")
               (turn-on-auto-fill))))
@@ -50,16 +50,16 @@
 
 ;; change mode-line color by evil state
 (lexical-let ((default-color (cons (face-background 'mode-line)
-				   (face-foreground 'mode-line))))
+                                   (face-foreground 'mode-line))))
   (add-hook 'post-command-hook
-	    (lambda ()
-	      (let ((color (cond ((minibufferp) default-color)
-				 ((evil-insert-state-p) '("#e80000" . "#ffffff"))
-				 ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
-				 ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
-				 (t default-color))))
-		(set-face-background 'mode-line (car color))
-		(set-face-foreground 'mode-line (cdr color))))))
+            (lambda ()
+              (let ((color (cond ((minibufferp) default-color)
+                                 ((evil-insert-state-p) '("#e80000" . "#ffffff"))
+                                 ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
+                                 ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
+                                 (t default-color))))
+                (set-face-background 'mode-line (car color))
+                (set-face-foreground 'mode-line (cdr color))))))
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/customizations")
@@ -91,7 +91,7 @@
 (set-face-background 'show-paren-match (face-background 'default))
 (set-face-foreground 'show-paren-match "#def")
 (set-face-attribute 'show-paren-match nil :weight 'extra-bold
-		    :underline t)
+                    :underline t)
 
 (setq show-paren-delay 0)
 
@@ -156,3 +156,6 @@
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+; Tabs are evil
+(setq-default indent-tabs-mode nil)
