@@ -159,3 +159,6 @@
 
 ; Tabs are evil
 (setq-default indent-tabs-mode nil)
+
+(set-face-attribute 'default nil
+                    :family "Menlo" :height 140 :weight 'normal)
