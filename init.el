@@ -172,3 +172,4 @@
 (global-set-key [(control c) r] 'revert-buffer)
 
 (setq ring-bell-function 'ignore)
+(setq-default show-trailing-whitespace t)
