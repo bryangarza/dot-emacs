@@ -170,3 +170,5 @@
              (setq json-reformat:indent-width 4)))
 
 (global-set-key [(control c) r] 'revert-buffer)
+
+(setq ring-bell-function 'ignore)
