@@ -179,6 +179,9 @@
 (global-set-key [(super b)] 'ido-switch-buffer)
 (global-set-key [(super o)] 'other-window)
 (global-set-key [(super e)] 'eval-defun)
+(global-set-key [(super n)] 'next-buffer)
+(global-set-key [(super p)] 'previous-buffer)
+(global-set-key [(super shift p)] 'ns-print-buffer)
 (global-set-key [(super t)] nil)
 
 
