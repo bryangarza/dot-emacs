@@ -169,7 +169,14 @@
              (setq js-indent-level 2)
              (setq json-reformat:indent-width 4)))
 
-(global-set-key [(control c) r] 'revert-buffer)
+(global-set-key [(super r)] 'revert-buffer)
+(global-set-key [(super i)] 'magit-status)
+
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'super)
+(setq mac-control-modifier 'control)
+(setq mac-function-modifier 'hyper)
+(global-set-key [(meta w)] 'execute-extended-command)
 
 (setq ring-bell-function 'ignore)
 (setq-default show-trailing-whitespace t)
