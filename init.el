@@ -12,7 +12,7 @@
                       paredit
                       evil-paredit
                       evil-surround
-                      rainbow-delimiters
+                     rainbow-delimiters
                       ;; http://www.emacswiki.org/emacs/PareditCheatsheet
                       ;; http://mumble.net/~campbell/emacs/paredit.html
                       smartparens
@@ -169,14 +169,17 @@
              (setq js-indent-level 2)
              (setq json-reformat:indent-width 4)))
 
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier 'super)
-(setq mac-control-modifier 'control)
-(setq mac-function-modifier 'global)
+(setq mac-function-modifier 'hyper)
 
-(hyper-set-key [(meta w)] 'execute-extended-command)
+(global-set-key [(meta w)] 'execute-extended-command)
+(global-set-key [(super w)] 'execute-extended-command)
 (global-set-key [(super r)] 'revert-buffer)
 (global-set-key [(super i)] 'magit-status)
+(global-set-key [(super f)] 'ido-find-file)
+(global-set-key [(super b)] 'ido-switch-buffer)
+(global-set-key [(super o)] 'other-window)
+(global-set-key [(super e)] 'eval-defun)
+(global-set-key [(super t)] nil)
 
 
 (setq ring-bell-function 'ignore)
