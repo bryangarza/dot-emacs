@@ -12,7 +12,7 @@
                       paredit
                       evil-paredit
                       evil-surround
-                     rainbow-delimiters
+                      rainbow-delimiters
                       ;; http://www.emacswiki.org/emacs/PareditCheatsheet
                       ;; http://mumble.net/~campbell/emacs/paredit.html
                       smartparens
