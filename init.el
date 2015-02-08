@@ -20,7 +20,8 @@
                       cider
                       magit
                       linum-relative
-                      company))
+                      company
+                      json-mode))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -39,8 +40,9 @@
 (add-hook 'text-mode-hook
           (lambda ()
             ;; ask to turn on hard line wrapping
-            (when (y-or-n-p "Hard wrap text?")
-              (turn-on-auto-fill))))
+            ;; (when (y-or-n-p "Hard wrap text?")
+            ;;   (turn-on-auto-fill))))
+            (turn-off-auto-fill)))
 
 (require 'evil)
 (evil-mode 1)
@@ -159,3 +161,12 @@
 
 (set-face-attribute 'default nil
                     :family "Menlo" :height 140 :weight 'normal)
+
+(require 'json-mode)
+(add-hook 'json-mode-hook
+          '(lambda ()
+             (setq c-basic-offset 2)
+             (setq js-indent-level 2)
+             (setq json-reformat:indent-width 4)))
+
+(global-set-key [(control c) r] 'revert-buffer)
