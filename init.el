@@ -42,7 +42,7 @@
             ;; ask to turn on hard line wrapping
             ;; (when (y-or-n-p "Hard wrap text?")
             ;;   (turn-on-auto-fill))))
-            (turn-off-auto-fill)))
+            (turn-on-auto-fill)))
 
 (require 'evil)
 (evil-mode 1)
@@ -187,3 +187,8 @@
 
 (setq ring-bell-function 'ignore)
 (setq-default show-trailing-whitespace t)
+
+(require 'sws-mode)
+(require 'jade-mode)
+(add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
+(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))

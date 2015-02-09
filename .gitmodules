@@ -1,3 +1,6 @@
 [submodule "lisp/web-mode"]
 	path = lisp/web-mode
 	url = git@github.com:fxbois/web-mode.git
+[submodule "lisp/jade-mode"]
+	path = lisp/jade-mode
+	url = git@github.com:brianc/jade-mode.git
