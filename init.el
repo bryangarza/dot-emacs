@@ -196,6 +196,9 @@
 (global-set-key [(super shift k)] 'describe-key)
 (global-set-key [(super shift f)] 'describe-function)
 
+(global-set-key [(super shift l)] 'kill-this-buffer)
+
+
 (setq ring-bell-function 'ignore)
 (setq-default show-trailing-whitespace t)
 
