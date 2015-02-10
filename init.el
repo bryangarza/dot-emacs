@@ -139,7 +139,7 @@
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))
 
@@ -184,6 +184,17 @@
 (global-set-key [(super shift p)] 'ns-print-buffer)
 (global-set-key [(super t)] nil)
 
+(global-set-key [(super h)] 'windmove-left)
+(global-set-key [(super j)] 'windmove-down)
+(global-set-key [(super k)] 'windmove-up)
+(global-set-key [(super l)] 'windmove-right)
+(global-set-key [(super shift l)] 'goto-line)
+(global-set-key [(super l)] 'windmove-right)
+
+(global-set-key [(super q)] 'previous-history-element)
+(global-set-key [(super d)] 'next-history-element)
+(global-set-key [(super shift k)] 'describe-key)
+(global-set-key [(super shift f)] 'describe-function)
 
 (setq ring-bell-function 'ignore)
 (setq-default show-trailing-whitespace t)
