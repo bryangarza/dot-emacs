@@ -21,7 +21,8 @@
                       magit
                       linum-relative
                       company
-                      json-mode))
+                      json-mode
+                      js2-mode))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -139,7 +140,6 @@
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))
 
@@ -155,6 +155,11 @@
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+(setq js2-strict-missing-semi-warning nil)
 
 ; Tabs are evil
 (setq-default indent-tabs-mode nil)
