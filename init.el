@@ -198,11 +198,7 @@
 
 (global-set-key [(super q)] 'previous-history-element)
 (global-set-key [(super d)] 'next-history-element)
-(global-set-key [(super shift k)] 'describe-key)
-(global-set-key [(super shift f)] 'describe-function)
-
-(global-set-key [(super shift l)] 'kill-this-buffer)
-
+(global-set-key [(super shift k)] 'kill-this-buffer)
 
 (setq ring-bell-function 'ignore)
 (setq-default show-trailing-whitespace t)
@@ -220,3 +216,18 @@
 (diminish 'company-mode)
 (diminish 'eldoc-mode)
 (diminish 'magit-auto-revert-mode)
+
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-saved-items 200
+      recentf-max-menu-items 25)
+(global-set-key [(super m)] 'recentf-open-files)
+
+(defun recentf-ido-find-file ()
+  "Find a recent file using ido."
+  (interactive)
+  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
+    (when file
+      (find-file file))))
+
+(global-set-key [(super shift f)] 'recentf-ido-find-file)
