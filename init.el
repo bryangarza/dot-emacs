@@ -22,7 +22,7 @@
                       linum-relative
                       company
                       json-mode
-                      js2-mode))
+                      diminish))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -213,3 +213,10 @@
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 (winner-mode 1)
+
+(require 'diminish)
+(diminish 'undo-tree-mode)
+(diminish 'paredit-mode)
+(diminish 'company-mode)
+(diminish 'eldoc-mode)
+(diminish 'magit-auto-revert-mode)
