@@ -231,3 +231,5 @@
       (find-file file))))
 
 (global-set-key [(super shift f)] 'recentf-ido-find-file)
+
+(setq evil-move-cursor-back nil)
