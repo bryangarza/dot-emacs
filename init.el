@@ -21,8 +21,7 @@
                       magit
                       linum-relative
                       company
-                      json-mode
-                      diminish))
+                      json-mode))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -33,7 +32,7 @@
 (scroll-bar-mode 0)
 (menu-bar-mode -1)
 (global-linum-mode 1) ; display line numbers
-(column-number-mode 1) ; display column and row of cursor in mode-line
+;; (column-number-mode 1) ; display column and row of cursor in mode-line
 (show-paren-mode 1)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -209,13 +208,6 @@
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 (winner-mode 1)
-
-(require 'diminish)
-(diminish 'undo-tree-mode)
-(diminish 'paredit-mode)
-(diminish 'company-mode)
-(diminish 'eldoc-mode)
-(diminish 'magit-auto-revert-mode)
 
 (require 'recentf)
 (recentf-mode 1)
