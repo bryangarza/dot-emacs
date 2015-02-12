@@ -21,7 +21,9 @@
                       magit
                       linum-relative
                       company
-                      json-mode))
+                      json-mode
+                      exec-path-from-shell
+                      flycheck))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -157,7 +159,6 @@
 
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
 (setq js2-strict-missing-semi-warning nil)
 
 ; Tabs are evil
@@ -255,3 +256,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
                 (if (looking-back "/")
                     (insert "~/")
                   (call-interactively 'self-insert-command))))))
+
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq-default flycheck-disabled-checkers '(javascript-jshint))
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
