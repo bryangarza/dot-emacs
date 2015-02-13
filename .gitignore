@@ -5,3 +5,4 @@ ido.last
 .emacs.desktop
 .emacs.desktop.lock
 /recentf
+/lisp/npm-debug.log
