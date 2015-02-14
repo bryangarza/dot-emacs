@@ -34,7 +34,7 @@
 (scroll-bar-mode 0)
 (menu-bar-mode -1)
 (global-linum-mode 1) ; display line numbers
-;; (column-number-mode 1) ; display column and row of cursor in mode-line
+(column-number-mode 1) ; display column and row of cursor in mode-line
 (show-paren-mode 1)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
