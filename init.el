@@ -128,6 +128,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(compilation-info ((t (:background "#202020" :foreground "#aaffaa" :inverse-video nil :underline nil :slant normal :weight bold))))
  '(fringe ((t (:background "#202020" :foreground "#5f5f5f"))))
  '(linum ((t (:background "#202020" :foreground "#5f5f5f"))))
  '(linum-relative-current-face ((t (:inherit linum :background "#202020" :foreground "White" :weight bold))))
@@ -280,3 +281,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (paredit-mode 1))
 
 (add-hook 'js-mode-hook 'paredit-nonlisp-hook)
+
+(setq c-default-style "linux"
+      c-basic-offset 4)
