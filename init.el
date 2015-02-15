@@ -128,7 +128,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(linum-relative-current-face ((t (:inherit linum :background "#292929" :foreground "White" :weight bold))))
+ '(fringe ((t (:background "#202020" :foreground "#5f5f5f"))))
+ '(linum ((t (:background "#202020" :foreground "#5f5f5f"))))
+ '(linum-relative-current-face ((t (:inherit linum :background "#202020" :foreground "White" :weight bold))))
+ '(mode-line ((t (:background "Orange" :foreground "#202020" :inverse-video t :box nil :underline nil :slant normal :weight normal))))
+ '(mode-line-inactive ((t (:background "gray50" :foreground "#202020" :inverse-video t :box nil :underline nil :slant normal :weight normal))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "White"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "Yellow"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "Green"))))
@@ -137,7 +141,8 @@
  '(rainbow-delimiters-depth-6-face ((t (:foreground "Purple"))))
  '(rainbow-delimiters-depth-7-face ((t (:foreground "Yellow"))))
  '(rainbow-delimiters-depth-8-face ((t (:foreground "Brown"))))
- '(rainbow-delimiters-depth-9-face ((t (:foreground "Magenta")))))
+ '(rainbow-delimiters-depth-9-face ((t (:foreground "Magenta"))))
+ '(vertical-border ((t (:foreground "#202020")))))
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -157,15 +162,15 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-(require 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(setq js2-strict-missing-semi-warning nil)
+;; (require 'js2-mode)
+;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+;; (setq js2-strict-missing-semi-warning nil)
 
 ; Tabs are evil
 (setq-default indent-tabs-mode nil)
 
 (set-face-attribute 'default nil
-                    :family "Menlo" :height 140 :weight 'normal)
+                    :family "Menlo" :height 130 :weight 'normal)
 
 (require 'json-mode)
 (add-hook 'json-mode-hook
@@ -258,8 +263,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
                   (call-interactively 'self-insert-command))))))
 
 (require 'flycheck)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;; (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(javascript-jshint))
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
+
+(global-hl-line-mode 1)
