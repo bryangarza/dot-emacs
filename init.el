@@ -128,6 +128,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(compilation-error ((t (:inherit error :background "#202020"))))
  '(compilation-info ((t (:background "#202020" :foreground "#aaffaa" :inverse-video nil :underline nil :slant normal :weight bold))))
  '(fringe ((t (:background "#202020" :foreground "#5f5f5f"))))
  '(linum ((t (:background "#202020" :foreground "#5f5f5f"))))
@@ -271,7 +272,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (exec-path-from-shell-initialize))
 
 ; IDK how I feel about this
-;; (global-hl-line-mode 1)
+(global-hl-line-mode 1)
 
 (defun paredit-nonlisp-hook ()
   "Turn on paredit mode for non-lisps."
@@ -284,3 +285,5 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (setq c-default-style "linux"
       c-basic-offset 4)
+
+(setq scroll-step 1 scroll-conservatively 10000)
