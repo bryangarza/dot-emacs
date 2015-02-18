@@ -281,9 +281,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
        '((lambda (endp delimiter) nil)))
   (paredit-mode 1))
 
-(add-hook 'js-mode-hook 'paredit-nonlisp-hook)
+(defun c-mode-custom-hook ()
+  (setq c-default-style "linux")
+  (setq c-basic-offset 4))
 
-(setq c-default-style "linux"
-      c-basic-offset 4)
+(add-hook 'js-mode-hook 'paredit-nonlisp-hook)
+(add-hook 'c-mode-common-hook 'paredit-nonlisp-hook)
+(add-hook 'c-mode-common-hook 'c-mode-custom-hook)
 
 (setq scroll-step 1 scroll-conservatively 10000)
