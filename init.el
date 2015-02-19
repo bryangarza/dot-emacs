@@ -290,3 +290,42 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (add-hook 'c-mode-common-hook 'c-mode-custom-hook)
 
 (setq scroll-step 1 scroll-conservatively 10000)
+
+
+;;; Ocaml setup
+
+;; Add opam emacs directory to the load-path
+(setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
+(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+;; Load merlin-mode
+(require 'merlin)
+;; Start merlin on ocaml files
+(add-hook 'tuareg-mode-hook 'merlin-mode t)
+(add-hook 'caml-mode-hook 'merlin-mode t)
+;; Enable auto-complete
+(setq merlin-use-auto-complete-mode 'easy)
+;; Use opam switch to lookup ocamlmerlin binary
+(setq merlin-command 'opam)
+
+
+(add-to-list 'load-path "/Users/bryangarza/.opam/system/share/emacs/site-lisp")
+(require 'ocp-indent)
+
+
+;; Setup environment variables using opam
+(dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
+  (setenv (car var) (cadr var)))
+
+;; Update the emacs path
+(setq exec-path (append (parse-colon-path (getenv "PATH"))
+                        (list exec-directory)))
+
+;; Update the emacs load path
+(add-to-list 'load-path (expand-file-name "../../share/emacs/site-lisp"
+                                          (getenv "OCAML_TOPLEVEL_PATH")))
+
+;; Automatically load utop.el
+(autoload 'utop "utop" "Toplevel for OCaml" t)
+
+(autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
+(add-hook 'tuareg-mode-hook 'utop-minor-mode)
