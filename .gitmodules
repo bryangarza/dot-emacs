@@ -4,3 +4,6 @@
 [submodule "lisp/jade-mode"]
 	path = lisp/jade-mode
 	url = git@github.com:brianc/jade-mode.git
+[submodule "lisp/tuareg"]
+	path = lisp/tuareg
+	url = git@github.com:ocaml/tuareg.git
