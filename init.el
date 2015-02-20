@@ -294,6 +294,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;;; Ocaml setup
 
+(load "/Users/bryangarza/.emacs.d/lisp/tuareg/tuareg-site-file.el")
+
 ;; Add opam emacs directory to the load-path
 (setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
 (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
@@ -327,5 +329,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; Automatically load utop.el
 (autoload 'utop "utop" "Toplevel for OCaml" t)
 
-(autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
-(add-hook 'tuareg-mode-hook 'utop-minor-mode)
+(defun ocaml-custom-hook ()
+  (setq paredit-mode 1))
+
+;; (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
+;; (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+(add-hook 'tuareg-mode-hook 'ocaml-custom-hook)
