@@ -23,7 +23,8 @@
                       company
                       json-mode
                       exec-path-from-shell
-                      flycheck))
+                      flycheck
+                      haskell-mode))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -330,8 +331,16 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (autoload 'utop "utop" "Toplevel for OCaml" t)
 
 (defun ocaml-custom-hook ()
-  (setq paredit-mode 1))
+  (paredit-mode 1))
 
 ;; (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
 ;; (add-hook 'tuareg-mode-hook 'utop-minor-mode)
 (add-hook 'tuareg-mode-hook 'ocaml-custom-hook)
+
+
+(defun haskell-custom-hook ()
+  (flycheck-mode)
+  (paredit-mode 1))
+
+(require 'haskell-mode)
+(add-hook 'haskell-mode-hook 'haskell-custom-hook)
