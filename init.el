@@ -49,6 +49,8 @@
 
 (require 'evil)
 (evil-mode 1)
+(require 'evil-surround)
+(global-evil-surround-mode 1)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 (setq electric-indent-mode nil)
 
