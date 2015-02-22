@@ -352,3 +352,5 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   '(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
 (eval-after-load "haskell-cabal"
   '(define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-compile))
+
+(global-set-key (kbd "C-x a r") 'align-regexp).
