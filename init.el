@@ -354,4 +354,4 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   '(define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-compile))
 
 ;; For later: https://wiki.haskell.org/Emacs/Indentation#Aligning_code
-(global-set-key (kbd "C-x a r") 'align-regexp).
+(global-set-key (kbd "C-x a r") 'align-regexp)
