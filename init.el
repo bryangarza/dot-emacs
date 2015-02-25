@@ -378,3 +378,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (require 'saveplace)
 (setq-default save-place t)
 (setq save-place-file "~/.emacs.d/saved-places")
+
+;; ლ(ಠ益ಠ)ლ ¡porque!
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
