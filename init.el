@@ -210,8 +210,23 @@
 (global-set-key [(super d)] 'next-history-element)
 (global-set-key [(super shift k)] 'kill-this-buffer)
 
-(global-set-key "\C-x2" (lambda () (interactive) (split-window-vertically) (other-window 1)))
-(global-set-key "\C-x3" (lambda () (interactive) (split-window-horizontally) (other-window 1)))
+(defun split-vert-and-switch ()
+  (interactive)
+  (split-window-vertically)
+  (other-window 1))
+
+(defun split-horiz-and-switch ()
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1))
+
+(global-set-key "\C-x2" 'split-vert-and-switch)
+(global-set-key "\C-x3" 'split-horiz-and-switch)
+
+(global-set-key (kbd "s-0") 'delete-window)
+(global-set-key (kbd "s-1") 'delete-other-windows)
+(global-set-key (kbd "s-2") 'split-vert-and-switch)
+(global-set-key (kbd "s-3") 'split-horiz-and-switch)
 
 (setq ring-bell-function 'ignore)
 (setq-default show-trailing-whitespace t)
