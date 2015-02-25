@@ -359,3 +359,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; For later: https://wiki.haskell.org/Emacs/Indentation#Aligning_code
 (global-set-key (kbd "C-x a r") 'align-regexp)
+
+(require 'saveplace)
+(setq-default save-place t)
+(setq save-place-file "~/.emacs.d/saved-places")
