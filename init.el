@@ -344,8 +344,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 
 (defun haskell-custom-hook ()
-  (flycheck-mode)
-  (paredit-mode 1)
+  ;; Getting tired of these 2 sometimes
+  ;; (flycheck-mode)
+  ;; (paredit-mode 1)
   (turn-on-haskell-indentation)
   (inf-haskell-mode))
 
