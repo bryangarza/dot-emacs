@@ -24,7 +24,8 @@
                       json-mode
                       exec-path-from-shell
                       flycheck
-                      haskell-mode))
+                      haskell-mode
+                      circe))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -382,3 +383,36 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; ლ(ಠ益ಠ)ლ ¡porque!
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+(load-file "~/.private.el")
+
+(setq circe-network-options
+      `(("Freenode"
+         :tls t
+         :service 6697
+         :nick "wolfcore"
+         ;; :channels ("#haskell" "#emacs")
+         :channels ("#haskell" "#emacs")
+         :nickserv-password ,freenode-password)))
+
+(add-hook 'circe-server-mode-hook
+          '(lambda ()
+             (setq-default show-trailing-whitespace nil)))
+
+;; https://github.com/howardabrams/dot-files/blob/master/emacs-irc.org
+;; https://github.com/jorgenschaefer/circe/wiki/Configuration
+
+(setq circe-reduce-lurker-spam t)
+(require 'lui-autopaste)
+(add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
+
+(setq
+ lui-time-stamp-position 'right-margin
+ lui-time-stamp-format "%H:%M")
+
+(add-hook 'lui-mode-hook 'my-circe-set-margin)
+(defun my-circe-set-margin ()
+  (setq right-margin-width 5))
+
+(setq circe-default-part-message "bye!")
+(setq circe-default-quit-message "bye!")
