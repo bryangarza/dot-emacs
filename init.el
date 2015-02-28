@@ -391,7 +391,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
          :tls t
          :service 6697
          :nick "wolfcore"
-         ;; :channels ("#haskell" "#emacs")
          :channels ("#haskell" "#emacs")
          :nickserv-password ,freenode-password)))
 
