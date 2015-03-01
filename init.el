@@ -126,6 +126,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(erc-fill-mode t)
  '(safe-local-variable-values (quote ((web-mode-css-indent-offset . 4)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -134,7 +135,10 @@
  ;; If there is more than one, they won't work right.
  '(compilation-error ((t (:inherit error :background "#202020"))))
  '(compilation-info ((t (:background "#202020" :foreground "#aaffaa" :inverse-video nil :underline nil :slant normal :weight bold))))
+ '(erc-input-face ((t (:foreground "White"))))
+ '(erc-notice-face ((t (:foreground "#505050" :inverse-video nil :underline nil :slant normal :weight normal))))
  '(fringe ((t (:background "#202020" :foreground "#5f5f5f"))))
+ '(helm-candidate-number ((t (:background "Yellow" :foreground "#202020"))))
  '(linum ((t (:background "#202020" :foreground "#5f5f5f"))))
  '(linum-relative-current-face ((t (:inherit linum :background "#202020" :foreground "White" :weight bold))))
  '(mode-line ((t (:background "Orange" :foreground "#202020" :inverse-video t :box nil :underline nil :slant normal :weight normal))))
@@ -185,14 +189,74 @@
              (setq js-indent-level 2)
              (setq json-reformat:indent-width 4)))
 
+;; Helm ^____^
+;; http://emacs-helm.github.io/helm/
+;; http://tuhdo.github.io/helm-intro.html
+
+(require 'helm)
+(require 'helm-config)
+(global-set-key (kbd "M-x") 'helm-M-x)
+
+;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-unset-key (kbd "C-x c"))
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
+
+(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-ff-file-name-history-use-recentf t)
+
+(setq helm-M-x-fuzzy-match t)
+(add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages)
+(global-set-key [(super m)] 'helm-man-woman)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+
+(global-set-key [(super f)] 'helm-find-files)
+(global-set-key [(super b)] 'helm-mini)
+
+(setq helm-lisp-fuzzy-completion t)
+(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+(global-set-key (kbd "C-c h M-:") 'helm-eval-expression-with-eldoc)
+
+(helm-mode 1)
+(helm-autoresize-mode t)
+
+(semantic-mode 1)
+(setq helm-semantic-fuzzy-match t
+      helm-imenu-fuzzy-match    t)
+
+(global-set-key (kbd "C-c h o") 'helm-occur)
+(global-set-key [(super shift f)] 'helm-occur)
+
+(require 'helm-eshell)
+
+(add-hook 'eshell-mode-hook
+          #'(lambda ()
+              (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
+(define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
+(define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
+
+(require 'helm-descbinds)
+(helm-descbinds-mode)
+
 (setq mac-function-modifier 'hyper)
 
 (global-set-key [(meta w)] 'execute-extended-command)
 (global-set-key [(super w)] 'execute-extended-command)
 (global-set-key [(super r)] 'revert-buffer)
 (global-set-key [(super i)] 'magit-status)
-(global-set-key [(super f)] 'ido-find-file)
-(global-set-key [(super b)] 'ido-switch-buffer)
 (global-set-key [(super o)] 'other-window)
 (global-set-key [(super e)] 'eval-defun)
 (global-set-key [(super n)] 'next-buffer)
@@ -243,7 +307,6 @@
 (recentf-mode 1)
 (setq recentf-max-saved-items 200
       recentf-max-menu-items 25)
-(global-set-key [(super m)] 'recentf-open-files)
 
 (defun recentf-ido-find-file ()
   "Find a recent file using ido."
@@ -252,7 +315,7 @@
     (when file
       (find-file file))))
 
-(global-set-key [(super shift f)] 'recentf-ido-find-file)
+;; (global-set-key [(super shift f)] 'recentf-ido-find-file)
 
 (setq evil-move-cursor-back nil)
 
