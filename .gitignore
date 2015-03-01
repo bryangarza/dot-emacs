@@ -7,3 +7,5 @@ ido.last
 /recentf
 /lisp/npm-debug.log
 /#init.el#
+/eshell/
+/url/
