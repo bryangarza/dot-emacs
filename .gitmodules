@@ -16,3 +16,6 @@
 [submodule "lisp/helm-swoop"]
 	path = lisp/helm-swoop
 	url = git@github.com:ShingoFukuyama/helm-swoop.git
+[submodule "lisp/helm-company"]
+	path = lisp/helm-company
+	url = https://github.com/yasuyk/helm-company

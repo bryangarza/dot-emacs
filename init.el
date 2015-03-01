@@ -216,7 +216,6 @@
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t)
 
-(setq helm-M-x-fuzzy-match t)
 (add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages)
 (global-set-key [(super m)] 'helm-man-woman)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
@@ -226,7 +225,6 @@
 (global-set-key [(super f)] 'helm-find-files)
 (global-set-key [(super b)] 'helm-mini)
 
-(setq helm-lisp-fuzzy-completion t)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
 (global-set-key (kbd "C-c h M-:") 'helm-eval-expression-with-eldoc)
 
@@ -234,8 +232,18 @@
 (helm-autoresize-mode t)
 
 (semantic-mode 1)
-(setq helm-semantic-fuzzy-match t
-      helm-imenu-fuzzy-match    t)
+
+(setq helm-M-x-fuzzy-match t)
+(setq helm-quick-update t)
+(setq helm-bookmark-show-location t)
+(setq helm-buffers-fuzzy-matching t)
+(setq helm-apropos-fuzzy-match t)
+(setq helm-recentf-fuzzy-match t)
+(setq helm-locate-fuzzy-match t)
+(setq helm-file-cache-fuzzy-match t)
+(setq helm-semantic-fuzzy-match t)
+(setq helm-imenu-fuzzy-match t)
+(setq helm-lisp-fuzzy-completion t)
 
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (global-set-key [(super shift f)] 'helm-occur)
@@ -252,6 +260,12 @@
 ;; bindings using Helm interface for narrowing.
 (require 'helm-descbinds)
 (helm-descbinds-mode)
+
+(autoload 'helm-company "helm-company") ;; Not necessary if using ELPA package
+(eval-after-load 'company
+  '(progn
+     (define-key company-mode-map (kbd "C-:") 'helm-company)
+     (define-key company-active-map (kbd "C-:") 'helm-company)))
 
 (setq mac-function-modifier 'hyper)
 
