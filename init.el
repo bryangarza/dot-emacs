@@ -25,7 +25,8 @@
                       exec-path-from-shell
                       flycheck
                       haskell-mode
-                      circe))
+                      circe
+                      debbugs))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
