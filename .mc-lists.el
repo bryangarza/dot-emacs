@@ -36,4 +36,5 @@
 (setq mc/cmds-to-run-once
       '(
         evil-scroll-page-up
+        magit-status
         ))
