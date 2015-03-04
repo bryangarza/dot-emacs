@@ -42,7 +42,7 @@
 (global-evil-surround-mode 1)
 (add-hook 'paredit-mode-hook 'evil-paredit-mode)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-(setq electric-indent-mode nil)
+(setq electric-indent-mode 1)
 (require 'linum-relative)
 (setq linum-relative-current-symbol "")
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -388,7 +388,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   ;; (flycheck-mode)
   ;; (paredit-mode 1)
   (turn-on-haskell-indentation)
-  (inf-haskell-mode))
+  (inf-haskell-mode)
+  (electric-indent-mode nil))
 
 (require 'haskell-mode)
 (add-hook 'haskell-mode-hook 'haskell-custom-hook)
