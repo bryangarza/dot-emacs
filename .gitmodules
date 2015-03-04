@@ -19,3 +19,6 @@
 [submodule "lisp/helm-company"]
 	path = lisp/helm-company
 	url = https://github.com/yasuyk/helm-company
+[submodule "lisp/expand-region.el"]
+	path = lisp/expand-region.el
+	url = git@github.com:magnars/expand-region.el.git

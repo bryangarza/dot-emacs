@@ -8,25 +8,13 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(evil
-                      paredit
-                      evil-paredit
-                      evil-surround
-                      rainbow-delimiters
-                      ;; http://www.emacswiki.org/emacs/PareditCheatsheet
-                      ;; http://mumble.net/~campbell/emacs/paredit.html
-                      smartparens
-                      clojure-mode-extra-font-locking
-                      cider
-                      magit
-                      linum-relative
-                      company
-                      json-mode
-                      exec-path-from-shell
-                      flycheck
-                      haskell-mode
-                      circe
-                      debbugs))
+;; http://www.emacswiki.org/emacs/PareditCheatsheet
+;; http://mumble.net/~campbell/emacs/paredit.html
+(defvar my-packages '(evil paredit evil-paredit evil-surround rainbow-delimiters
+                           smartparens clojure-mode-extra-font-locking cider
+                           magit linum-relative company json-mode
+                           exec-path-from-shell flycheck haskell-mode circe
+                           debbugs ac-helm geiser ac-geiser multiple-cursors))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -41,7 +29,6 @@
 (show-paren-mode 1)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 (add-hook 'text-mode-hook
           (lambda ()
             ;; ask to turn on hard line wrapping
@@ -55,43 +42,22 @@
 (global-evil-surround-mode 1)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 (setq electric-indent-mode nil)
-
-;; change mode-line color by evil state
-;; (lexical-let ((default-color (cons (face-background 'mode-line)
-;;                                    (face-foreground 'mode-line))))
-;;   (add-hook 'post-command-hook
-;;             (lambda ()
-;;               (let ((color (cond ((minibufferp) default-color)
-;;                                  ((evil-insert-state-p) '("#e80000" . "#ffffff"))
-;;                                  ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
-;;                                  ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
-;;                                  (t default-color))))
-;;                 (set-face-background 'mode-line (car color))
-;;                 (set-face-foreground 'mode-line (cdr color))))))
+(require 'linum-relative)
+(setq linum-relative-current-symbol "")
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/customizations")
-
 (load-theme 'noctilux t)
 
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
-
-(require 'linum-relative)
-(setq linum-relative-current-symbol "")
-
-;; Changes all yes/no questions to y/n type
-(fset 'yes-or-no-p 'y-or-n-p)
 
 (load "elisp-editing.el")
 (load "setup-clojure.el")
 
 ;; Stop littering everywhere w save files, put them somewhere
 (setq backup-directory-alist '(("." . "~/.emacs-backups")))
-
-(ido-mode 1)
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
 
 (setq scheme-program-name "/usr/local/bin/mit-scheme")
 
@@ -100,7 +66,6 @@
 (set-face-foreground 'show-paren-match "#def")
 (set-face-attribute 'show-paren-match nil :weight 'extra-bold
                     :underline t)
-
 (setq show-paren-delay 0)
 
 ;; Cider settings
@@ -114,8 +79,9 @@
 ;; Enable paredit in the REPL buffer
 (add-hook 'cider-repl-mode-hook #'paredit-mode)
 
-;; Use company-mode in all buffers
-(add-hook 'after-init-hook 'global-company-mode)
+(require 'auto-complete)
+(require 'auto-complete-config)
+(auto-complete-mode t)
 
 ;; fix the terminal
 (setq system-uses-terminfo nil)
@@ -128,6 +94,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(erc-fill-mode t)
+ '(package-selected-packages
+   (quote
+    (multiple-cursors ac-helm ac-geiser auto-complete geiser smartparens rainbow-delimiters nyan-mode magit linum-relative json-mode js2-mode helm-descbinds haskell-mode flycheck exec-path-from-shell evil-surround evil-paredit diminish debbugs company clojure-mode-extra-font-locking circe cider)))
  '(safe-local-variable-values (quote ((web-mode-css-indent-offset . 4)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -230,9 +199,11 @@
 (global-set-key (kbd "C-c h M-:") 'helm-eval-expression-with-eldoc)
 
 (helm-mode 1)
+(ido-mode -1) ; just in case
 (helm-autoresize-mode t)
 
-(semantic-mode 1)
+;; getting errors (when scheme file was opened)
+(semantic-mode 0)
 
 (setq helm-M-x-fuzzy-match t)
 (setq helm-quick-update t)
@@ -262,11 +233,9 @@
 (require 'helm-descbinds)
 (helm-descbinds-mode)
 
-(autoload 'helm-company "helm-company") ;; Not necessary if using ELPA package
-(eval-after-load 'company
-  '(progn
-     (define-key company-mode-map (kbd "C-:") 'helm-company)
-     (define-key company-active-map (kbd "C-:") 'helm-company)))
+(require 'ac-helm)  ;; Not necessary if using ELPA package
+(global-set-key (kbd "C-:") 'ac-complete-with-helm)
+(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
 
 (setq mac-function-modifier 'hyper)
 
@@ -325,15 +294,6 @@
 (setq recentf-max-saved-items 200
       recentf-max-menu-items 25)
 
-(defun recentf-ido-find-file ()
-  "Find a recent file using ido."
-  (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
-
-;; (global-set-key [(super shift f)] 'recentf-ido-find-file)
-
 (setq evil-move-cursor-back nil)
 
 (defun minibuffer-keyboard-quit ()
@@ -353,18 +313,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 (global-set-key [escape] 'evil-exit-emacs-state)
-
-
-(add-hook 'ido-setup-hook
-          (lambda ()
-            ;; Go straight home
-            (define-key ido-file-completion-map
-              (kbd "~")
-              (lambda ()
-                (interactive)
-                (if (looking-back "/")
-                    (insert "~/")
-                  (call-interactively 'self-insert-command))))))
 
 (require 'flycheck)
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -393,9 +341,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (setq scroll-step 1 scroll-conservatively 10000)
 
-
 ;;; Ocaml setup
-
 (load "/Users/bryangarza/.emacs.d/lisp/tuareg/tuareg-site-file.el")
 
 ;; Add opam emacs directory to the load-path
@@ -411,10 +357,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; Use opam switch to lookup ocamlmerlin binary
 (setq merlin-command 'opam)
 
-
 (add-to-list 'load-path "/Users/bryangarza/.opam/system/share/emacs/site-lisp")
 (require 'ocp-indent)
-
 
 ;; Setup environment variables using opam
 (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
@@ -437,7 +381,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
 ;; (add-hook 'tuareg-mode-hook 'utop-minor-mode)
 (add-hook 'tuareg-mode-hook 'ocaml-custom-hook)
-
 
 (defun haskell-custom-hook ()
   ;; Getting tired of these 2 sometimes
@@ -496,7 +439,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (setq circe-default-part-message "bye!")
 (setq circe-default-quit-message "bye!")
 
-
 (require 'helm-swoop)
 
 ;; Change the keybinds to whatever you like :)
@@ -504,35 +446,44 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
 (global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
 (global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
-
 ;; When doing isearch, hand the word over to helm-swoop
 (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
 ;; From helm-swoop to helm-multi-swoop-all
 (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
 ;; When doing evil-search, hand the word over to helm-swoop
 (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
-
 ;; Move up and down like isearch
 (define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
 (define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
 (define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
 (define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
-
 ;; Save buffer when helm-multi-swoop-edit complete
 (setq helm-multi-swoop-edit-save t)
-
 ;; If this value is t, split window inside the current window
 (setq helm-swoop-split-with-multiple-windows nil)
-
 ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
 (setq helm-swoop-split-direction 'split-window-horizontally)
-
 ;; If nil, you can slightly boost invoke speed in exchange for text color
 ;; (setq helm-swoop-speed-or-color nil)
-
 ;; ;; Go to the opposite side of line from the end or beginning of line
 (setq helm-swoop-move-to-line-cycle t)
-
 ;; Optional face for line numbers
 ;; Face name is `helm-swoop-line-number-face`
 (setq helm-swoop-use-line-number-face t)
+
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+
+;; (setq geiser-active-implementations '(racket))
+
+(require 'ac-geiser)
+(add-hook 'geiser-mode-hook 'ac-geiser-setup)
+(add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'geiser-repl-mode))
+
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
