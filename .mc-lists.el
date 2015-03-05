@@ -31,10 +31,14 @@
         paredit-forward-barf-sexp
         paredit-forward-slurp-sexp
         paredit-open-round
+        undefined
         ))
 
 (setq mc/cmds-to-run-once
       '(
         evil-scroll-page-up
+        evil-search-forward
+        helm-mini
+        isearch-exit
         magit-status
         ))
