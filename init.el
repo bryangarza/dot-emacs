@@ -281,7 +281,7 @@
 (global-set-key (kbd "s-3") 'split-horiz-and-switch)
 
 (setq ring-bell-function 'ignore)
-(setq-default show-trailing-whitespace t)
+(setq-default show-trailing-whitespace nil)
 
 (require 'sws-mode)
 (require 'jade-mode)
