@@ -14,7 +14,8 @@
                            smartparens clojure-mode-extra-font-locking cider
                            magit linum-relative company json-mode
                            exec-path-from-shell flycheck haskell-mode circe
-                           debbugs ac-helm geiser ac-geiser multiple-cursors))
+                           debbugs ac-helm geiser ac-geiser multiple-cursors
+                           expand-region))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
