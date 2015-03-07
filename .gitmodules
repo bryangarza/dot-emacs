@@ -25,3 +25,6 @@
 [submodule "themes/cyberpunk-theme.el"]
 	path = themes/cyberpunk-theme.el
 	url = git@github.com:bryangarza/cyberpunk-theme.el.git
+[submodule "themes/noctilux-theme"]
+	path = themes/noctilux-theme
+	url = https://github.com/stafu/noctilux-theme
