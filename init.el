@@ -10,11 +10,28 @@
 
 ;; http://www.emacswiki.org/emacs/PareditCheatsheet
 ;; http://mumble.net/~campbell/emacs/paredit.html
-(defvar my-packages '(evil paredit evil-paredit evil-surround rainbow-delimiters
-                           smartparens clojure-mode-extra-font-locking cider
-                           magit linum-relative json-mode exec-path-from-shell
-                           flycheck haskell-mode circe debbugs ac-helm geiser
-                           ac-geiser multiple-cursors expand-region rainbow-mode))
+(defvar my-packages '(evil
+                      evil-paredit
+                      evil-surround
+                      paredit
+                      smartparens
+                      rainbow-delimiters
+                      rainbow-mode
+                      clojure-mode-extra-font-locking
+                      cider
+                      magit
+                      linum-relative
+                      json-mode
+                      exec-path-from-shell
+                      flycheck
+                      haskell-mode
+                      circe
+                      debbugs
+                      ac-helm
+                      geiser
+                      ac-geiser
+                      multiple-cursors
+                      expand-region))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
