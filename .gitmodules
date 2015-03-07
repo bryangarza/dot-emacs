@@ -22,3 +22,6 @@
 [submodule "lisp/helm-descbinds"]
 	path = lisp/helm-descbinds
 	url = git@github.com:emacs-helm/helm-descbinds.git
+[submodule "themes/cyberpunk-theme.el"]
+	path = themes/cyberpunk-theme.el
+	url = git@github.com:bryangarza/cyberpunk-theme.el.git
