@@ -12,10 +12,9 @@
 ;; http://mumble.net/~campbell/emacs/paredit.html
 (defvar my-packages '(evil paredit evil-paredit evil-surround rainbow-delimiters
                            smartparens clojure-mode-extra-font-locking cider
-                           magit linum-relative company json-mode
-                           exec-path-from-shell flycheck haskell-mode circe
-                           debbugs ac-helm geiser ac-geiser multiple-cursors
-                           expand-region))
+                           magit linum-relative json-mode exec-path-from-shell
+                           flycheck haskell-mode circe debbugs ac-helm geiser
+                           ac-geiser multiple-cursors expand-region))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -48,9 +47,9 @@
 (setq linum-relative-current-symbol "")
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
 (add-to-list 'load-path "~/.emacs.d/customizations")
-(load-theme 'noctilux t)
 
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
@@ -95,36 +94,27 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(erc-fill-mode t)
+ '(ansi-color-names-vector
+   ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
+ '(custom-safe-themes
+   (quote
+    ("874ae997df86ee4f08f2ddf24773c7a4e6b2ef702aa67ae38517aa1b67cd86fb" "a610de13501b8698429995d92d7ebff32ab57df4683fc5d6911bb46f223f5e33" "a1b538af356ee0c961f4063883610d103794301b302f77e8f6463802f1bcbc4c" "3be46993ab66e5677f5917de78acac3bc2979a6618427a2471faa24bfa652b79" "e5cfeed2030181c15b7a966ccb163c632d5ba70ebdf7d254e4a4f99455d5844f" "0c311fb22e6197daba9123f43da98f273d2bfaeeaeb653007ad1ee77f0003037" default)))
+ '(fci-rule-color "#383838")
  '(package-selected-packages
    (quote
-    (multiple-cursors ac-helm ac-geiser auto-complete geiser smartparens rainbow-delimiters nyan-mode magit linum-relative json-mode js2-mode helm-descbinds haskell-mode flycheck exec-path-from-shell evil-surround evil-paredit diminish debbugs company clojure-mode-extra-font-locking circe cider)))
- '(safe-local-variable-values (quote ((web-mode-css-indent-offset . 4)))))
+    (expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe haskell-mode flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
+ '(safe-local-variable-values
+   (quote
+    ((eval when
+           (fboundp
+            (quote rainbow-mode))
+           (rainbow-mode 1))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(compilation-error ((t (:inherit error :background "#202020"))))
- '(compilation-info ((t (:background "#202020" :foreground "#aaffaa" :inverse-video nil :underline nil :slant normal :weight bold))))
- '(erc-input-face ((t (:foreground "White"))))
- '(erc-notice-face ((t (:foreground "#505050" :inverse-video nil :underline nil :slant normal :weight normal))))
- '(fringe ((t (:background "#202020" :foreground "#5f5f5f"))))
- '(helm-candidate-number ((t (:background "Yellow" :foreground "#202020"))))
- '(linum ((t (:background "#202020" :foreground "#5f5f5f"))))
- '(linum-relative-current-face ((t (:inherit linum :background "#202020" :foreground "White" :weight bold))))
- '(mode-line ((t (:background "Orange" :foreground "#202020" :inverse-video t :box nil :underline nil :slant normal :weight normal))))
- '(mode-line-inactive ((t (:background "gray50" :foreground "#202020" :inverse-video t :box nil :underline nil :slant normal :weight normal))))
- '(rainbow-delimiters-depth-1-face ((t (:foreground "White"))))
- '(rainbow-delimiters-depth-2-face ((t (:foreground "Yellow"))))
- '(rainbow-delimiters-depth-3-face ((t (:foreground "Green"))))
- '(rainbow-delimiters-depth-4-face ((t (:foreground "Orange"))))
- '(rainbow-delimiters-depth-5-face ((t (:foreground "Cyan"))))
- '(rainbow-delimiters-depth-6-face ((t (:foreground "Purple"))))
- '(rainbow-delimiters-depth-7-face ((t (:foreground "Yellow"))))
- '(rainbow-delimiters-depth-8-face ((t (:foreground "Brown"))))
- '(rainbow-delimiters-depth-9-face ((t (:foreground "Magenta"))))
- '(vertical-border ((t (:foreground "#202020")))))
+ )
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -328,7 +318,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (exec-path-from-shell-initialize))
 
 ; IDK how I feel about this
-(global-hl-line-mode 1)
+(global-hl-line-mode 0)
 
 (defun paredit-nonlisp-hook ()
   "Turn on paredit mode for non-lisps."
@@ -471,7 +461,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
 (setq helm-swoop-split-direction 'split-window-horizontally)
 ;; If nil, you can slightly boost invoke speed in exchange for text color
-;; (setq helm-swoop-speed-or-color nil)
+(setq helm-swoop-speed-or-color t)
 ;; ;; Go to the opposite side of line from the end or beginning of line
 (setq helm-swoop-move-to-line-cycle t)
 ;; Optional face for line numbers
@@ -494,3 +484,5 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+(load-theme 'cyberpunk t)
