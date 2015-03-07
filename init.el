@@ -545,3 +545,5 @@ want to use in the modeline *in lieu of* the original.")
 
 (add-hook 'init-hook 'clean-mode-line)
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
+
+(add-hook 'window-startup-hook 'toggle-frame-maximized)
