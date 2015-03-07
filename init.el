@@ -14,8 +14,7 @@
                            smartparens clojure-mode-extra-font-locking cider
                            magit linum-relative json-mode exec-path-from-shell
                            flycheck haskell-mode circe debbugs ac-helm geiser
-                           ac-geiser multiple-cursors expand-region rainbow-mode
-                           diminish))
+                           ac-geiser multiple-cursors expand-region rainbow-mode))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -101,7 +100,7 @@
  '(fci-rule-color "#383838")
  '(package-selected-packages
    (quote
-    (diminish rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe haskell-mode flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
+    (rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe haskell-mode flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
  '(safe-local-variable-values
    (quote
     ((eval when
@@ -486,6 +485,46 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (load-theme 'cyberpunk t)
 
-(require 'diminish)
-(diminish 'helm-mode)
-(diminish 'undo-tree-mode)
+(display-time)
+
+(defvar mode-line-cleaner-alist
+  `((auto-complete-mode     . " α")
+    (paredit-mode           . " π")
+    ;; Major modes
+    (lisp-interaction-mode  . "λeval")
+    (lisp-mode              . "(())")
+    (scheme-mode            . "λscm")
+    (racket-mode            . "λrkt")
+    (clojure-mode           . "λclj")
+    (emacs-lisp-mode        . "λel")
+    (common-lisp-mode       . "λcl")
+    (haskell-mode           . "λ")
+    (tuareg-mode            . "λOCaml")
+    (python-mode            . "py")
+    ;; hidden
+    (helm-mode              . "")
+    (undo-tree-mode         . "")
+    (auto-complete-mode     . "")
+    (magit-auto-revert-mode . "")
+    (eldoc-mode             . ""))
+  "Alist for `clean-mode-line'.
+
+When you add a new element to the alist, keep in mind that you
+must pass the correct minor/major mode symbol and a string you
+want to use in the modeline *in lieu of* the original.")
+
+
+(defun clean-mode-line ()
+  (interactive)
+  (loop for cleaner in mode-line-cleaner-alist
+        do (let* ((mode (car cleaner))
+                  (mode-str (cdr cleaner))
+                  (old-mode-str (cdr (assq mode minor-mode-alist))))
+             (when old-mode-str
+               (setcar old-mode-str mode-str))
+             ;; major mode
+             (when (eq mode major-mode)
+               (setq mode-name mode-str)))))
+
+(add-hook 'init-hook 'clean-mode-line)
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
