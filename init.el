@@ -263,6 +263,10 @@
 (global-set-key [(super d)] 'next-history-element)
 (global-set-key [(super shift k)] 'kill-this-buffer)
 
+(define-key evil-motion-state-map (kbd "C-e") 'move-end-of-line)
+(define-key evil-insert-state-map (kbd "C-e") 'move-end-of-line)
+;; (define-key evil-insert-state-map "\C-e" 'evil-copy-from-below)
+
 (defun split-vert-and-switch ()
   (interactive)
   (split-window-vertically)
