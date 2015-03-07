@@ -140,7 +140,7 @@
 (setq-default indent-tabs-mode nil)
 
 (set-face-attribute 'default nil
-                    :family "Droid Sans Mono Slashed" :height 120 :weight 'normal)
+                    :family "Droid Sans Mono Slashed" :height 130 :weight 'normal)
 
 (require 'json-mode)
 (add-hook 'json-mode-hook
