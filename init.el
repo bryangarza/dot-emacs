@@ -14,7 +14,8 @@
                            smartparens clojure-mode-extra-font-locking cider
                            magit linum-relative json-mode exec-path-from-shell
                            flycheck haskell-mode circe debbugs ac-helm geiser
-                           ac-geiser multiple-cursors expand-region rainbow-mode))
+                           ac-geiser multiple-cursors expand-region rainbow-mode
+                           diminish))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -100,7 +101,7 @@
  '(fci-rule-color "#383838")
  '(package-selected-packages
    (quote
-    (rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe haskell-mode flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
+    (diminish rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe haskell-mode flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
  '(safe-local-variable-values
    (quote
     ((eval when
@@ -484,3 +485,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (load-theme 'cyberpunk t)
+
+(require 'diminish)
+(diminish 'helm-mode)
+(diminish 'undo-tree-mode)
