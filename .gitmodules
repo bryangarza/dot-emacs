@@ -28,3 +28,9 @@
 [submodule "themes/noctilux-theme"]
 	path = themes/noctilux-theme
 	url = https://github.com/stafu/noctilux-theme
+[submodule "lisp/elisp-slime-nav"]
+	path = lisp/elisp-slime-nav
+	url = git@github.com:purcell/elisp-slime-nav.git
+[submodule "lisp/evil-leader"]
+	path = lisp/evil-leader
+	url = git@github.com:cofi/evil-leader.git

@@ -62,6 +62,9 @@
             ;;   (turn-on-auto-fill))))
             (turn-on-auto-fill)))
 
+(require 'evil-leader)
+(global-evil-leader-mode)
+(evil-leader/set-leader ",")
 (require 'evil)
 (evil-mode 1)
 (require 'evil-surround)
@@ -119,7 +122,7 @@
  '(fci-rule-color "#383838")
  '(package-selected-packages
    (quote
-    (rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe haskell-mode flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
+    (elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe haskell-mode flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
  '(safe-local-variable-values
    (quote
     ((eval when
@@ -525,7 +528,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (undo-tree-mode         . "")
     (auto-complete-mode     . "")
     (magit-auto-revert-mode . "")
-    (eldoc-mode             . ""))
+    (eldoc-mode             . "")
+    (elisp-slime-nav        . ""))
   "Alist for `clean-mode-line'.
 
 When you add a new element to the alist, keep in mind that you
@@ -549,3 +553,78 @@ want to use in the modeline *in lieu of* the original.")
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
 (add-hook 'window-startup-hook 'toggle-frame-maximized)
+
+;; "slight performance implications"
+(setq redisplay-dont-pause t)
+
+(defun paredit-wrap-round-from-behind ()
+  (interactive)
+  (forward-sexp -1)
+  (paredit-wrap-round)
+  (insert " ")
+  (forward-char -1))
+
+(define-key evil-motion-state-map (kbd "M-)") 'paredit-wrap-round-from-behind)
+(define-key evil-insert-state-map (kbd "M-)") 'paredit-wrap-round-from-behind)
+
+(defun toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
+
+(global-set-key (kbd "C-c w s") 'toggle-window-split)
+
+(defun rotate-windows ()
+  "Rotate your windows"
+  (interactive)
+  (cond ((not (> (count-windows)1))
+         (message "You can't rotate a single window!"))
+        (t
+         (setq i 1)
+         (setq numWindows (count-windows))
+         (while  (< i numWindows)
+           (let* (
+                  (w1 (elt (window-list) i))
+                  (w2 (elt (window-list) (+ (% i numWindows) 1)))
+
+                  (b1 (window-buffer w1))
+                  (b2 (window-buffer w2))
+
+                  (s1 (window-start w1))
+                  (s2 (window-start w2))
+                  )
+             (set-window-buffer w1  b2)
+             (set-window-buffer w2 b1)
+             (set-window-start w1 s2)
+             (set-window-start w2 s1)
+             (setq i (1+ i)))))))
+
+(global-set-key (kbd "C-c w r") 'rotate-windows)
+
+(require 'elisp-slime-nav)
+(dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
+  (add-hook hook 'elisp-slime-nav-mode)
+  (evil-leader/set-key
+   "s" 'elisp-slime-nav-find-elisp-thing-at-point
+   "S" 'pop-tag-mark
+   "d" 'elisp-slime-nav-describe-elisp-thing-at-point))
