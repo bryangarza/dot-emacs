@@ -363,7 +363,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
 
 (use-package merlin
-  :ensure t
   :init
   (progn
     ;; Enable auto-complete
@@ -377,7 +376,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (add-to-list 'load-path "/Users/bryangarza/.opam/system/share/emacs/site-lisp")
 
-(use-package ocp-indent)
+(require 'ocp-indent)
 
 ;; Setup environment variables using opam
 (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
@@ -410,11 +409,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (electric-indent-mode nil))
 
 (use-package haskell-mode
-  :ensure t)
-(eval-after-load "haskell-mode"
-  '(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
-(eval-after-load "haskell-cabal"
-  '(define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-compile))
+  :ensure t
+  :config
+  (progn
+    (bind-key "C-c C-c" 'haskell-compile haskell-mode-map)
+    (bind-key "C-c C-c" 'haskell-compile haskell-mode-map)))
+
 (add-hook 'haskell-mode-hook 'haskell-custom-hook)
 
 ;; For later: https://wiki.haskell.org/Emacs/Indentation#Aligning_code
@@ -463,7 +463,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (use-package helm-swoop
   :defer t
-  :idle
+  :bind (("M-i" . helm-swoop)
+         ("M-I" . helm-swoop-back-to-last-point)
+         ("C-c M-i" . helm-multi-swoop)
+         ("C-x M-i" . helm-multi-swoop-all))
+  :config
   (progn
     (bind-key "M-i" 'helm-swoop-from-isearch isearch-mode-map)
     (bind-key "M-i" 'helm-swoop-from-evil-search evil-motion-state-map)
@@ -486,11 +490,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
           helm-swoop-move-to-line-cycle t
           ;; Optional face for line numbers
           ;; Face name is `helm-swoop-line-number-face`
-          helm-swoop-use-line-number-face t))
-  :bind (("M-i" . helm-swoop)
-         ("M-I" . helm-swoop-back-to-last-point)
-         ("C-c M-i" . helm-multi-swoop)
-         ("C-x M-i" . helm-multi-swoop-all)))
+          helm-swoop-use-line-number-face t)))
 
 (use-package expand-region
   :ensure t
@@ -499,12 +499,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 ;; (setq geiser-active-implementations '(racket))
 
-(use-package ac-geiser
-  :ensure t)
+(require 'ac-geiser)
 (add-hook 'geiser-mode-hook 'ac-geiser-setup)
 (add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'geiser-repl-mode))
+
+(use-package auto-complete
+  :config (add-to-list 'ac-modes 'geiser-repl-mode))
 
 (use-package multiple-cursors
   :ensure t
