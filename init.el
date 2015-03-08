@@ -127,9 +127,11 @@
 
 (use-package auto-complete
   :ensure t
-  :idle (auto-complete-mode t))
-
-(use-package auto-complete-config)
+  :defer t
+  :idle
+  (progn
+    (require 'auto-complete-config)
+    (auto-complete-mode t)))
 
 ;; fix the terminal
 (setq system-uses-terminfo nil)
