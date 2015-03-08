@@ -313,12 +313,9 @@
 (setq ring-bell-function 'ignore)
 (setq-default show-trailing-whitespace nil)
 
-(use-package ruby-mode
-  :mode "\\.rb\\'"
-  :interpreter "ruby")
-
 (use-package sws-mode
   :mode "\\.styl$")
+
 (use-package jade-mode
   :mode "\\.jade$")
 
@@ -355,6 +352,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (global-set-key [escape] 'evil-exit-emacs-state)
 
 (use-package flycheck
+  :ensure t
   :defer t
   :init (setq-default flycheck-disabled-checkers '(javascript-jshint)))
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -433,7 +431,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (inf-haskell-mode)
   (electric-indent-mode nil))
 
-(use-package haskell-mode)
+(use-package haskell-mode
+  :ensure t)
 (eval-after-load "haskell-mode"
   '(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
 (eval-after-load "haskell-cabal"
@@ -516,18 +515,21 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
          ("C-x M-i" . helm-multi-swoop-all)))
 
 (use-package expand-region
+  :ensure t
   :defer t
   :bind ("C-=" . er/expand-region))
 
 ;; (setq geiser-active-implementations '(racket))
 
-(require 'ac-geiser)
+(use-package ac-geiser
+  :ensure t)
 (add-hook 'geiser-mode-hook 'ac-geiser-setup)
 (add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'geiser-repl-mode))
 
 (use-package multiple-cursors
+  :ensure t
   :defer t
   :bind (("C-S-c C-S-c" . mc/edit-lines)
          ("C->" . mc/mark-next-like-this)
