@@ -37,6 +37,15 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
+(add-to-list 'load-path "~/.emacs.d/customizations")
+
+(let ((default-directory "~/.emacs.d/lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
+
+
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
@@ -63,13 +72,6 @@
 (require 'linum-relative)
 (setq linum-relative-current-symbol "")
 (fset 'yes-or-no-p 'y-or-n-p)
-
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
-(add-to-list 'load-path "~/.emacs.d/customizations")
-
-(let ((default-directory "~/.emacs.d/lisp/"))
-  (normal-top-level-add-subdirs-to-load-path))
 
 (load "elisp-editing.el")
 (load "setup-clojure.el")
