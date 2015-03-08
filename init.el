@@ -45,14 +45,15 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
 
+(require 'use-package)
+(require 'bind-key)
+
 
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (menu-bar-mode -1)
-(global-linum-mode 1) ; display line numbers
 (column-number-mode 1) ; display column and row of cursor in mode-line
-(show-paren-mode 1)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'text-mode-hook
@@ -62,18 +63,37 @@
             ;;   (turn-on-auto-fill))))
             (turn-on-auto-fill)))
 
-(require 'evil-leader)
-(global-evil-leader-mode)
-(evil-leader/set-leader ",")
-(require 'evil)
-(evil-mode 1)
-(require 'evil-surround)
-(global-evil-surround-mode 1)
+(use-package winner
+  :ensure t
+  :defer t
+  :idle (winner-mode 1))
+
+(use-package evil-leader
+  :init
+  (progn
+    (global-evil-leader-mode)
+    (evil-leader/set-leader ",")))
+
+(use-package evil
+  :ensure t
+  :init (evil-mode 1)
+  :config (setq evil-move-cursor-back nil))
+
+(use-package evil-surround
+  :ensure t
+  :init (global-evil-surround-mode 1))
+
 (add-hook 'paredit-mode-hook 'evil-paredit-mode)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 (setq electric-indent-mode 1)
-(require 'linum-relative)
-(setq linum-relative-current-symbol "")
+
+(use-package linum-relative
+  :ensure t
+  :init
+  (progn
+    (global-linum-mode 1)
+    (setq linum-relative-current-symbol "")))
+
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (load "elisp-editing.el")
@@ -84,12 +104,15 @@
 
 (setq scheme-program-name "/usr/local/bin/mit-scheme")
 
-(require 'paren)
-(set-face-background 'show-paren-match (face-background 'default))
-(set-face-foreground 'show-paren-match "#def")
-(set-face-attribute 'show-paren-match nil :weight 'extra-bold
-                    :underline t)
-(setq show-paren-delay 0)
+(use-package paren
+  :ensure t
+  :init
+  (progn
+    (show-paren-mode 1)
+    (set-face-background 'show-paren-match (face-background 'default))
+    (set-face-foreground 'show-paren-match "#def")
+    (set-face-attribute 'show-paren-match nil :weight 'extra-bold :underline t)
+    (setq show-paren-delay 0)))
 
 ;; Cider settings
 ;; Enable `eldoc` in Clojure buffers
@@ -102,9 +125,11 @@
 ;; Enable paredit in the REPL buffer
 (add-hook 'cider-repl-mode-hook #'paredit-mode)
 
-(require 'auto-complete)
-(require 'auto-complete-config)
-(auto-complete-mode t)
+(use-package auto-complete
+  :ensure t
+  :idle (auto-complete-mode t))
+
+(use-package auto-complete-config)
 
 ;; fix the terminal
 (setq system-uses-terminfo nil)
@@ -122,7 +147,7 @@
  '(fci-rule-color "#383838")
  '(package-selected-packages
    (quote
-    (elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe haskell-mode flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
+    (merlin elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe haskell-mode flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
  '(safe-local-variable-values
    (quote
     ((eval when
@@ -136,23 +161,20 @@
  ;; If there is more than one, they won't work right.
  )
 
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))
+(use-package web-mode
+  :config
+  (progn
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2))
+  :mode (("\\.html?\\'" . web-mode)
+         ("\\.css\\'"   . web-mode)
+         ("\\.scss\\'"  . web-mode)))
 
-(defun custom-web-mode-hook ()
-  "Hooks for Web mode."
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2))
-
-(add-hook 'web-mode-hook  'custom-web-mode-hook)
-
-(require 'markdown-mode)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(use-package markdown-mode
+  :mode (("\\.text\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode)
+         ("\\.md\\'" . markdown-mode)))
 
 ;; (require 'js2-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
@@ -164,118 +186,82 @@
 (set-face-attribute 'default nil
                     :family "Droid Sans Mono Slashed" :height 130 :weight 'normal)
 
-(require 'json-mode)
-(add-hook 'json-mode-hook
-          '(lambda ()
-             (setq c-basic-offset 2)
-             (setq js-indent-level 2)
-             (setq json-reformat:indent-width 4)))
+(use-package json-mode
+  :config
+  (progn
+    (setq c-basic-offset 2)
+    (setq js-indent-level 2)
+    (setq json-reformat:indent-width 4)))
 
-;; Helm ^____^
 ;; http://emacs-helm.github.io/helm/
 ;; http://tuhdo.github.io/helm-intro.html
+(use-package helm
+  :init
+  (progn
+    (require 'helm-config)
+    (setq helm-candidate-number-limit 100)
+    (when (executable-find "curl")
+      (setq helm-google-suggest-use-curl-p t))
+    (setq
+     helm-scroll-amount                    8
+     helm-split-window-in-side-p           t
+     helm-move-to-line-cycle-in-source     t
+     helm-ff-search-library-in-sexp        t
+     helm-ff-file-name-history-use-recentf t
+     helm-M-x-fuzzy-match                  t
+     helm-quick-update                     t
+     helm-bookmark-show-location           t
+     helm-buffers-fuzzy-matching           t
+     helm-apropos-fuzzy-match              t
+     helm-recentf-fuzzy-match              t
+     helm-locate-fuzzy-match               t
+     helm-file-cache-fuzzy-match           t
+     helm-semantic-fuzzy-match             t
+     helm-imenu-fuzzy-match                t
+     helm-lisp-fuzzy-completion            t)
+    (helm-mode)
+    (add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages)
+    (ido-mode -1) ; just in case
+    (helm-autoresize-mode t)
+    (global-unset-key (kbd "C-x c"))
+    (bind-keys :map helm-map
+               ("<tab>" . helm-execute-persistent-action) ; rebind tab to run persistent action
+               ("C-i"   . helm-execute-persistent-action) ; make TAB works in terminal
+               ("C-z"   . helm-select-action))            ; list actions using C-z
+    (bind-key "C-c C-l" 'helm-comint-input-ring shell-mode-map )
+    (bind-key "C-c C-l" 'helm-minibuffer-history minibuffer-local-map)
+    )
+  :bind (("C-c h"     . helm-command-prefix)
+         ("M-x"       . helm-M-x)
+         ("s-m"       . helm-man-woman)
+         ("M-y"       . helm-show-kill-ring)
+         ("C-x b"     . helm-mini)
+         ("C-x C-f"   . helm-find-files)
+         ("s-f"       . helm-find-files)
+         ("s-b"       . helm-mini)
+         ("C-h SPC"   . helm-all-mark-rings)
+         ("C-c h M-:" . helm-eval-expression-with-eldoc)
+         ("C-c h o"   . helm-occur)
+         ("s-F"       . helm-occur)))
 
-(require 'helm)
-(require 'helm-config)
-(global-set-key (kbd "M-x") 'helm-M-x)
+(use-package helm-eshell
+  :defer t
+  :idle
+  (progn
+    (add-hook 'eshell-mode-hook
+              #'(lambda ()
+                  (bind-key "C-c C-l" 'helm-eshell-history eshell-mode-map)))))
 
-;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
-
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-
-(when (executable-find "curl")
-  (setq helm-google-suggest-use-curl-p t))
-
-(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-      helm-ff-file-name-history-use-recentf t)
-
-(add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages)
-(global-set-key [(super m)] 'helm-man-woman)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-
-(global-set-key [(super f)] 'helm-find-files)
-(global-set-key [(super b)] 'helm-mini)
-
-(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
-(global-set-key (kbd "C-c h M-:") 'helm-eval-expression-with-eldoc)
-
-(helm-mode 1)
-(ido-mode -1) ; just in case
-(helm-autoresize-mode t)
-
-;; getting errors (when scheme file was opened)
-(semantic-mode 0)
-
-(setq helm-M-x-fuzzy-match t)
-(setq helm-quick-update t)
-(setq helm-bookmark-show-location t)
-(setq helm-buffers-fuzzy-matching t)
-(setq helm-apropos-fuzzy-match t)
-(setq helm-recentf-fuzzy-match t)
-(setq helm-locate-fuzzy-match t)
-(setq helm-file-cache-fuzzy-match t)
-(setq helm-semantic-fuzzy-match t)
-(setq helm-imenu-fuzzy-match t)
-(setq helm-lisp-fuzzy-completion t)
-
-(global-set-key (kbd "C-c h o") 'helm-occur)
-(global-set-key [(super shift f)] 'helm-occur)
-
-(require 'helm-eshell)
-
-(add-hook 'eshell-mode-hook
-          #'(lambda ()
-              (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
-(define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
-(define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
+(use-package ac-helm
+  :defer t
+  :idle (bind-key "C-:" 'ac-complete-with-helm ac-complete-mode-map)
+  :bind ("C-:" . ac-complete-with-helm))
 
 ;; Enter a prefix key and C-h after it. You will see a list of
 ;; bindings using Helm interface for narrowing.
-(require 'helm-descbinds)
-(helm-descbinds-mode)
-
-(require 'ac-helm)  ;; Not necessary if using ELPA package
-(global-set-key (kbd "C-:") 'ac-complete-with-helm)
-(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
-
-(setq mac-function-modifier 'hyper)
-
-(global-set-key [(meta w)] 'execute-extended-command)
-(global-set-key [(super w)] 'execute-extended-command)
-(global-set-key [(super r)] 'revert-buffer)
-(global-set-key [(super i)] 'magit-status)
-(global-set-key [(super o)] 'other-window)
-(global-set-key [(super e)] 'eval-defun)
-(global-set-key [(super n)] 'next-buffer)
-(global-set-key [(super p)] 'previous-buffer)
-(global-set-key [(super shift p)] 'ns-print-buffer)
-(global-set-key [(super t)] nil)
-
-(global-set-key [(super h)] 'windmove-left)
-(global-set-key [(super j)] 'windmove-down)
-(global-set-key [(super k)] 'windmove-up)
-(global-set-key [(super l)] 'windmove-right)
-(global-set-key [(super shift l)] 'goto-line)
-(global-set-key [(super l)] 'windmove-right)
-
-(global-set-key [(super q)] 'previous-history-element)
-(global-set-key [(super d)] 'next-history-element)
-(global-set-key [(super shift k)] 'kill-this-buffer)
-
-(define-key evil-motion-state-map (kbd "C-e") 'move-end-of-line)
-(define-key evil-insert-state-map (kbd "C-e") 'move-end-of-line)
-;; (define-key evil-insert-state-map "\C-e" 'evil-copy-from-below)
+(use-package helm-descbinds
+  :defer t
+  :idle (helm-descbinds-mode))
 
 (defun split-vert-and-switch ()
   (interactive)
@@ -287,30 +273,67 @@
   (split-window-horizontally)
   (other-window 1))
 
-(global-set-key "\C-x2" 'split-vert-and-switch)
-(global-set-key "\C-x3" 'split-horiz-and-switch)
+;; getting errors (when scheme file was opened)
+(semantic-mode 0)
 
-(global-set-key (kbd "s-0") 'delete-window)
-(global-set-key (kbd "s-1") 'delete-other-windows)
-(global-set-key (kbd "s-2") 'split-vert-and-switch)
-(global-set-key (kbd "s-3") 'split-horiz-and-switch)
+(setq mac-function-modifier 'hyper)
+(global-set-key [(super t)] nil)
+
+(bind-keys*
+ ("M-w"   . execute-extended-command)
+ ("s-w"   . execute-extended-command)
+ ("s-r"   . revert-buffer)
+ ("s-i"   . magit-status)
+ ("s-o"   . other-window)
+ ("s-e"   . eval-defun)
+ ("s-n"   . next-buffer)
+ ("s-p"   . previous-buffer)
+ ("s-P"   . ns-print-buffer)
+ ("s-h"   . windmove-left)
+ ("s-j"   . windmove-down)
+ ("s-k"   . windmove-up)
+ ("s-l"   . windmove-right)
+ ("s-L"   . goto-line)
+ ("s-l"   . windmove-right)
+ ("s-q"   . previous-history-element)
+ ("s-d"   . next-history-element)
+ ("s-K"   . kill-this-buffer)
+ ("C-x 2" . split-vert-and-switch)
+ ("C-x 3" . split-horiz-and-switch)
+ ("s-0"   . delete-window)
+ ("s-1"   . delete-other-windows)
+ ("s-2"   . split-vert-and-switch)
+ ("s-3"   . split-horiz-and-switch))
+
+(bind-keys :map evil-motion-state-map
+           ("C-e" . move-end-of-line)
+           ("C-e" . move-end-of-line))
+           ;; ("C-e" . evil-copy-from-below)
 
 (setq ring-bell-function 'ignore)
 (setq-default show-trailing-whitespace nil)
 
-(require 'sws-mode)
-(require 'jade-mode)
-(add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
-(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+(use-package ruby-mode
+  :mode "\\.rb\\'"
+  :interpreter "ruby")
 
-(winner-mode 1)
+(use-package sws-mode
+  :mode "\\.styl$")
+(use-package jade-mode
+  :mode "\\.jade$")
 
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-saved-items 200
-      recentf-max-menu-items 25)
+(use-package winner
+  :ensure t
+  :defer t
+  :idle (winner-mode 1))
 
-(setq evil-move-cursor-back nil)
+(use-package recentf
+  :defer t
+  :idle
+  (progn
+    (recentf-mode 1)
+    (setq recentf-max-saved-items 200
+          recentf-max-menu-items  25)))
 
 (defun minibuffer-keyboard-quit ()
   "Abort recursive edit.
@@ -321,6 +344,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       (setq deactivate-mark  t)
     (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
     (abort-recursive-edit)))
+
 (define-key evil-normal-state-map [escape] 'keyboard-quit)
 (define-key evil-visual-state-map [escape] 'keyboard-quit)
 (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
@@ -330,15 +354,13 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 (global-set-key [escape] 'evil-exit-emacs-state)
 
-(require 'flycheck)
+(use-package flycheck
+  :defer t
+  :init (setq-default flycheck-disabled-checkers '(javascript-jshint)))
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
-(setq-default flycheck-disabled-checkers '(javascript-jshint))
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
-
-; IDK how I feel about this
-(global-hl-line-mode 0)
 
 (defun paredit-nonlisp-hook ()
   "Turn on paredit mode for non-lisps."
@@ -363,18 +385,23 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; Add opam emacs directory to the load-path
 (setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
 (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
-;; Load merlin-mode
-(require 'merlin)
+
+(use-package merlin
+  :ensure t
+  :init
+  (progn
+    ;; Enable auto-complete
+    (setq merlin-use-auto-complete-mode 'easy)
+    ;; Use opam switch to lookup ocamlmerlin binary
+    (setq merlin-command 'opam)))
+
 ;; Start merlin on ocaml files
 (add-hook 'tuareg-mode-hook 'merlin-mode t)
 (add-hook 'caml-mode-hook 'merlin-mode t)
-;; Enable auto-complete
-(setq merlin-use-auto-complete-mode 'easy)
-;; Use opam switch to lookup ocamlmerlin binary
-(setq merlin-command 'opam)
 
 (add-to-list 'load-path "/Users/bryangarza/.opam/system/share/emacs/site-lisp")
-(require 'ocp-indent)
+
+(use-package ocp-indent)
 
 ;; Setup environment variables using opam
 (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
@@ -406,90 +433,91 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (inf-haskell-mode)
   (electric-indent-mode nil))
 
-(require 'haskell-mode)
-(add-hook 'haskell-mode-hook 'haskell-custom-hook)
+(use-package haskell-mode)
 (eval-after-load "haskell-mode"
   '(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
 (eval-after-load "haskell-cabal"
   '(define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-compile))
+(add-hook 'haskell-mode-hook 'haskell-custom-hook)
 
 ;; For later: https://wiki.haskell.org/Emacs/Indentation#Aligning_code
-(global-set-key (kbd "C-x a r") 'align-regexp)
+(bind-key "C-x a r" 'align-regexp)
 
-(require 'saveplace)
-(setq-default save-place t)
-(setq save-place-file "~/.emacs.d/saved-places")
+(use-package saveplace
+  :config
+  (progn
+    (setq-default save-place t)
+    (setq save-place-file "~/.emacs.d/saved-places")))
 
 ;; ლ(ಠ益ಠ)ლ ¡porque!
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-(load-file "~/.private.el")
-
-(setq circe-network-options
-      `(("Freenode"
-         :tls t
-         :service 6697
-         :nick "wolfcore"
-         :channels ("#haskell" "#emacs")
-         :nickserv-password ,freenode-password)))
-
-(add-hook 'circe-server-mode-hook
-          '(lambda ()
-             (setq-default show-trailing-whitespace nil)))
-
 ;; https://github.com/howardabrams/dot-files/blob/master/emacs-irc.org
 ;; https://github.com/jorgenschaefer/circe/wiki/Configuration
+(use-package circe
+  :ensure t
+  :config
+  (progn
+    (load-file "~/.private.el")
+    (setq circe-network-options
+          `(("Freenode"
+             :tls t
+             :service 6697
+             :nick "wolfcore"
+             :channels ("#haskell" "#emacs")
+             :nickserv-password ,freenode-password)))
+    (setq circe-reduce-lurker-spam t)
+    (add-hook 'circe-server-mode-hook
+              '(lambda ()
+                 (setq-default show-trailing-whitespace nil)))
+    (setq circe-default-part-message "bye!")
+    (setq circe-default-quit-message "bye!")
+    (use-package lui-autopaste
+      :init
+      (progn
+        (add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
+        (defun my-circe-set-margin ()
+          (setq right-margin-width 5))
+        (add-hook 'lui-mode-hook 'my-circe-set-margin)
+        (setq
+         lui-time-stamp-position 'right-margin
+         lui-time-stamp-format "%H:%M")))))
 
-(setq circe-reduce-lurker-spam t)
-(require 'lui-autopaste)
-(add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
+(use-package helm-swoop
+  :defer t
+  :idle
+  (progn
+    (bind-key "M-i" 'helm-swoop-from-isearch isearch-mode-map)
+    (bind-key "M-i" 'helm-swoop-from-evil-search evil-motion-state-map)
+    (bind-keys :map helm-swoop-map
+               ("M-i" . helm-multi-swoop-all-from-helm-swoop)
+               ("C-r" . helm-previous-line)
+               ("C-s" . helm-next-line))
+    (bind-keys :map helm-multi-swoop-map
+               ("C-r" . helm-previous-line)
+               ("C-s" . helm-next-line))
+          ;; Save buffer when helm-multi-swoop-edit complete
+    (setq helm-multi-swoop-edit-save t
+          ;; If this value is t, split window inside the current window
+          helm-swoop-split-with-multiple-windows nil
+          ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
+          helm-swoop-split-direction 'split-window-horizontally
+          ;; If nil, you can slightly boost invoke speed in exchange for text color
+          helm-swoop-speed-or-color t
+          ;; ;; Go to the opposite side of line from the end or beginning of line
+          helm-swoop-move-to-line-cycle t
+          ;; Optional face for line numbers
+          ;; Face name is `helm-swoop-line-number-face`
+          helm-swoop-use-line-number-face t))
+  :bind (("M-i" . helm-swoop)
+         ("M-I" . helm-swoop-back-to-last-point)
+         ("C-c M-i" . helm-multi-swoop)
+         ("C-x M-i" . helm-multi-swoop-all)))
 
-(setq
- lui-time-stamp-position 'right-margin
- lui-time-stamp-format "%H:%M")
-
-(add-hook 'lui-mode-hook 'my-circe-set-margin)
-(defun my-circe-set-margin ()
-  (setq right-margin-width 5))
-
-(setq circe-default-part-message "bye!")
-(setq circe-default-quit-message "bye!")
-
-(require 'helm-swoop)
-
-;; Change the keybinds to whatever you like :)
-(global-set-key (kbd "M-i") 'helm-swoop)
-(global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
-(global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
-(global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
-;; When doing isearch, hand the word over to helm-swoop
-(define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
-;; From helm-swoop to helm-multi-swoop-all
-(define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
-;; When doing evil-search, hand the word over to helm-swoop
-(define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
-;; Move up and down like isearch
-(define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
-(define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
-(define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
-(define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
-;; Save buffer when helm-multi-swoop-edit complete
-(setq helm-multi-swoop-edit-save t)
-;; If this value is t, split window inside the current window
-(setq helm-swoop-split-with-multiple-windows nil)
-;; Split direcion. 'split-window-vertically or 'split-window-horizontally
-(setq helm-swoop-split-direction 'split-window-horizontally)
-;; If nil, you can slightly boost invoke speed in exchange for text color
-(setq helm-swoop-speed-or-color t)
-;; ;; Go to the opposite side of line from the end or beginning of line
-(setq helm-swoop-move-to-line-cycle t)
-;; Optional face for line numbers
-;; Face name is `helm-swoop-line-number-face`
-(setq helm-swoop-use-line-number-face t)
-
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
+(use-package expand-region
+  :defer t
+  :bind ("C-=" . er/expand-region))
 
 ;; (setq geiser-active-implementations '(racket))
 
@@ -499,11 +527,12 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'geiser-repl-mode))
 
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(use-package multiple-cursors
+  :defer t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)))
 
 (load-theme 'cyberpunk t)
 
@@ -512,6 +541,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (defvar mode-line-cleaner-alist
   `((auto-complete-mode     . " α")
     (paredit-mode           . " π")
+    (inf-haskell-mode       . " λinf")
     ;; Major modes
     (lisp-interaction-mode  . "λeval")
     (lisp-mode              . "(())")
@@ -521,6 +551,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (emacs-lisp-mode        . "λel")
     (common-lisp-mode       . "λcl")
     (haskell-mode           . "λ")
+    (literate-haskell-mode  . "λlit")
     (tuareg-mode            . "λOCaml")
     (python-mode            . "py")
     ;; hidden
@@ -529,7 +560,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (auto-complete-mode     . "")
     (magit-auto-revert-mode . "")
     (eldoc-mode             . "")
-    (elisp-slime-nav        . ""))
+    (elisp-slime-nav-mode   . ""))
   "Alist for `clean-mode-line'.
 
 When you add a new element to the alist, keep in mind that you
@@ -564,8 +595,8 @@ want to use in the modeline *in lieu of* the original.")
   (insert " ")
   (forward-char -1))
 
-(define-key evil-motion-state-map (kbd "M-)") 'paredit-wrap-round-from-behind)
-(define-key evil-insert-state-map (kbd "M-)") 'paredit-wrap-round-from-behind)
+(bind-key "M-)" 'paredit-wrap-round-from-behind evil-motion-state-map)
+(bind-key "M-)" 'paredit-wrap-round-from-behind evil-insert-state-map)
 
 (defun toggle-window-split ()
   (interactive)
@@ -592,7 +623,7 @@ want to use in the modeline *in lieu of* the original.")
           (select-window first-win)
           (if this-win-2nd (other-window 1))))))
 
-(global-set-key (kbd "C-c w s") 'toggle-window-split)
+(bind-key "C-c w s" 'toggle-window-split)
 
 (defun rotate-windows ()
   "Rotate your windows"
@@ -619,7 +650,7 @@ want to use in the modeline *in lieu of* the original.")
              (set-window-start w2 s1)
              (setq i (1+ i)))))))
 
-(global-set-key (kbd "C-c w r") 'rotate-windows)
+(bind-key "C-c w r" 'rotate-windows)
 
 (require 'elisp-slime-nav)
 (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))

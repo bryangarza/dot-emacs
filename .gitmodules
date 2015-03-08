@@ -34,3 +34,6 @@
 [submodule "lisp/evil-leader"]
 	path = lisp/evil-leader
 	url = git@github.com:cofi/evil-leader.git
+[submodule "lisp/use-package"]
+	path = lisp/use-package
+	url = git@github.com:jwiegley/use-package.git
