@@ -42,26 +42,45 @@
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
 
-(require 'use-package)
-(require 'bind-key)
-
+(desktop-save-mode 1)
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq electric-indent-mode 1)
+(setq backup-directory-alist '(("." . "~/.emacs-backups")))
+(setq scheme-program-name "/usr/local/bin/mit-scheme")
+;; fix the terminal
+(setq system-uses-terminfo nil)
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
+; Tabs are evil
+(setq-default indent-tabs-mode nil)
+(setq ring-bell-function 'ignore)
+(setq-default show-trailing-whitespace nil)
+;; "slight performance implications"
+(setq redisplay-dont-pause t)
+(set-face-attribute 'default nil
+                    :family "Droid Sans Mono Slashed" :height 130 :weight 'normal)
+;; ლ(ಠ益ಠ)ლ ¡porque!
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (menu-bar-mode -1)
-(column-number-mode 1) ; display column and row of cursor in mode-line
+(column-number-mode 1)
+(display-time)
+(load-theme 'cyberpunk t)
 
+(add-hook 'paredit-mode-hook 'evil-paredit-mode)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'text-mode-hook
-          (lambda ()
-            ;; ask to turn on hard line wrapping
-            ;; (when (y-or-n-p "Hard wrap text?")
-            ;;   (turn-on-auto-fill))))
-            (turn-on-auto-fill)))
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+(require 'use-package)
+(require 'bind-key)
 
 (use-package winner
   :ensure t
@@ -83,10 +102,6 @@
   :ensure t
   :init (global-evil-surround-mode 1))
 
-(add-hook 'paredit-mode-hook 'evil-paredit-mode)
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-(setq electric-indent-mode 1)
-
 (use-package linum-relative
   :ensure t
   :init
@@ -94,15 +109,8 @@
     (global-linum-mode 1)
     (setq linum-relative-current-symbol "")))
 
-(fset 'yes-or-no-p 'y-or-n-p)
-
 (load "elisp-editing.el")
 (load "setup-clojure.el")
-
-;; Stop littering everywhere w save files, put them somewhere
-(setq backup-directory-alist '(("." . "~/.emacs-backups")))
-
-(setq scheme-program-name "/usr/local/bin/mit-scheme")
 
 (use-package paren
   :ensure t
@@ -133,14 +141,6 @@
     (require 'auto-complete-config)
     (auto-complete-mode t)))
 
-;; fix the terminal
-(setq system-uses-terminfo nil)
-
-(desktop-save-mode 1)
-
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
-
 (use-package web-mode
   :config
   (progn
@@ -159,12 +159,6 @@
 ;; (require 'js2-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 ;; (setq js2-strict-missing-semi-warning nil)
-
-; Tabs are evil
-(setq-default indent-tabs-mode nil)
-
-(set-face-attribute 'default nil
-                    :family "Droid Sans Mono Slashed" :height 130 :weight 'normal)
 
 (use-package json-mode
   :config
@@ -209,8 +203,7 @@
                ("C-i"   . helm-execute-persistent-action) ; make TAB works in terminal
                ("C-z"   . helm-select-action))            ; list actions using C-z
     (bind-key "C-c C-l" 'helm-comint-input-ring shell-mode-map )
-    (bind-key "C-c C-l" 'helm-minibuffer-history minibuffer-local-map)
-    )
+    (bind-key "C-c C-l" 'helm-minibuffer-history minibuffer-local-map))
   :bind (("C-c h"     . helm-command-prefix)
          ("M-x"       . helm-M-x)
          ("s-m"       . helm-man-woman)
@@ -289,9 +282,6 @@
            ("C-e" . move-end-of-line))
            ;; ("C-e" . evil-copy-from-below)
 
-(setq ring-bell-function 'ignore)
-(setq-default show-trailing-whitespace nil)
-
 (use-package sws-mode
   :mode "\\.styl$")
 
@@ -353,8 +343,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (add-hook 'js-mode-hook 'paredit-nonlisp-hook)
 (add-hook 'c-mode-common-hook 'paredit-nonlisp-hook)
 (add-hook 'c-mode-common-hook 'c-mode-custom-hook)
-
-(setq scroll-step 1 scroll-conservatively 10000)
 
 ;;; Ocaml setup
 (load "/Users/bryangarza/.emacs.d/lisp/tuareg/tuareg-site-file.el")
@@ -426,10 +414,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (progn
     (setq-default save-place t)
     (setq save-place-file "~/.emacs.d/saved-places")))
-
-;; ლ(ಠ益ಠ)ლ ¡porque!
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
 
 ;; https://github.com/howardabrams/dot-files/blob/master/emacs-irc.org
 ;; https://github.com/jorgenschaefer/circe/wiki/Configuration
@@ -515,10 +499,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
          ("C-<" . mc/mark-previous-like-this)
          ("C-c C-<" . mc/mark-all-like-this)))
 
-(load-theme 'cyberpunk t)
-
-(display-time)
-
 (defvar mode-line-cleaner-alist
   `((auto-complete-mode     . " α")
     (paredit-mode           . " π")
@@ -548,7 +528,6 @@ When you add a new element to the alist, keep in mind that you
 must pass the correct minor/major mode symbol and a string you
 want to use in the modeline *in lieu of* the original.")
 
-
 (defun clean-mode-line ()
   (interactive)
   (loop for cleaner in mode-line-cleaner-alist
@@ -563,11 +542,7 @@ want to use in the modeline *in lieu of* the original.")
 
 (add-hook 'init-hook 'clean-mode-line)
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
-
 (add-hook 'window-startup-hook 'toggle-frame-maximized)
-
-;; "slight performance implications"
-(setq redisplay-dont-pause t)
 
 (defun paredit-wrap-round-from-behind ()
   (interactive)
