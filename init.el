@@ -237,11 +237,10 @@
   :idle (bind-key "C-:" 'ac-complete-with-helm ac-complete-mode-map)
   :bind ("C-:" . ac-complete-with-helm))
 
-;; Enter a prefix key and C-h after it. You will see a list of
-;; bindings using Helm interface for narrowing.
 (use-package helm-descbinds
   :defer t
-  :idle (helm-descbinds-mode))
+  :bind (("C-h b" . helm-descbinds)
+         ("C-h w" . helm-descbinds)))
 
 (defun split-vert-and-switch ()
   (interactive)
