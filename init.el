@@ -73,7 +73,7 @@
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (menu-bar-mode -1)
-(column-number-mode 1)
+(column-number-mode t)
 (display-time)
 (load-theme 'cyberpunk t)
 
