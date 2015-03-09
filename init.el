@@ -45,21 +45,24 @@
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
 
-(desktop-save-mode 1)
+(desktop-save-mode t)
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq electric-indent-mode 1)
-(setq backup-directory-alist '(("." . "~/.emacs-backups")))
-(setq scheme-program-name "/usr/local/bin/mit-scheme")
-;; fix the terminal
-(setq system-uses-terminfo nil)
-(setq custom-file "~/.emacs.d/custom.el")
+
+(setq electric-indent-mode                 t
+      redisplay-dont-pause                 t
+      apropos-do-all                       t
+      require-final-newline                t
+      save-interprogram-paste-before-kill  t
+      mouse-yank-at-point                  t
+      system-uses-terminfo                 nil
+      ring-bell-function                   'ignore
+      backup-directory-alist '(("." . "~/.emacs-backups"))
+      scheme-program-name    "/usr/local/bin/mit-scheme"
+      custom-file            "~/.emacs.d/custom.el")
+
 (load custom-file)
-; Tabs are evil
 (setq-default indent-tabs-mode nil)
-(setq ring-bell-function 'ignore)
 (setq-default show-trailing-whitespace nil)
-;; "slight performance implications"
-(setq redisplay-dont-pause t)
 (set-face-attribute 'default nil
                     :family "Droid Sans Mono Slashed" :height 130 :weight 'normal)
 ;; ლ(ಠ益ಠ)ლ ¡porque!
