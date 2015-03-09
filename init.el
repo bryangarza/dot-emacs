@@ -45,6 +45,9 @@
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
 
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
 (desktop-save-mode t)
 (fset 'yes-or-no-p 'y-or-n-p)
 
