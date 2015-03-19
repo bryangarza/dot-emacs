@@ -619,3 +619,6 @@ want to use in the modeline *in lieu of* the original.")
    "s" 'elisp-slime-nav-find-elisp-thing-at-point
    "S" 'pop-tag-mark
    "d" 'elisp-slime-nav-describe-elisp-thing-at-point))
+
+(require 'smooth-scrolling)
+(setq smooth-scroll-margin 5)

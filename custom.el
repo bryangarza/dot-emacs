@@ -9,7 +9,7 @@
  '(fci-rule-color "#383838")
  '(package-selected-packages
    (quote
-    (elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe haskell-mode flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
+    (hi2 elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
  '(safe-local-variable-values
    (quote
     ((eval when
@@ -21,4 +21,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(haskell-literate-comment-face ((t (:background "black" :foreground "#fcfcfc")))))

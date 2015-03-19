@@ -37,3 +37,6 @@
 [submodule "lisp/use-package"]
 	path = lisp/use-package
 	url = git@github.com:jwiegley/use-package.git
+[submodule "lisp/smooth-scrolling"]
+	path = lisp/smooth-scrolling
+	url = git@github.com:aspiers/smooth-scrolling.git
