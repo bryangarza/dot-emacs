@@ -395,11 +395,14 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; (add-hook 'tuareg-mode-hook 'utop-minor-mode)
 (add-hook 'tuareg-mode-hook 'ocaml-custom-hook)
 
+(use-package hi2
+  :ensure t)
+
 (defun haskell-custom-hook ()
   ;; Getting tired of these 2 sometimes
   ;; (flycheck-mode)
   ;; (paredit-mode 1)
-  (turn-on-haskell-indentation)
+  (turn-on-hi2)
   (inf-haskell-mode)
   (electric-indent-mode nil))
 
@@ -507,6 +510,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   `((auto-complete-mode     . " α")
     (paredit-mode           . " π")
     (inf-haskell-mode       . " λinf")
+    (hi2-mode               . " hi2")
     ;; Major modes
     (lisp-interaction-mode  . "λeval")
     (lisp-mode              . "(())")
