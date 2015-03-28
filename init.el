@@ -24,7 +24,6 @@
                       json-mode
                       exec-path-from-shell
                       flycheck
-                      haskell-mode
                       circe
                       debbugs
                       ac-helm
@@ -41,6 +40,10 @@
 
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
+
+;; (add-to-list 'load-path "~/.emacs.d/lisp/haskell-mode/")
+;; (require 'haskell-mode-autoloads)
+;; (add-to-list 'Info-default-directory-list "~/.emacs.d/lisp/haskell-mode/")
 
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
