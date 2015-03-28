@@ -47,6 +47,10 @@
 
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
+;; (set-frame-parameter nil 'background-mode 'dark)
+(load-theme 'cyberpunk t)
+;; (load-theme 'solarized t)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
@@ -70,7 +74,7 @@
 (setq-default indent-tabs-mode nil)
 (setq-default show-trailing-whitespace nil)
 (set-face-attribute 'default nil
-                    :family "Droid Sans Mono Slashed" :height 130 :weight 'normal)
+                    :family "Droid Sans Mono Slashed" :height 140 :weight 'normal)
 ;; ლ(ಠ益ಠ)ლ ¡porque!
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -81,7 +85,6 @@
 (menu-bar-mode -1)
 (column-number-mode t)
 (display-time)
-(load-theme 'cyberpunk t)
 
 (add-hook 'paredit-mode-hook 'evil-paredit-mode)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
