@@ -495,7 +495,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   :defer t
   :bind ("C-=" . er/expand-region))
 
-;; (setq geiser-active-implementations '(racket))
+(setq geiser-active-implementations '(racket))
 
 (require 'ac-geiser)
 (add-hook 'geiser-mode-hook 'ac-geiser-setup)
