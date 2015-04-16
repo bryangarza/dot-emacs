@@ -683,4 +683,4 @@ want to use in the modeline *in lieu of* the original.")
   ;; for interpretation. It will keep your command history cleaner.
   (local-set-key (kbd "M-RET") 'comint-accumulate))
 
-(add-hook 'sbt-mode-hook (sbt-mode-custom-hook))
+(add-hook 'sbt-mode-hook 'sbt-mode-custom-hook)
