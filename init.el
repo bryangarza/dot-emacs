@@ -684,3 +684,9 @@ want to use in the modeline *in lieu of* the original.")
   (local-set-key (kbd "M-RET") 'comint-accumulate))
 
 (add-hook 'sbt-mode-hook 'sbt-mode-custom-hook)
+
+;; Replace default expand command
+(global-set-key (kbd "M-/") 'hippie-expand)
+
+;; No cursor blink
+(blink-cursor-mode -1)
