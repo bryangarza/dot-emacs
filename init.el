@@ -690,3 +690,5 @@ want to use in the modeline *in lieu of* the original.")
 
 ;; No cursor blink
 (blink-cursor-mode -1)
+
+(setq magit-last-seen-setup-instructions "1.4.0")
