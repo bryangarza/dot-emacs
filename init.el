@@ -168,6 +168,8 @@
          ("\\.markdown\\'" . markdown-mode)
          ("\\.md\\'" . markdown-mode)))
 
+(add-hook 'markdown-mode-hook 'pandoc-mode)
+
 ;; (require 'js2-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 ;; (setq js2-strict-missing-semi-warning nil)
@@ -692,3 +694,8 @@ want to use in the modeline *in lieu of* the original.")
 (blink-cursor-mode -1)
 
 (setq magit-last-seen-setup-instructions "1.4.0")
+
+(use-package pandoc-mode
+  :ensure t)
+
+(add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)

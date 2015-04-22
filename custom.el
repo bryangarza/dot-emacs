@@ -9,7 +9,7 @@
  '(fci-rule-color "#383838")
  '(package-selected-packages
    (quote
-    (sbt-mode scala-mode2 haskell-mode hi2 elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
+    (pandoc-mode sbt-mode scala-mode2 haskell-mode hi2 elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
  '(safe-local-variable-values
    (quote
     ((eval when
