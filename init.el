@@ -442,14 +442,17 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (setq circe-network-options
           `(("Freenode"
              :tls t
-             :host ,znc-server
-             :port ,znc-port
-             :pass ,znc-password
-             :channels ("#emacs" "#haskell" "#clojure" "#scheme" "#gsoc"))))
+             :service 6697
+             :nick "wolfcore"
+             :nickserv-password ,freenode-password
+             :channels ("#haskell" "#emacs"))))
     (setq circe-reduce-lurker-spam t)
+    (setq circe-server-killed-confirmation 'ask-and-kill-all)
     (add-hook 'circe-server-mode-hook
               '(lambda ()
                  (setq-default show-trailing-whitespace nil)))
+    (setq circe-default-part-message "seeya~")
+    (setq circe-default-quit-message "seeya~")
     (use-package lui-autopaste
       :init
       (progn
