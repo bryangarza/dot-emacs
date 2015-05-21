@@ -40,3 +40,6 @@
 [submodule "lisp/smooth-scrolling"]
 	path = lisp/smooth-scrolling
 	url = git@github.com:aspiers/smooth-scrolling.git
+[submodule "lisp/org-present"]
+	path = lisp/org-present
+	url = git@github.com:rlister/org-present.git
