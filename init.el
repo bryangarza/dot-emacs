@@ -20,7 +20,6 @@
                       clojure-mode-extra-font-locking
                       cider
                       magit
-                      linum-relative
                       json-mode
                       exec-path-from-shell
                       flycheck
@@ -30,7 +29,8 @@
                       geiser
                       ac-geiser
                       multiple-cursors
-                      expand-region))
+                      expand-region
+                      auctex))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -48,6 +48,7 @@
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/color-theme-ujelly")
 ;; (set-frame-parameter nil 'background-mode 'dark)
 (load-theme 'cyberpunk t)
 ;; (load-theme 'solarized t)
@@ -73,8 +74,10 @@
 (load custom-file)
 (setq-default indent-tabs-mode nil)
 (setq-default show-trailing-whitespace nil)
+;; (set-face-attribute 'default nil
+;;                     :family "Droid Sans Mono Slashed" :height 140 :weight 'normal)
 (set-face-attribute 'default nil
-                    :family "Droid Sans Mono Slashed" :height 140 :weight 'normal)
+                    :family "Monaco" :height 150 :weight 'normal)
 ;; ლ(ಠ益ಠ)ლ ¡porque!
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -84,6 +87,8 @@
 (scroll-bar-mode 0)
 (menu-bar-mode -1)
 (column-number-mode t)
+(global-hl-line-mode -1)
+(blink-cursor-mode +1)
 (display-time)
 
 (add-hook 'paredit-mode-hook 'evil-paredit-mode)
@@ -91,13 +96,14 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-(require 'use-package)
+(eval-when-compile
+  (require 'use-package))
 (require 'bind-key)
 
 (use-package winner
   :ensure t
   :defer t
-  :idle (winner-mode 1))
+  :init (winner-mode 1))
 
 (use-package evil-leader
   :init
@@ -114,12 +120,12 @@
   :ensure t
   :init (global-evil-surround-mode 1))
 
-(use-package linum-relative
-  :ensure t
-  :init
-  (progn
-    (global-linum-mode 1)
-    (setq linum-relative-current-symbol "")))
+;; (use-package linum-relative
+;;   :ensure t
+;;   :init
+;;   (progn
+;;     (global-linum-mode 1)
+;;     (setq linum-relative-current-symbol "")))
 
 (load "elisp-editing.el")
 (load "setup-clojure.el")
@@ -148,7 +154,7 @@
 (use-package auto-complete
   :ensure t
   :defer t
-  :idle
+  :config
   (progn
     (require 'auto-complete-config)
     (auto-complete-mode t)))
@@ -233,7 +239,7 @@
 
 (use-package helm-eshell
   :defer t
-  :idle
+  :config
   (progn
     (add-hook 'eshell-mode-hook
               #'(lambda ()
@@ -241,7 +247,7 @@
 
 (use-package ac-helm
   :defer t
-  :idle (bind-key "C-:" 'ac-complete-with-helm ac-complete-mode-map)
+  :config (bind-key "C-:" 'ac-complete-with-helm ac-complete-mode-map)
   :bind ("C-:" . ac-complete-with-helm))
 
 (use-package helm-descbinds
@@ -305,11 +311,11 @@
 (use-package winner
   :ensure t
   :defer t
-  :idle (winner-mode 1))
+  :config (winner-mode 1))
 
 (use-package recentf
   :defer t
-  :idle
+  :config
   (progn
     (recentf-mode 1)
     (setq recentf-max-saved-items 200
@@ -352,7 +358,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (defun c-mode-custom-hook ()
   (setq c-default-style "linux")
-  (setq c-basic-offset 4))
+  (setq c-basic-offset 4)
+  (bind-key "C-c C-c" 'recompile c-mode-map))
 
 (add-hook 'js-mode-hook 'paredit-nonlisp-hook)
 (add-hook 'c-mode-common-hook 'paredit-nonlisp-hook)
@@ -451,8 +458,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (add-hook 'circe-server-mode-hook
               '(lambda ()
                  (setq-default show-trailing-whitespace nil)))
-    (setq circe-default-part-message "seeya~")
-    (setq circe-default-quit-message "seeya~")
+    (setq circe-default-part-message "...")
+    (setq circe-default-quit-message "...")
     (use-package lui-autopaste
       :init
       (progn
@@ -540,7 +547,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (auto-complete-mode     . "")
     (magit-auto-revert-mode . "")
     (eldoc-mode             . "")
-    (elisp-slime-nav-mode   . ""))
+    (elisp-slime-nav-mode   . "")
+    (git-gutter-mode        . ""))
   "Alist for `clean-mode-line'.
 
 When you add a new element to the alist, keep in mind that you
@@ -693,12 +701,80 @@ want to use in the modeline *in lieu of* the original.")
 ;; Replace default expand command
 (global-set-key (kbd "M-/") 'hippie-expand)
 
-;; No cursor blink
-(blink-cursor-mode -1)
-
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 (use-package pandoc-mode
   :ensure t)
 
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
+
+(use-package ace-jump-mode
+  :ensure t
+  :defer t
+  :config
+  (progn
+    (autoload
+      ace-jump-mode-pop-mark
+      "ace-jump-mode"
+      "Ace jump back:-)"
+      t)
+    (eval-after-load "ace-jump-mode"
+      '(ace-jump-mode-enable-mark-sync)))
+  :bind (("C-c SPC" . ace-jump-mode)
+         ("C-x SPC" . ace-jump-mode-pop-mark)))
+
+(define-key evil-normal-state-map (kbd "SPC") 'ace-jump-mode)
+
+(use-package git-gutter
+  :ensure t
+  :config (progn (global-git-gutter-mode t))
+  :bind (("C-x C-g" . git-gutter:toggle)
+         ("C-x v =" . git-gutter:popup-hunk)
+
+         ;; Jump to next/previous hunk
+         ("C-x p"   . git-gutter:previous-hunk)
+         ("C-x n"   . git-gutter:next-hunk)
+
+         ;; Stage current hunk
+         ("C-x v s" . git-gutter:stage-hunk)
+
+         ;; Revert current hunk
+         ("C-x v r" . git-gutter:revert-hunk)))
+
+;; Org-present, keys are:
+
+;; left/right for movement
+;; C-c C-= for large txt
+;; C-c C-- for small text
+;; C-c C-q for quit (which will return you back to vanilla org-mode)
+;; C-c < and C-c > to jump to first/last slide
+
+(autoload 'org-present "org-present" nil t)
+
+(eval-after-load "org-present"
+  '(progn
+     (add-hook 'org-present-mode-hook
+               (lambda ()
+                 (org-present-big)
+                 (org-display-inline-images)
+                 (org-present-hide-cursor)
+                 (org-present-read-write)))
+     (add-hook 'org-present-mode-quit-hook
+               (lambda ()
+                 (org-present-small)
+                 (org-remove-inline-images)
+                 (org-present-show-cursor)
+                 (org-present-read-write)))))
+
+(setq org-src-fontify-natively t)
+
+;; Zoom
+;; You can use `C-x C-+’ and ‘C-x C--’ (‘text-scale-adjust’) to increase
+;; or decrease the buffer text size (`C-+’ or ‘C--’ to repeat). To
+;; restore the default (global) face height, type ‘C-x C-0’. ‘S-mouse-1’
+;; pops up a menu where you can choose these same actions.
+
+(use-package hy-mode
+  :ensure t)
+
+(add-hook 'hy-mode-hook 'paredit-mode)

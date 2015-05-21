@@ -43,3 +43,6 @@
 [submodule "lisp/org-present"]
 	path = lisp/org-present
 	url = git@github.com:rlister/org-present.git
+[submodule "themes/color-theme-ujelly"]
+	path = themes/color-theme-ujelly
+	url = git@github.com:marktran/color-theme-ujelly.git
