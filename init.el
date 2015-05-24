@@ -222,7 +222,7 @@
                ("<tab>" . helm-execute-persistent-action) ; rebind tab to run persistent action
                ("C-i"   . helm-execute-persistent-action) ; make TAB works in terminal
                ("C-z"   . helm-select-action))            ; list actions using C-z
-    (bind-key "C-c C-l" 'helm-comint-input-ring shell-mode-map )
+    (bind-key "C-c C-l" 'helm-comint-input-ring shell-mode-map)
     (bind-key "C-c C-l" 'helm-minibuffer-history minibuffer-local-map))
   :bind (("C-c h"     . helm-command-prefix)
          ("M-x"       . helm-M-x)
