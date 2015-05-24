@@ -71,6 +71,8 @@
       scheme-program-name    "/usr/local/bin/mit-scheme"
       custom-file            "~/.emacs.d/custom.el")
 
+(add-hook 'prog-mode-hook 'linum-mode)
+
 (load custom-file)
 (setq-default indent-tabs-mode nil)
 (setq-default show-trailing-whitespace nil)
@@ -721,9 +723,14 @@ want to use in the modeline *in lieu of* the original.")
 (bind-key "C-c SPC" 'ace-jump-mode)
 (define-key evil-normal-state-map (kbd "SPC") 'ace-jump-mode)
 
-(use-package git-gutter
+(use-package git-gutter-fringe
   :ensure t
-  :config (progn (global-git-gutter-mode t))
+  :config
+  (progn
+    (require 'git-gutter-fringe)
+    (set-face-foreground 'git-gutter-fr:modified "lawn green")
+    (set-face-foreground 'git-gutter-fr:added    "deep sky blue")
+    (set-face-foreground 'git-gutter-fr:deleted  "red"))
   :bind (("C-x C-g" . git-gutter:toggle)
          ("C-x v =" . git-gutter:popup-hunk)
 
