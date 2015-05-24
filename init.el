@@ -709,20 +709,16 @@ want to use in the modeline *in lieu of* the original.")
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
 
 (use-package ace-jump-mode
-  :ensure t
-  :defer t
-  :config
-  (progn
-    (autoload
-      ace-jump-mode-pop-mark
-      "ace-jump-mode"
-      "Ace jump back:-)"
-      t)
-    (eval-after-load "ace-jump-mode"
-      '(ace-jump-mode-enable-mark-sync)))
-  :bind (("C-c SPC" . ace-jump-mode)
-         ("C-x SPC" . ace-jump-mode-pop-mark)))
+  :ensure t)
 
+(progn
+  (autoload
+    'ace-jump-mode
+    "ace-jump-mode"
+    "Emacs quick move minor mode"
+    t))
+
+(bind-key "C-c SPC" 'ace-jump-mode)
 (define-key evil-normal-state-map (kbd "SPC") 'ace-jump-mode)
 
 (use-package git-gutter
