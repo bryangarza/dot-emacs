@@ -543,8 +543,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (common-lisp-mode       . "λcl")
     (haskell-mode           . "λ")
     (literate-haskell-mode  . "λlit")
+    (inferior-haskell-mode  . "λinf")
     (tuareg-mode            . "λOCaml")
     (python-mode            . "py")
+    (doc-view-mode           . "dv")
     ;; hidden
     (helm-mode              . "")
     (undo-tree-mode         . "")
