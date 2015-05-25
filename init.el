@@ -92,6 +92,7 @@
 (global-hl-line-mode -1)
 (blink-cursor-mode +1)
 (display-time)
+(display-battery-mode)
 
 (add-hook 'paredit-mode-hook 'evil-paredit-mode)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
