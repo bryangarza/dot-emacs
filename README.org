@@ -22,7 +22,7 @@ I've configured it for the following languages:
 - Hy
 
 Other languages may work out-of-the-box, for example I have not changed any
-settings for Python but it default editing is decent as-is.
+settings for Python but the default editing experience is decent as-is.
 
 * Packages and Modes
 
