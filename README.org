@@ -1,0 +1,36 @@
+#+title: .emacs.d
+
+This is my emacs config.
+
+* Languages
+
+I've configured it for the following languages:
+- HTML
+- CSS
+- JavaScript
+- Markdown
+- Elisp
+- Clojure
+- Haskell
+- OCaml
+- C
+- Jade
+- Stylus
+- Scheme
+- Racket
+- Scala
+- Hy
+
+Other languages may work out-of-the-box, for example I have not changed any
+settings for Python but it default editing is decent as-is.
+
+* Packages and Modes
+
+Notable packages and modes that I use include
+
+- Evil
+- Paredit
+- Helm, Helm Swoop
+- Flycheck
+- Multiple Cursors
+- Ace Jump
