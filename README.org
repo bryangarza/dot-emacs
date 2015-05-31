@@ -1,6 +1,6 @@
 #+title: .emacs.d
 
-Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@bryangarza/my-descent-into-evil-98f7017475b6][/My Descent Into Evil/]].
+Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@bryangarza/my-descent-into-evil-98f7017475b6][My Descent Into Evil]].
 
 * Here Be Dragons
 
