@@ -520,6 +520,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package auto-complete
   :config (add-to-list 'ac-modes 'geiser-repl-mode))
 
+;; https://github.com/magnars/multiple-cursors.el
 (use-package multiple-cursors
   :ensure t
   :defer t
