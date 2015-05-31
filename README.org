@@ -2,12 +2,12 @@
 
 Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@bryangarza/my-descent-into-evil-98f7017475b6][My Descent Into Evil]].
 
-* Here Be Dragons
+** Here Be Dragons
 
 This setup is heavily customized, [[http://www.bryangarza.me/contact.html][let me know]] if you run into any problems and
 we can troubleshoot.
 
-* When Cloning
+** When Cloning
 
 OCaml settings require external installation, see
 [[https://github.com/realworldocaml/book/wiki/Installation-Instructions][Real World OCaml's GitHub wiki]]. If you don't care about OCaml, simply comment
@@ -28,7 +28,7 @@ Emacs has mouse support, and can display PDFs and images.
 See my Medium post (linked above) for Cocoa Emacs installation instructions with
 =homebrew=.
 
-* Languages
+** Languages
 
 I've configured it for the following languages:
 - HTML
@@ -51,7 +51,7 @@ I've configured it for the following languages:
 Other languages may work out-of-the-box, for example I have not changed any
 settings for Python but the default editing experience is decent as-is.
 
-* Packages and Modes
+** Packages and Modes
 
 Notable packages and modes that I use include
 
