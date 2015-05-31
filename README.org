@@ -20,6 +20,7 @@ I've configured it for the following languages:
 - Racket
 - Scala
 - Hy
+- LaTeX
 
 Other languages may work out-of-the-box, for example I have not changed any
 settings for Python but the default editing experience is decent as-is.
