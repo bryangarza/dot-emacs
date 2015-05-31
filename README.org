@@ -1,6 +1,32 @@
 #+title: .emacs.d
 
-This is my emacs config.
+Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@bryangarza/my-descent-into-evil-98f7017475b6][/My Descent Into Evil/]].
+
+* Here Be Dragons
+
+This setup is heavily customized, [[http://www.bryangarza.me/contact.html][let me know]] if you run into any problems and
+we can troubleshoot.
+
+* When Cloning
+
+OCaml settings require external installation, see
+[[https://github.com/realworldocaml/book/wiki/Installation-Instructions][Real World OCaml's GitHub wiki]]. If you don't care about OCaml, simply comment
+out that section of the config.
+
+For IRC, change the username in =init.el=, and create a file =~/.private.el=:
+
+#+BEGIN_SRC emacs-lisp
+(setq freenode-password "YOUR_PASSWORD")
+#+END_SRC
+
+Remember to also clone *submodules*.
+
+This setup will work much better with *Cocoa* Emacs than terminal Emacs. This is
+because the terminal gobbles up various key chords. Not to mention graphical
+Emacs has mouse support, and can display PDFs and images.
+
+See my Medium post (linked above) for Cocoa Emacs installation instructions with
+=homebrew=.
 
 * Languages
 
