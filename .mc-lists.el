@@ -3,12 +3,14 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        evil-append
         evil-append-line
         evil-backward-WORD-begin
         evil-backward-char
         evil-backward-word-begin
         evil-change
         evil-delete
+        evil-delete-backward-char-and-join
         evil-delete-char
         evil-delete-line
         evil-digit-argument-or-evil-beginning-of-line
@@ -22,12 +24,16 @@
         evil-forward-word-begin
         evil-forward-word-end
         evil-insert
+        evil-insert-line
+        evil-insert-resume
         evil-next-line
         evil-normal-state
         evil-previous-line
+        evil-set-marker
         keyboard-quit
         paredit-backward-barf-sexp
         paredit-backward-slurp-sexp
+        paredit-doublequote
         paredit-forward-barf-sexp
         paredit-forward-slurp-sexp
         paredit-open-round
