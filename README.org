@@ -5,7 +5,8 @@ Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@
 ** Here Be Dragons
 
 This setup is heavily customized, [[http://www.bryangarza.me/contact.html][let me know]] if you run into any problems and
-we can troubleshoot.
+we can troubleshoot. Though official support is neither offered nor guaranteed,
+I'd like this configuration to be useful to others.
 
 ** When Cloning
 
