@@ -21,7 +21,7 @@ For IRC, change the username in =init.el=, and create a file =~/.private.el=:
 
 Remember to also clone *submodules*:
 
-#+BEGIN_SRC shell
+#+BEGIN_SRC sh
 git clone --recursive git@github.com:bryangarza/dot-emacs.git
 #+END_SRC
 
