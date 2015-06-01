@@ -19,7 +19,11 @@ For IRC, change the username in =init.el=, and create a file =~/.private.el=:
 (setq freenode-password "YOUR_PASSWORD")
 #+END_SRC
 
-Remember to also clone *submodules*.
+Remember to also clone *submodules*:
+
+#+BEGIN_SRC shell
+git clone --recursive git@github.com:bryangarza/dot-emacs.git
+#+END_SRC
 
 This setup will work much better with *Cocoa* Emacs than terminal Emacs. This is
 because the terminal gobbles up various key chords. Not to mention graphical
