@@ -37,12 +37,21 @@ Remember to also clone *submodules*:
 git clone --recursive git@github.com:bryangarza/dot-emacs.git
 #+END_SRC
 
-This setup will work much better with *Cocoa* Emacs than terminal Emacs. This is
-because the terminal gobbles up various key chords. Not to mention graphical
-Emacs has mouse support, and can display PDFs and images.
+** Graphical vs Console Emacs
+
+This setup will work much better with *Graphical* Emacs than the terminal-based
+Emacs. This is because the terminal gobbles up various key chords. Not to
+mention graphical Emacs has mouse support, can display multiple font sizes, and
+PDFs, and images.
 
 See my Medium post (linked above) for Cocoa Emacs installation instructions with
-=homebrew=.
+=homebrew=. If you're on GNU/Linux, just install the =emacs= package, that
+should come with both the graphical and terminal emacs.
+
+In case you're curious, use ~emacs -nw~ to run in console mode. I haven't found
+this config to work well with console mode though, especially because iTerm 2
+takes control of the ⌘ key, as well as some other chords. Your experience may
+vary.
 
 ** Languages
 
