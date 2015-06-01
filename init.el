@@ -795,7 +795,7 @@ want to use in the modeline *in lieu of* the original.")
 
 (setq rcirc-authinfo '(("freenode" nickserv ,freenode-username ,freenode-password)))
 
-(defun rcirc-command reconnect (arg)
+(defun-rcirc-command reconnect (arg)
   "Reconnect the server process."
   (interactive "i")
   (if (buffer-live-p rcirc-server-buffer)
