@@ -368,7 +368,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (add-hook 'c-mode-common-hook 'paredit-nonlisp-hook)
 (add-hook 'c-mode-common-hook 'c-mode-custom-hook)
 
-;;; Ocaml setup starts here
+;;; OCaml setup starts here
 (load "/Users/bryangarza/.emacs.d/lisp/tuareg/tuareg-site-file.el")
 
 ;; Add opam emacs directory to the load-path
@@ -383,7 +383,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     ;; Use opam switch to lookup ocamlmerlin binary
     (setq merlin-command 'opam)))
 
-;; Start merlin on ocaml files
+;; Start merlin on OCaml files
 (add-hook 'tuareg-mode-hook 'merlin-mode t)
 (add-hook 'caml-mode-hook 'merlin-mode t)
 
@@ -413,7 +413,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 ;; (add-hook 'tuareg-mode-hook 'utop-minor-mode)
 (add-hook 'tuareg-mode-hook 'ocaml-custom-hook)
 
-;;; Ocaml setup ends here
+;;; OCaml setup ends here
 
 (use-package hi2
   :ensure t)
