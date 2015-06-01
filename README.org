@@ -14,11 +14,22 @@ OCaml settings require external installation, see
 [[https://github.com/realworldocaml/book/wiki/Installation-Instructions][Real World OCaml's GitHub wiki]]. If you don't care about OCaml, simply comment
 out that section of the config.
 
-For IRC, change the username in =init.el=, and create a file =~/.private.el=:
+*** IRC
+
+Create a file =~/.private.el=:
 
 #+BEGIN_SRC emacs-lisp
 (setq freenode-password "YOUR_PASSWORD")
+      freenode-username "YOUR_USERNAME")
 #+END_SRC
+
+You can use ~M-x circe~, though lately it has been acting strangely; sometimes
+the window management is broken by circe and then only way I've been able to fix
+it is by restarting Emacs. The simpler alternative is ~M-x rcirc~, though I have
+not yet figured out how to get it to identify to Nickserv automatically
+yet. Circe does have automatic identify working.
+
+*** Submodules
 
 Remember to also clone *submodules*:
 

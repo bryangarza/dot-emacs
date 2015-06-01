@@ -456,7 +456,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
           `(("Freenode"
              :tls t
              :service 6697
-             :nick "wolfcore"
+             :nick ,freenode-username
              :nickserv-password ,freenode-password
              :channels ("#haskell" "#emacs"))))
     (setq circe-reduce-lurker-spam t)
@@ -793,7 +793,7 @@ want to use in the modeline *in lieu of* the original.")
       '(("irc.freenode.net" :port 6697 :encryption tls
 	 :channels ("#haskell" "#emacs"))))
 
-(setq rcirc-authinfo '(("freenode" nickserv "wolfcore" ,freenode-password)))
+(setq rcirc-authinfo '(("freenode" nickserv ,freenode-username ,freenode-password)))
 
 (defun-rcirc-command reconnect (arg)
   "Reconnect the server process."
