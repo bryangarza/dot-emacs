@@ -25,7 +25,6 @@
                       flycheck
                       circe
                       debbugs
-                      ac-helm
                       geiser
                       ac-geiser
                       multiple-cursors
@@ -263,23 +262,20 @@
          ("C-c h o"   . helm-occur)
          ("s-F"       . helm-occur)))
 
-(use-package helm-eshell
-  :defer t
-  :config
-  (progn
-    (add-hook 'eshell-mode-hook
-              #'(lambda ()
-                  (bind-key "C-c C-l" 'helm-eshell-history eshell-mode-map)))))
+;; (require 'helm-eshell)
+;; (add-hook 'eshell-mode-hook
+;;               #'(lambda ()
+;;                   (bind-key "C-c C-l" 'helm-eshell-history eshell-mode-map)))
 
-(use-package ac-helm
-  :defer t
-  :config (bind-key "C-:" 'ac-complete-with-helm ac-complete-mode-map)
-  :bind ("C-:" . ac-complete-with-helm))
+;; (use-package ac-helm
+;;   :defer t
+;;   :config (bind-key "C-:" 'ac-complete-with-helm ac-complete-mode-map)
+;;   :bind ("C-:" . ac-complete-with-helm))
 
-(use-package helm-descbinds
-  :defer t
-  :bind (("C-h b" . helm-descbinds)
-         ("C-h w" . helm-descbinds)))
+;; (use-package helm-descbinds
+;;   :defer t
+;;   :bind (("C-h b" . helm-descbinds)
+;;          ("C-h w" . helm-descbinds)))
 
 (defun split-vert-and-switch ()
   (interactive)

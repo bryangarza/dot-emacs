@@ -7,12 +7,6 @@
 [submodule "lisp/tuareg"]
 	path = lisp/tuareg
 	url = git@github.com:ocaml/tuareg.git
-[submodule "lisp/emacs-async"]
-	path = lisp/emacs-async
-	url = git@github.com:jwiegley/emacs-async.git
-[submodule "lisp/helm"]
-	path = lisp/helm
-	url = https://github.com/emacs-helm/helm.git
 [submodule "lisp/helm-swoop"]
 	path = lisp/helm-swoop
 	url = git@github.com:ShingoFukuyama/helm-swoop.git
