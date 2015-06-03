@@ -42,6 +42,9 @@
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
+(require 'org)
+(setq org-src-fontify-natively t)
+
 ;; (add-to-list 'load-path "~/.emacs.d/lisp/haskell-mode/")
 ;; (require 'haskell-mode-autoloads)
 ;; (add-to-list 'Info-default-directory-list "~/.emacs.d/lisp/haskell-mode/")
@@ -774,8 +777,6 @@ want to use in the modeline *in lieu of* the original.")
                  (org-remove-inline-images)
                  (org-present-show-cursor)
                  (org-present-read-write)))))
-
-(setq org-src-fontify-natively t)
 
 ;; Zoom
 ;; You can use `C-x C-+’ and ‘C-x C--’ (‘text-scale-adjust’) to increase

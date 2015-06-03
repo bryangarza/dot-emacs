@@ -46,3 +46,6 @@
 [submodule "themes/color-theme-ujelly"]
 	path = themes/color-theme-ujelly
 	url = git@github.com:marktran/color-theme-ujelly.git
+[submodule "lisp/org-mode"]
+	path = lisp/org-mode
+	url = git://orgmode.org/org-mode.git
