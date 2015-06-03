@@ -127,7 +127,7 @@
   :init (winner-mode 1))
 
 (use-package evil-leader
-  :init
+  :config
   (progn
     (global-evil-leader-mode)
     (evil-leader/set-leader ",")))
