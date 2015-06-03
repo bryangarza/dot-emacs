@@ -654,8 +654,9 @@ want to use in the modeline *in lieu of* the original.")
    "S" 'pop-tag-mark
    "d" 'elisp-slime-nav-describe-elisp-thing-at-point))
 
-(require 'smooth-scrolling)
-(setq smooth-scroll-margin 5)
+;; Might be responsible for the scroll lag... maybe it was clashing w Evil?
+;; (require 'smooth-scrolling)
+;; (setq smooth-scroll-margin 5)
 
 (setq doc-view-continuous t)
 
