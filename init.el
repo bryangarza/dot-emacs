@@ -59,6 +59,8 @@
 (require 'moe-theme)
 ;; (moe-light)
 (moe-dark)
+(moe-theme-set-color 'green)
+;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
 
 
 ;; (set-frame-parameter nil 'background-mode 'dark)
