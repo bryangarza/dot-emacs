@@ -832,3 +832,6 @@ want to use in the modeline *in lieu of* the original.")
        (interactive (list
                      (read-string "Enter the reddit (default: haskell): " nil nil "haskell" nil)))
        (browse-url (format "http://m.reddit.com/r/%s" reddit)))))
+
+(require 'tramp)
+;; C-x C-f /sudo::/path/to/file
