@@ -30,7 +30,8 @@
                       ac-geiser
                       multiple-cursors
                       expand-region
-                      auctex))
+                      auctex
+                      moe-theme))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -45,12 +46,21 @@
 ;; (require 'haskell-mode-autoloads)
 ;; (add-to-list 'Info-default-directory-list "~/.emacs.d/lisp/haskell-mode/")
 
+(defadvice load-theme
+  (before theme-dont-propagate activate)
+  (mapc #'disable-theme custom-enabled-themes))
+
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/color-theme-ujelly")
+
+(require 'moe-theme)
+(moe-light) ; or, (moe-dark)
+
+
 ;; (set-frame-parameter nil 'background-mode 'dark)
-(load-theme 'cyberpunk t)
+;; (load-theme 'cyberpunk t)
 ;; (load-theme 'solarized t)
 
 (require 'uniquify)
