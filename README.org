@@ -87,7 +87,7 @@ Notable packages and modes that I use include
 - Multiple Cursors
 - Ace Jump
 
-* License
+** License
 
 Copyright (C) 2015 Bryan Garza
 
@@ -103,7 +103,7 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program.  If not, see <http://www.gnu.org/licenses/>.
 
-* Internal Notes
+** Internal Notes
 
 Because I keep forgetting the Org mode formatting:
 
