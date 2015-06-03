@@ -58,6 +58,7 @@
 ;; so kawaii~  ✿◕ ‿ ◕✿
 (require 'moe-theme)
 ;; (moe-light)
+(setq moe-theme-highlight-buffer-id nil)
 (moe-dark)
 (moe-theme-set-color 'green)
 ;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
