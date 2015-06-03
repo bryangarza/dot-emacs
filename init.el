@@ -55,8 +55,10 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/color-theme-ujelly")
 
+;; so kawaii~  ✿◕ ‿ ◕✿
 (require 'moe-theme)
-(moe-light) ; or, (moe-dark)
+;; (moe-light)
+(moe-dark)
 
 
 ;; (set-frame-parameter nil 'background-mode 'dark)
