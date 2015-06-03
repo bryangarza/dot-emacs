@@ -571,8 +571,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (auto-complete-mode     . "")
     (magit-auto-revert-mode . "")
     (eldoc-mode             . "")
-    (elisp-slime-nav-mode   . "")
-    (git-gutter-mode        . ""))
+    (elisp-slime-nav-mode   . ""))
   "Alist for `clean-mode-line'.
 
 When you add a new element to the alist, keep in mind that you
@@ -745,27 +744,6 @@ want to use in the modeline *in lieu of* the original.")
 
 (bind-key "C-c SPC" 'ace-jump-mode)
 (define-key evil-normal-state-map (kbd "SPC") 'ace-jump-mode)
-
-(use-package git-gutter-fringe
-  :ensure t
-  :config
-  (progn
-    (require 'git-gutter-fringe)
-    (set-face-foreground 'git-gutter-fr:modified "lawn green")
-    (set-face-foreground 'git-gutter-fr:added    "deep sky blue")
-    (set-face-foreground 'git-gutter-fr:deleted  "red"))
-  :bind (("C-x C-g" . git-gutter:toggle)
-         ("C-x v =" . git-gutter:popup-hunk)
-
-         ;; Jump to next/previous hunk
-         ("C-x p"   . git-gutter:previous-hunk)
-         ("C-x n"   . git-gutter:next-hunk)
-
-         ;; Stage current hunk
-         ("C-x v s" . git-gutter:stage-hunk)
-
-         ;; Revert current hunk
-         ("C-x v r" . git-gutter:revert-hunk)))
 
 ;; Org-present, keys are:
 
