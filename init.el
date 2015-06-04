@@ -850,3 +850,9 @@ want to use in the modeline *in lieu of* the original.")
 
 (use-package rust-mode
   :ensure t)
+
+;; this will make the symbol my-nasty-variable's value void
+;; (makunbound 'my-nasty-variable)
+;; this will make the symbol my-nasty-function's
+;; function definition void
+;; (fmakunbound 'my-nasty-function)
