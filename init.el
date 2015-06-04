@@ -74,7 +74,7 @@
 ;; (moe-light)
 (setq moe-theme-highlight-buffer-id nil)
 (moe-dark)
-(moe-theme-set-color 'green)
+(moe-theme-set-color 'cyan)
 ;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
 
 
