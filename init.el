@@ -835,3 +835,6 @@ want to use in the modeline *in lieu of* the original.")
 
 (require 'tramp)
 ;; C-x C-f /sudo::/path/to/file
+
+(use-package rust-mode
+  :ensure t)
