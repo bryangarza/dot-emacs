@@ -135,16 +135,8 @@
     (setq json-reformat:indent-width 4)))
 
 (require 'bryan-helm)
-
-(defun split-vert-and-switch ()
-  (interactive)
-  (split-window-vertically)
-  (other-window 1))
-
-(defun split-horiz-and-switch ()
-  (interactive)
-  (split-window-horizontally)
-  (other-window 1))
+(require 'bryan-better-splits)
+(require 'bryan-keybindings)
 
 ;; getting errors (when scheme file was opened)
 (semantic-mode 0)
