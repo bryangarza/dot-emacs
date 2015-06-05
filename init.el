@@ -20,9 +20,6 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-;; http://www.emacswiki.org/emacs/PareditCheatsheet
-;; http://mumble.net/~campbell/emacs/paredit.html
-
 (require 'bryan-packages)
 (unless (bryan/packages-installed-p)
   (message "%s" "Installing required packages...")

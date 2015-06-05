@@ -4,6 +4,12 @@ Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@
 
 ** Important!
 
+
+*** Paredit
+
+- [[http://www.emacswiki.org/emacs/PareditCheatsheet][Paredit Cheatsheet]]
+- [[http://mumble.net/~campbell/emacs/paredit.html][Another Paredit Cheatsheet]]
+
 *** Org-present
 
 - left and right for movement
