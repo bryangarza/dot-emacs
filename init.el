@@ -569,7 +569,7 @@ want to use in the modeline *in lieu of* the original.")
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 (require 'bryan-pandoc)
-(require 'bryan-evil-ace-jump)
+(require 'bryan-ace-jump)
 (require 'bryan-org-present)
 (require 'bryan-hy)
 (require 'bryan-rcirc)

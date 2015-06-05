@@ -91,4 +91,4 @@
 (defadvice evil-visual-block (before spc-for-char-jump activate)
   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
 
-(provide 'ace-jump)
+(provide 'bryan-ace-jump)
