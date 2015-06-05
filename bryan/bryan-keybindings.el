@@ -36,4 +36,4 @@
            ("C-e" . move-end-of-line))
            ;; ("C-e" . evil-copy-from-below)
 
-(provide 'bryan-keybindings.el)
+(provide 'bryan-keybindings)

@@ -295,8 +295,7 @@
 ;; getting errors (when scheme file was opened)
 (semantic-mode 0)
 
-(require 'bryan-keybindings.el)
-
+(require 'bryan-keybindings)
 
 (use-package winner
   :ensure t
