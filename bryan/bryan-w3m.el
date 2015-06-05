@@ -1,5 +1,8 @@
 ;; w3m.el
 
+;; Otherwise known as "Bryan trying to be a hipster by using a text-based web browser"
+;; http://www.emacswiki.org/emacs/emacs-w3m
+;; http://beatofthegeek.com/2014/02/my-setup-for-using-emacs-as-web-browser.html
 (use-package w3m
   :ensure t
   :config

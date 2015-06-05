@@ -704,9 +704,6 @@ want to use in the modeline *in lieu of* the original.")
 
 (require 'bryan-rcirc)
 
-;; W3M: Otherwise known as "Bryan trying to be a hipster by using a text-based web browser"
-;; http://www.emacswiki.org/emacs/emacs-w3m
-;; http://beatofthegeek.com/2014/02/my-setup-for-using-emacs-as-web-browser.html
 (require 'bryan-w3m)
 
 (require 'tramp)
