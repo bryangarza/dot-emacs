@@ -6,16 +6,12 @@ Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@
 
 *** Org-present
 
-Keys are:
-
-#+BEGIN_EXAMPLE
-left/right for movement
-C-c C-= for large txt
-C-c C-- for small text
-C-c C-q for quit (which will return you back to vanilla org-mode)
-C-c < and C-c > to jump to first/last slide
-#+END_EXAMPLE
-
+- left and right for movement
+- =C-c C-== for large text
+- =C-c C--= for small text
+- =C-c C-q= to quit (which will return you back to vanilla org-mode)
+- =C-c <= to jump to first slide
+- =C-c >= to jump to last slide
 
 *** Zooming
 
