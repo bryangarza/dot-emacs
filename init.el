@@ -722,4 +722,4 @@ want to use in the modeline *in lieu of* the original.")
     (with-eval-after-load 'evil
       (require 'evil-anzu))))
 
-(require 'bryan-rename-file-and-buffer)
+(require 'bryan-rename-or-delete-buffer-and-file)
