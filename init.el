@@ -130,6 +130,7 @@
 (require 'bryan-helm)
 (require 'bryan-better-splits)
 (require 'bryan-rename-or-delete-buffer-and-file)
+(require 'bryan-minibuffer-keyboard-quit)
 (require 'bryan-keybindings)
 (require 'bryan-util)
 
