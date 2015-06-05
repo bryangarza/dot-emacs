@@ -1,3 +1,6 @@
+;; evil-ace-jump.el -- ripped from EmacsWiki
+;; http://www.emacswiki.org/emacs/Evil#toc17
+
 ;; AceJump integration is now included in evil, this gist is only preserved for historical reasons.
 ;; Please use the provided integration (it's far more advanced)
 

@@ -778,7 +778,7 @@ want to use in the modeline *in lieu of* the original.")
   '(ace-jump-mode-enable-mark-sync))
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 
-(require 'evil-ace-jump)
+(require 'bryan-evil-ace-jump)
 
 ;; Org-present, keys are:
 
