@@ -218,16 +218,12 @@
 ;; (setq smooth-scroll-margin 5)
 
 (setq doc-view-continuous t)
-
-(require 'bryan-smart-quotes)
-
-(require 'bryan-scala)
-
 ;; Replace default expand command
 (global-set-key (kbd "M-/") 'hippie-expand)
 
-(setq magit-last-seen-setup-instructions "1.4.0")
-
+(require 'bryan-smart-quotes)
+(require 'bryan-scala)
+(require 'bryan-magit)
 (require 'bryan-pandoc)
 (require 'bryan-ace-jump)
 (require 'bryan-org-present)
@@ -235,9 +231,7 @@
 (require 'bryan-rcirc)
 (require 'bryan-w3m)
 (require 'tramp)
-
-(use-package rust-mode
-  :ensure t)
+(require 'bryan-rust)
 
 (use-package evil-anzu
   :ensure t

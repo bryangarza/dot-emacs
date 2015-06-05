@@ -10,7 +10,6 @@
     rainbow-mode
     clojure-mode-extra-font-locking
     cider
-    magit
     json-mode
     exec-path-from-shell
     flycheck
