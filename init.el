@@ -213,10 +213,6 @@
    "S" 'pop-tag-mark
    "d" 'elisp-slime-nav-describe-elisp-thing-at-point))
 
-;; Might be responsible for the scroll lag... maybe it was clashing w Evil?
-;; (require 'smooth-scrolling)
-;; (setq smooth-scroll-margin 5)
-
 (setq doc-view-continuous t)
 ;; Replace default expand command
 (global-set-key (kbd "M-/") 'hippie-expand)
