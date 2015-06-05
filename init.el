@@ -127,10 +127,6 @@
 (require 'bryan-frontend)
 (require 'bryan-markdown)
 
-;; (require 'js2-mode)
-;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-;; (setq js2-strict-missing-semi-warning nil)
-
 (use-package json-mode
   :config
   (progn
