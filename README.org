@@ -58,6 +58,11 @@ If I ever want to pin packages:
 - [[http://emacs-helm.github.io/helm/][Helm home page]]
 - [[http://tuhdo.github.io/helm-intro.html][Helm intro]]
 
+*** Circe
+
+- [[https://github.com/howardabrams/dot-files/blob/master/emacs-irc.org][Howard Abrams' IRC settings]]
+- [[https://github.com/jorgenschaefer/circe/wiki/Configuration][Circe wiki: Configuration]]
+
 ** Here Be Dragons
 
 This setup is heavily customized, [[http://www.bryangarza.me/contact.html][let me know]] if you run into any problems and
