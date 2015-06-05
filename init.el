@@ -22,30 +22,14 @@
 
 ;; http://www.emacswiki.org/emacs/PareditCheatsheet
 ;; http://mumble.net/~campbell/emacs/paredit.html
-(defvar my-packages '(evil
-                      evil-paredit
-                      evil-surround
-                      paredit
-                      smartparens
-                      rainbow-delimiters
-                      rainbow-mode
-                      clojure-mode-extra-font-locking
-                      cider
-                      magit
-                      json-mode
-                      exec-path-from-shell
-                      flycheck
-                      circe
-                      debbugs
-                      geiser
-                      ac-geiser
-                      multiple-cursors
-                      expand-region
-                      auctex))
 
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+(require 'bryan-packages)
+(unless (bryan/packages-installed-p)
+  (message "%s" "Installing required packages...")
+  (package-refresh-contents)
+  (dolist (pkg bryan/packages)
+    (when (not (package-installed-p pkg))
+      (package-install pkg))))
 
 (add-to-list 'load-path "~/.emacs.d/customizations")
 (add-to-list 'load-path "~/.emacs.d/bryan")
