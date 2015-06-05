@@ -126,14 +126,7 @@
 
 (require 'bryan-frontend)
 (require 'bryan-markdown)
-
-(use-package json-mode
-  :config
-  (progn
-    (setq c-basic-offset 2)
-    (setq js-indent-level 2)
-    (setq json-reformat:indent-width 4)))
-
+(require 'bryan-json)
 (require 'bryan-helm)
 (require 'bryan-better-splits)
 (require 'bryan-keybindings)
