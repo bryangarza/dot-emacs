@@ -4,7 +4,6 @@ Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@
 
 ** Important!
 
-
 *** Paredit
 
 - [[http://www.emacswiki.org/emacs/PareditCheatsheet][Paredit Cheatsheet]]
@@ -65,10 +64,17 @@ If I ever want to pin packages:
 
 *** Aligning Code
 
-[[https://wiki.haskell.org/Emacs/Indentation#Aligning_code][Haskell wiki: Aligning code in Emacs]]
+[[https://wiki.haskell.org/Emacs/Indentation#Aligning_code][Haskell wiki: aligning code in Emacs]]
+
 #+BEGIN_SRC emacs-lisp
 (bind-key "C-x a r" 'align-regexp)
 #+END_SRC
+
+*** Editing with Sudo
+
+#+BEGIN_EXAMPLE
+C-x C-f /sudo::/path/to/file
+#+END_EXAMPLE
 
 ** Here Be Dragons
 
@@ -77,6 +83,8 @@ we can troubleshoot. Though official support is neither offered nor guaranteed,
 I'd like this configuration to be useful to others.
 
 ** When Cloning
+
+*** OCaml
 
 OCaml settings require external installation, see
 [[https://github.com/realworldocaml/book/wiki/Installation-Instructions][Real World OCaml's GitHub wiki]]. If you don't care about OCaml, simply comment

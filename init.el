@@ -235,7 +235,6 @@
 (require 'bryan-rcirc)
 (require 'bryan-w3m)
 (require 'tramp)
-;; C-x C-f /sudo::/path/to/file
 
 (use-package rust-mode
   :ensure t)
