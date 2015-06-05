@@ -40,6 +40,19 @@ This will make the symbol my-nasty-function's function definition void:
 (fmakunbound 'my-nasty-function)
 #+END_SRC
 
+*** Pinning
+
+If I ever want to pin packages:
+
+#+BEGIN_SRC emacs-lisp
+(setq 'package-archives '(("melpa"        . "http://melpa.org/packages/")
+                          ("melpa-stable" . "http://stable.melpa.org/packages/")))
+
+(use-package company
+  :ensure t
+  :pin melpa-stable)
+#+END_SRC
+
 ** Here Be Dragons
 
 This setup is heavily customized, [[http://www.bryangarza.me/contact.html][let me know]] if you run into any problems and

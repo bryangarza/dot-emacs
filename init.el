@@ -4,16 +4,6 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 
-;; if I ever want to pin packages:
-;; (setq 'package-archives '(("melpa"        . "http://melpa.org/packages/")
-;;                           ("melpa-stable" . "http://stable.melpa.org/packages/")))
-;;
-;; then:
-;;
-;; (use-package company
-;;   :ensure t
-;;   :pin melpa-stable)
-
 
 (package-initialize)
 
