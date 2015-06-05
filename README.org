@@ -2,6 +2,31 @@
 
 Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@bryangarza/my-descent-into-evil-98f7017475b6][My Descent Into Evil]].
 
+** Important!
+
+*** Org-present
+
+Keys are:
+
+#+BEGIN_EXAMPLE
+left/right for movement
+C-c C-= for large txt
+C-c C-- for small text
+C-c C-q for quit (which will return you back to vanilla org-mode)
+C-c < and C-c > to jump to first/last slide
+#+END_EXAMPLE
+
+
+*** Unbinding
+
+#+BEGIN_EXAMPLE
+;; this will make the symbol my-nasty-variable's value void
+;; (makunbound 'my-nasty-variable)
+;; this will make the symbol my-nasty-function's
+;; function definition void
+;; (fmakunbound 'my-nasty-function)
+#+END_EXAMPLE
+
 ** Here Be Dragons
 
 This setup is heavily customized, [[http://www.bryangarza.me/contact.html][let me know]] if you run into any problems and

@@ -203,25 +203,8 @@
     (require 'auto-complete-config)
     (auto-complete-mode t)))
 
-(use-package web-mode
-  :config
-  (progn
-    (setq web-mode-markup-indent-offset 2)
-    (setq web-mode-css-indent-offset 2)
-    (setq web-mode-code-indent-offset 2)
-    ;; (setq web-mode-enable-current-element-highlight t)
-    ;; (setq web-mode-enable-current-column-highlight t)
-    )
-  :mode (("\\.html?\\'" . web-mode)
-         ("\\.css\\'"   . web-mode)
-         ("\\.scss\\'"  . web-mode)))
-
-(use-package markdown-mode
-  :mode (("\\.text\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode)
-         ("\\.md\\'" . markdown-mode)))
-
-(add-hook 'markdown-mode-hook 'pandoc-mode)
+(require 'bryan-frontend)
+(require 'bryan-markdown)
 
 ;; (require 'js2-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
@@ -312,45 +295,8 @@
 ;; getting errors (when scheme file was opened)
 (semantic-mode 0)
 
-(setq mac-function-modifier 'hyper)
-(global-set-key [(super t)] nil)
+(require 'bryan-keybindings.el)
 
-(bind-keys*
- ("M-w"   . execute-extended-command)
- ("s-w"   . execute-extended-command)
- ("s-r"   . revert-buffer)
- ("s-i"   . magit-status)
- ("s-o"   . other-window)
- ("s-e"   . eval-defun)
- ("s-n"   . next-buffer)
- ("s-p"   . previous-buffer)
- ("s-P"   . ns-print-buffer)
- ("s-h"   . windmove-left)
- ("s-j"   . windmove-down)
- ("s-k"   . windmove-up)
- ("s-l"   . windmove-right)
- ("s-L"   . goto-line)
- ("s-l"   . windmove-right)
- ("s-q"   . previous-history-element)
- ("s-d"   . next-history-element)
- ("s-K"   . kill-this-buffer)
- ("C-x 2" . split-vert-and-switch)
- ("C-x 3" . split-horiz-and-switch)
- ("s-0"   . delete-window)
- ("s-1"   . delete-other-windows)
- ("s-2"   . split-vert-and-switch)
- ("s-3"   . split-horiz-and-switch))
-
-(bind-keys :map evil-motion-state-map
-           ("C-e" . move-end-of-line)
-           ("C-e" . move-end-of-line))
-           ;; ("C-e" . evil-copy-from-below)
-
-(use-package sws-mode
-  :mode "\\.styl$")
-
-(use-package jade-mode
-  :mode "\\.jade$")
 
 (use-package winner
   :ensure t
@@ -753,116 +699,23 @@ want to use in the modeline *in lieu of* the original.")
 
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-(use-package pandoc-mode
-  :ensure t)
-
-(add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
-
-(use-package ace-jump-mode
-  :ensure t)
-
-(progn
-  (autoload
-    'ace-jump-mode
-    "ace-jump-mode"
-    "Emacs quick move minor mode"
-    t))
-(bind-key "C-c SPC" 'ace-jump-mode)
-
-(autoload
-  'ace-jump-mode-pop-mark
-  "ace-jump-mode"
-  "Ace jump back:-)"
-  t)
-(eval-after-load "ace-jump-mode"
-  '(ace-jump-mode-enable-mark-sync))
-(define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
-
+(require 'bryan-pandoc)
 (require 'bryan-evil-ace-jump)
-
-;; Org-present, keys are:
-
-;; left/right for movement
-;; C-c C-= for large txt
-;; C-c C-- for small text
-;; C-c C-q for quit (which will return you back to vanilla org-mode)
-;; C-c < and C-c > to jump to first/last slide
-
-(autoload 'org-present "org-present" nil t)
-
-(eval-after-load "org-present"
-  '(progn
-     (add-hook 'org-present-mode-hook
-               (lambda ()
-                 (org-present-big)
-                 (org-display-inline-images)
-                 (org-present-hide-cursor)
-                 (org-present-read-write)))
-     (add-hook 'org-present-mode-quit-hook
-               (lambda ()
-                 (org-present-small)
-                 (org-remove-inline-images)
-                 (org-present-show-cursor)
-                 (org-present-read-write)))))
+(require 'bryan-org-present)
 
 ;; Zoom
 ;; You can use `C-x C-+’ and ‘C-x C--’ (‘text-scale-adjust’) to increase
 ;; or decrease the buffer text size (`C-+’ or ‘C--’ to repeat). To
 ;; restore the default (global) face height, type ‘C-x C-0’. ‘S-mouse-1’
 ;; pops up a menu where you can choose these same actions.
+(require 'bryan-hy)
 
-(use-package hy-mode
-  :ensure t)
-
-(add-hook 'hy-mode-hook 'paredit-mode)
-
-(setq rcirc-server-alist
-      '(("irc.freenode.net" :port 6697 :encryption tls
-	 :channels ("#haskell" "#emacs"))))
-
-(setq rcirc-authinfo '(("freenode" nickserv ,freenode-username ,freenode-password)))
-
-(defun-rcirc-command reconnect (arg)
-  "Reconnect the server process."
-  (interactive "i")
-  (if (buffer-live-p rcirc-server-buffer)
-      (with-current-buffer rcirc-server-buffer
-        (let ((reconnect-buffer (current-buffer))
-              (server (or rcirc-server rcirc-default-server))
-              (port (if (boundp 'rcirc-port) rcirc-port rcirc-default-port))
-              (nick (or rcirc-nick rcirc-default-nick))
-              channels)
-          (dolist (buf (buffer-list))
-            (with-current-buffer buf
-              (when (equal reconnect-buffer rcirc-server-buffer)
-                (remove-hook 'change-major-mode-hook
-                             'rcirc-change-major-mode-hook)
-                (let ((server-plist (cdr (assoc-string server rcirc-server-alist))))
-                  (when server-plist
-                    (setq channels (plist-get server-plist :channels))))
-                )))
-          (if process (delete-process process))
-          (rcirc-connect server port nick
-                         nil
-                         nil
-                         channels)))))
-
+(require 'bryan-rcirc)
 
 ;; W3M: Otherwise known as "Bryan trying to be a hipster by using a text-based web browser"
 ;; http://www.emacswiki.org/emacs/emacs-w3m
 ;; http://beatofthegeek.com/2014/02/my-setup-for-using-emacs-as-web-browser.html
-(use-package w3m
-  :ensure t
-  :config
-  (progn
-    (setq browse-url-browser-function 'w3m-goto-url-new-session)
-    (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
-    (setq w3m-user-agent "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
-    (defun reddit (reddit)
-      "Opens the REDDIT in w3m-new-session"
-       (interactive (list
-                     (read-string "Enter the reddit (default: haskell): " nil nil "haskell" nil)))
-       (browse-url (format "http://m.reddit.com/r/%s" reddit)))))
+(require 'bryan-w3m)
 
 (require 'tramp)
 ;; C-x C-f /sudo::/path/to/file
@@ -870,15 +723,11 @@ want to use in the modeline *in lieu of* the original.")
 (use-package rust-mode
   :ensure t)
 
-;; this will make the symbol my-nasty-variable's value void
-;; (makunbound 'my-nasty-variable)
-;; this will make the symbol my-nasty-function's
-;; function definition void
-;; (fmakunbound 'my-nasty-function)
-
 (use-package evil-anzu
   :ensure t
   :config
   (progn
     (with-eval-after-load 'evil
       (require 'evil-anzu))))
+
+(require 'bryan-rename-file-and-buffer)

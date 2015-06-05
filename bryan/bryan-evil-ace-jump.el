@@ -1,4 +1,25 @@
-;; evil-ace-jump.el -- ripped from EmacsWiki
+;; ace-jump.el
+
+(use-package ace-jump-mode
+  :ensure t)
+
+(progn
+  (autoload
+    'ace-jump-mode
+    "ace-jump-mode"
+    "Emacs quick move minor mode"
+    t))
+(bind-key "C-c SPC" 'ace-jump-mode)
+
+(autoload
+  'ace-jump-mode-pop-mark
+  "ace-jump-mode"
+  "Ace jump back:-)"
+  t)
+(eval-after-load "ace-jump-mode"
+  '(ace-jump-mode-enable-mark-sync))
+(define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+
 ;; http://www.emacswiki.org/emacs/Evil#toc17
 
 ;; AceJump integration is now included in evil, this gist is only preserved for historical reasons.
@@ -70,4 +91,4 @@
 (defadvice evil-visual-block (before spc-for-char-jump activate)
   (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
 
-(provide 'evil-ace-jump)
+(provide 'ace-jump)
