@@ -19,4 +19,4 @@
 (use-package jade-mode
   :mode "\\.jade$")
 
-(provide 'bryan-frontend.el)
+(provide 'bryan-frontend)
