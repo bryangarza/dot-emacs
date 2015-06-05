@@ -865,3 +865,10 @@ want to use in the modeline *in lieu of* the original.")
 ;; this will make the symbol my-nasty-function's
 ;; function definition void
 ;; (fmakunbound 'my-nasty-function)
+
+(use-package evil-anzu
+  :ensure t
+  :config
+  (progn
+    (with-eval-after-load 'evil
+      (require 'evil-anzu))))
