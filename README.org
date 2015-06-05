@@ -63,6 +63,13 @@ If I ever want to pin packages:
 - [[https://github.com/howardabrams/dot-files/blob/master/emacs-irc.org][Howard Abrams' IRC settings]]
 - [[https://github.com/jorgenschaefer/circe/wiki/Configuration][Circe wiki: Configuration]]
 
+*** Aligning Code
+
+[[https://wiki.haskell.org/Emacs/Indentation#Aligning_code][Haskell wiki: Aligning code in Emacs]]
+#+BEGIN_SRC emacs-lisp
+(bind-key "C-x a r" 'align-regexp)
+#+END_SRC
+
 ** Here Be Dragons
 
 This setup is heavily customized, [[http://www.bryangarza.me/contact.html][let me know]] if you run into any problems and
