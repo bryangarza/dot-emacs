@@ -109,7 +109,7 @@
       scheme-program-name    "/usr/local/bin/mit-scheme"
       custom-file            "~/.emacs.d/custom.el")
 
-(add-hook 'prog-mode-hook 'linum-mode)
+;; (add-hook 'prog-mode-hook 'linum-mode)
 
 (load custom-file)
 (setq-default indent-tabs-mode nil)
