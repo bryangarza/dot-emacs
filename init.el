@@ -134,8 +134,6 @@
 ;; getting errors (when scheme file was opened)
 (semantic-mode 0)
 
-(require 'bryan-keybindings)
-
 (use-package winner
   :ensure t
   :defer t
