@@ -338,55 +338,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (setq doc-view-continuous t)
 
-(defun replace-smart-quotes (beg end)
-  "Replace 'smart quotes' in buffer or region with ascii quotes."
-  (interactive "r")
-  (format-replace-strings '(("\x201C" . "\"")
-                            ("\x201D" . "\"")
-                            ("\x2018" . "'")
-                            ("\x2019" . "'"))
-                          nil beg end))
+(require 'bryan-smart-quotes)
 
-(defun yank-and-replace-smart-quotes ()
-  "Yank (paste) and replace smart quotes from the source with ascii quotes."
-  (interactive)
-  (yank)
-  (replace-smart-quotes (mark) (point)))
-
-(global-set-key (kbd "C-c y") 'yank-and-replace-smart-quotes)
-
-(use-package scala-mode2
-  :ensure t)
-
-(defun scala-mode-custom-hook ()
-   ;; sbt-find-definitions is a command that tries to find (with grep)
-   ;; the definition of the thing at point.
-   (local-set-key (kbd "M-.") 'sbt-find-definitions)
-
-   ;; use sbt-run-previous-command to re-compile your code after changes
-   (local-set-key (kbd "C-x '") 'sbt-run-previous-command))
-
-(add-hook 'scala-mode-hook 'scala-mode-custom-hook)
-
-(use-package sbt-mode
-  :ensure t)
-
-(defun sbt-mode-custom-hook ()
-  ;; compilation-skip-threshold tells the compilation minor-mode
-  ;; which type of compiler output can be skipped. 1 = skip info
-  ;; 2 = skip info and warnings.
-  (setq compilation-skip-threshold 1)
-
-  ;; Bind C-a to 'comint-bol when in sbt-mode. This will move the
-  ;; cursor to just after prompt.
-  (local-set-key (kbd "C-a") 'comint-bol)
-
-  ;; Bind M-RET to 'comint-accumulate. This will allow you to add
-  ;; more than one line to scala console prompt before sending it
-  ;; for interpretation. It will keep your command history cleaner.
-  (local-set-key (kbd "M-RET") 'comint-accumulate))
-
-(add-hook 'sbt-mode-hook 'sbt-mode-custom-hook)
+(require 'bryan-scala)
 
 ;; Replace default expand command
 (global-set-key (kbd "M-/") 'hippie-expand)
