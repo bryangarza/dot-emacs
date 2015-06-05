@@ -43,3 +43,6 @@
 [submodule "lisp/org-mode"]
 	path = lisp/org-mode
 	url = git://orgmode.org/org-mode.git
+[submodule "themes/moe-theme.el"]
+	path = themes/moe-theme.el
+	url = git@github.com:bryangarza/moe-theme.el.git
