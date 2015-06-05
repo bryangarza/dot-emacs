@@ -73,7 +73,7 @@ I'd like this configuration to be useful to others.
 
 OCaml settings require external installation, see
 [[https://github.com/realworldocaml/book/wiki/Installation-Instructions][Real World OCaml's GitHub wiki]]. If you don't care about OCaml, simply comment
-out that section of the config.
+out ~(provide 'bryan-ocaml)~.
 
 *** IRC
 
