@@ -20,6 +20,8 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
+(add-to-list 'load-path "~/.emacs.d/bryan")
+
 (require 'bryan-packages)
 (unless (bryan/packages-installed-p)
   (message "%s" "Installing required packages...")
@@ -29,7 +31,6 @@
       (package-install pkg))))
 
 (add-to-list 'load-path "~/.emacs.d/customizations")
-(add-to-list 'load-path "~/.emacs.d/bryan")
 
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
