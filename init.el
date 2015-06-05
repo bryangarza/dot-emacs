@@ -4,7 +4,6 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 
-
 (package-initialize)
 
 (when (not package-archive-contents)
@@ -58,7 +57,6 @@
     (set-face-attribute face nil :underline nil))
   (face-list))
 ;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
-
 
 ;; (set-frame-parameter nil 'background-mode 'dark)
 ;; (load-theme 'cyberpunk t)
@@ -666,13 +664,9 @@ want to use in the modeline *in lieu of* the original.")
 (require 'bryan-pandoc)
 (require 'bryan-evil-ace-jump)
 (require 'bryan-org-present)
-
 (require 'bryan-hy)
-
 (require 'bryan-rcirc)
-
 (require 'bryan-w3m)
-
 (require 'tramp)
 ;; C-x C-f /sudo::/path/to/file
 
