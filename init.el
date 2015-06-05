@@ -130,22 +130,10 @@
 (require 'bryan-helm)
 (require 'bryan-better-splits)
 (require 'bryan-keybindings)
+(require 'bryan-util)
 
 ;; getting errors (when scheme file was opened)
 (semantic-mode 0)
-
-(use-package winner
-  :ensure t
-  :defer t
-  :config (winner-mode 1))
-
-(use-package recentf
-  :defer t
-  :config
-  (progn
-    (recentf-mode 1)
-    (setq recentf-max-saved-items 200
-          recentf-max-menu-items  25)))
 
 (defun minibuffer-keyboard-quit ()
   "Abort recursive edit.
