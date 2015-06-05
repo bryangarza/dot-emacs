@@ -129,6 +129,7 @@
 (require 'bryan-json)
 (require 'bryan-helm)
 (require 'bryan-better-splits)
+(require 'bryan-rename-or-delete-buffer-and-file)
 (require 'bryan-keybindings)
 (require 'bryan-util)
 
@@ -287,5 +288,3 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (progn
     (with-eval-after-load 'evil
       (require 'evil-anzu))))
-
-(require 'bryan-rename-or-delete-buffer-and-file)
