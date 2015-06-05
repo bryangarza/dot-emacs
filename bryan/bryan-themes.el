@@ -6,7 +6,6 @@
 
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/color-theme-ujelly")
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/moe-theme.el/")
@@ -29,6 +28,5 @@
 
 ;; (set-frame-parameter nil 'background-mode 'dark)
 ;; (load-theme 'cyberpunk t)
-;; (load-theme 'solarized t)
 
 (provide 'bryan-themes)
