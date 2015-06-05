@@ -508,14 +508,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (use-package auto-complete
   :config (add-to-list 'ac-modes 'geiser-repl-mode))
 
-;; https://github.com/magnars/multiple-cursors.el
-(use-package multiple-cursors
-  :ensure t
-  :defer t
-  :bind (("C-S-c C-S-c" . mc/edit-lines)
-         ("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this)
-         ("C-c C-<" . mc/mark-all-like-this)))
+(require 'bryan-multiple-cursors)
 
 (defvar mode-line-cleaner-alist
   `((auto-complete-mode     . " α")
