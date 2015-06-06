@@ -19,8 +19,6 @@
     (when (not (package-installed-p pkg))
       (package-install pkg))))
 
-(add-to-list 'load-path "~/.emacs.d/customizations")
-
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
@@ -82,5 +80,5 @@
 (dolist (file bryan-pkg-full)
   (require file))
 
-(load "elisp-editing.el")
-(load "setup-clojure.el")
+(load "bryan-elisp.el")
+(load "bryan-clojure.el")
