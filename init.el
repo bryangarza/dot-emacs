@@ -57,16 +57,8 @@
 (require 'bryan-haskell)
 (require 'bryan-circe)
 (require 'bryan-helm-swoop)
-
-(setq geiser-active-implementations '(racket))
-
-(require 'ac-geiser)
-(add-hook 'geiser-mode-hook 'ac-geiser-setup)
-(add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
-
-(use-package auto-complete
-  :config (add-to-list 'ac-modes 'geiser-repl-mode))
-
+(require 'auto-complete)
+(require 'bryan-racket)
 (require 'bryan-multiple-cursors)
 (require 'bryan-clean-mode-line)
 (require 'bryan-toggle-split-or-rotate-windows)

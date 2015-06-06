@@ -14,6 +14,7 @@
     flycheck
     circe
     debbugs
+    auto-complete
     geiser
     ac-geiser
     multiple-cursors
