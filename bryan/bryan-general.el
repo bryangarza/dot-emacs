@@ -45,5 +45,6 @@
 (require 'org)
 (require 'auto-complete)
 (require 'tramp)
+(require 'bind-key)
 
 (provide 'bryan-general)

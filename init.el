@@ -36,7 +36,6 @@
         bryan-interface
         bryan-paredit
         bryan-hooks
-        bind-key
         bryan-evil
         bryan-cider
         bryan-paren
@@ -69,7 +68,6 @@
         bryan-hy
         bryan-rcirc
         bryan-w3m
-        tramp
         bryan-rust
         bryan-elisp
         bryan-clojure
