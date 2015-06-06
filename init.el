@@ -71,12 +71,11 @@
         bryan-w3m
         tramp
         bryan-rust
+        bryan-elisp
+        bryan-clojure
         bryan-keybindings
         ))
 
 ; Now load other things
 (dolist (file bryan-pkg-full)
   (require file))
-
-(load "bryan-elisp.el")
-(load "bryan-clojure.el")
