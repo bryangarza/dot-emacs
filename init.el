@@ -31,8 +31,7 @@
   (require 'use-package))
 
 (setq bryan-pkg-full
-      '(org
-        bryan-themes
+      '(bryan-themes
         bryan-general
         bryan-interface
         bryan-paredit
@@ -56,7 +55,6 @@
         bryan-haskell
         bryan-circe
         bryan-helm-swoop
-        auto-complete
         bryan-racket
         bryan-multiple-cursors
         bryan-clean-mode-line

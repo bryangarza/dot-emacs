@@ -42,4 +42,8 @@
     (setq-default save-place t)
     (setq save-place-file "~/.emacs.d/saved-places")))
 
+(require 'org)
+(require 'auto-complete)
+(require 'tramp)
+
 (provide 'bryan-general)
