@@ -7,7 +7,7 @@
  ("M-w"     . execute-extended-command)
  ("s-w"     . execute-extended-command)
  ("s-r"     . revert-buffer)
- ("s-R"     . prelude-rename-buffer-or-file)
+ ("s-R"     . prelude-rename-buffer-and-file)
  ("s-D"     . prelude-delete-file-and-buffer)
  ("s-i"     . magit-status)
  ("s-o"     . other-window)
