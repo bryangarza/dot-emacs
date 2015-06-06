@@ -3,7 +3,7 @@
 (setq mac-function-modifier 'hyper)
 (global-set-key [(super t)] nil)
 
- (bind-keys*
+(bind-keys*
  ("M-w"     . execute-extended-command)
  ("s-w"     . execute-extended-command)
  ("s-r"     . revert-buffer)
@@ -35,7 +35,7 @@
 
 (bind-keys :map evil-motion-state-map
            ("C-e" . move-end-of-line))
-           ;; ("C-e" . evil-copy-from-below)
+;; ("C-e" . evil-copy-from-below)
 
 (define-key evil-normal-state-map [escape] 'keyboard-quit)
 (define-key evil-visual-state-map [escape] 'keyboard-quit)
@@ -52,8 +52,8 @@
 (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
   (add-hook hook 'elisp-slime-nav-mode)
   (evil-leader/set-key
-   "s" 'elisp-slime-nav-find-elisp-thing-at-point
-   "S" 'pop-tag-mark
-   "d" 'elisp-slime-nav-describe-elisp-thing-at-point))
+    "s" 'elisp-slime-nav-find-elisp-thing-at-point
+    "S" 'pop-tag-mark
+    "d" 'elisp-slime-nav-describe-elisp-thing-at-point))
 
 (provide 'bryan-keybindings)
