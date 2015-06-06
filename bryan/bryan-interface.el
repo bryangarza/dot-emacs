@@ -1,11 +1,9 @@
 ;; interface.el
 
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(scroll-bar-mode 0)
-(menu-bar-mode -1)
+(dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode global-hl-line-mode))
+  (when (fboundp mode) (funcall mode -1)))
+
 (column-number-mode t)
-(global-hl-line-mode -1)
 (blink-cursor-mode +1)
 (display-time)
 (display-battery-mode)
