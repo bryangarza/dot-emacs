@@ -10,6 +10,11 @@
 
 (setq-default indent-tabs-mode nil)
 (setq-default show-trailing-whitespace nil)
+
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
 ;; (set-face-attribute 'default nil
 ;;                     :family "Droid Sans Mono Slashed" :height 140 :weight 'normal)
 (set-face-attribute 'default nil
