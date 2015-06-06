@@ -28,46 +28,9 @@
 (setq org-src-fontify-natively t)
 
 (require 'bryan-themes)
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
+(require 'bryan-general)
 
-(desktop-save-mode t)
-(fset 'yes-or-no-p 'y-or-n-p)
-
-(setq electric-indent-mode                 t
-      redisplay-dont-pause                 t
-      apropos-do-all                       t
-      require-final-newline                t
-      save-interprogram-paste-before-kill  t
-      mouse-yank-at-point                  t
-      system-uses-terminfo                 nil
-      ring-bell-function                   'ignore
-      backup-directory-alist '(("." . "~/.emacs-backups"))
-      scheme-program-name    "/usr/local/bin/mit-scheme"
-      custom-file            "~/.emacs.d/custom.el")
-
-;; (add-hook 'prog-mode-hook 'linum-mode)
-
-(load custom-file)
-(setq-default indent-tabs-mode nil)
-(setq-default show-trailing-whitespace nil)
-;; (set-face-attribute 'default nil
-;;                     :family "Droid Sans Mono Slashed" :height 140 :weight 'normal)
-(set-face-attribute 'default nil
-                    :family "Monaco" :height 150 :weight 'normal)
-;; ლ(ಠ益ಠ)ლ ¡porque!
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
-
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(scroll-bar-mode 0)
-(menu-bar-mode -1)
-(column-number-mode t)
-(global-hl-line-mode -1)
-(blink-cursor-mode +1)
-(display-time)
-(display-battery-mode)
+(require 'bryan-interface)
 
 (add-hook 'paredit-mode-hook 'evil-paredit-mode)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
