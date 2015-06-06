@@ -24,69 +24,25 @@
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-(require 'org)
-(setq org-src-fontify-natively t)
+(load-file "~/.private.el")
 
-(setq doc-view-continuous t)
-;; Replace default expand command
-(global-set-key (kbd "M-/") 'hippie-expand)
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 (eval-when-compile
   (require 'use-package))
 
+(require 'org)
 (require 'bryan-themes)
 (require 'bryan-general)
-
 (require 'bryan-interface)
 (require 'bryan-paredit)
-
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-
+(require 'bryan-hooks)
 (require 'bind-key)
-
-(use-package winner
-  :ensure t
-  :defer t
-  :init (winner-mode 1))
-
-(use-package evil-leader
-  :config
-  (progn
-    (global-evil-leader-mode)
-    (evil-leader/set-leader ",")))
-
-(use-package evil
-  :ensure t
-  :init (evil-mode 1)
-  :config (setq evil-move-cursor-back nil))
-
-(use-package evil-surround
-  :ensure t
-  :init (global-evil-surround-mode 1))
-
-(use-package evil-anzu
-  :ensure t
-  :config
-  (progn
-    (with-eval-after-load 'evil
-      (require 'evil-anzu))))
-
-(load "elisp-editing.el")
-(load "setup-clojure.el")
-
-(require 'bryan-paren)
+(require 'bryan-evil)
 (require 'bryan-cider)
-
-(use-package auto-complete
-  :ensure t
-  :defer t
-  :config
-  (progn
-    (require 'auto-complete-config)
-    (auto-complete-mode t)))
-
+(require 'bryan-paren)
+(require 'bryan-auto-complete)
 (require 'bryan-frontend)
 (require 'bryan-markdown)
 (require 'bryan-json)
@@ -94,50 +50,13 @@
 (require 'bryan-better-splits)
 (require 'bryan-rename-or-delete-buffer-and-file)
 (require 'bryan-minibuffer-keyboard-quit)
-(require 'bryan-keybindings)
 (require 'bryan-util)
-
-;; getting errors (when scheme file was opened)
-(semantic-mode 0)
-
-(use-package flycheck
-  :ensure t
-  :defer t
-  :init (setq-default flycheck-disabled-checkers '(javascript-jshint)))
-;; (add-hook 'after-init-hook #'global-flycheck-mode)
-
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
-
-(defun c-mode-custom-hook ()
-  (setq c-default-style "linux")
-  (setq c-basic-offset 4)
-  (bind-key "C-c C-c" 'recompile c-mode-map))
-
-(add-hook 'js-mode-hook 'paredit-nonlisp-hook)
-(add-hook 'c-mode-common-hook 'paredit-nonlisp-hook)
-(add-hook 'c-mode-common-hook 'c-mode-custom-hook)
-
+(require 'bryan-flycheck)
+(require 'bryan-c)
 (require 'bryan-ocaml)
 (require 'bryan-haskell)
-
-(bind-key "C-x a r" 'align-regexp)
-
-(use-package saveplace
-  :config
-  (progn
-    (setq-default save-place t)
-    (setq save-place-file "~/.emacs.d/saved-places")))
-
-;; IRC auth
-(load-file "~/.private.el")
 (require 'bryan-circe)
 (require 'bryan-helm-swoop)
-
-(use-package expand-region
-  :ensure t
-  :defer t
-  :bind ("C-=" . er/expand-region))
 
 (setq geiser-active-implementations '(racket))
 
@@ -149,23 +68,9 @@
   :config (add-to-list 'ac-modes 'geiser-repl-mode))
 
 (require 'bryan-multiple-cursors)
-
 (require 'bryan-clean-mode-line)
-
-(add-hook 'window-startup-hook 'toggle-frame-maximized)
-
-(bind-key "M-)" 'paredit-wrap-round-from-behind evil-motion-state-map)
-(bind-key "M-)" 'paredit-wrap-round-from-behind evil-insert-state-map)
-
 (require 'bryan-toggle-split-or-rotate-windows)
 (require 'elisp-slime-nav)
-(dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
-  (add-hook hook 'elisp-slime-nav-mode)
-  (evil-leader/set-key
-   "s" 'elisp-slime-nav-find-elisp-thing-at-point
-   "S" 'pop-tag-mark
-   "d" 'elisp-slime-nav-describe-elisp-thing-at-point))
-
 (require 'bryan-smart-quotes)
 (require 'bryan-scala)
 (require 'bryan-magit)
@@ -177,3 +82,7 @@
 (require 'bryan-w3m)
 (require 'tramp)
 (require 'bryan-rust)
+(require 'bryan-keybindings)
+
+(load "elisp-editing.el")
+(load "setup-clojure.el")

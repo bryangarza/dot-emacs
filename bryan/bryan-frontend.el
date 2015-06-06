@@ -19,4 +19,6 @@
 (use-package jade-mode
   :mode "\\.jade$")
 
+(add-hook 'js-mode-hook 'paredit-nonlisp-hook)
+
 (provide 'bryan-frontend)

@@ -46,4 +46,14 @@
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 (global-set-key [escape] 'evil-exit-emacs-state)
 
+(bind-key "M-)" 'paredit-wrap-round-from-behind evil-motion-state-map)
+(bind-key "M-)" 'paredit-wrap-round-from-behind evil-insert-state-map)
+
+(dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
+  (add-hook hook 'elisp-slime-nav-mode)
+  (evil-leader/set-key
+   "s" 'elisp-slime-nav-find-elisp-thing-at-point
+   "S" 'pop-tag-mark
+   "d" 'elisp-slime-nav-describe-elisp-thing-at-point))
+
 (provide 'bryan-keybindings)

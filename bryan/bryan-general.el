@@ -20,8 +20,26 @@
 
 (load custom-file)
 
+(setq doc-view-continuous t)
+
+(setq org-src-fontify-natively t)
+
+;; Replace default expand command
+(global-set-key (kbd "M-/") 'hippie-expand)
+
 ;; ლ(ಠ益ಠ)ლ ¡porque!
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+;; getting errors (when scheme file was opened)
+(semantic-mode 0)
+
+(bind-key "C-x a r" 'align-regexp)
+
+(use-package saveplace
+  :config
+  (progn
+    (setq-default save-place t)
+    (setq save-place-file "~/.emacs.d/saved-places")))
 
 (provide 'bryan-general)
