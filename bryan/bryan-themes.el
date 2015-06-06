@@ -12,7 +12,6 @@
 (add-to-list 'load-path "~/.emacs.d/themes/moe-theme.el/")
 ;; so kawaii~  ✿◕ ‿ ◕✿
 (require 'moe-theme)
-;; (moe-light)
 (setq moe-theme-highlight-buffer-id nil)
 (moe-light)
 (moe-theme-set-color 'green)
