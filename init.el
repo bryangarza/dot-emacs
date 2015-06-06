@@ -99,13 +99,6 @@
   :ensure t
   :init (global-evil-surround-mode 1))
 
-;; (use-package linum-relative
-;;   :ensure t
-;;   :init
-;;   (progn
-;;     (global-linum-mode 1)
-;;     (setq linum-relative-current-symbol "")))
-
 (load "elisp-editing.el")
 (load "setup-clojure.el")
 
