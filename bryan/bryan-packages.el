@@ -4,7 +4,6 @@
   '(evil
     evil-paredit
     evil-surround
-    paredit
     smartparens
     rainbow-delimiters
     rainbow-mode

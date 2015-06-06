@@ -27,18 +27,22 @@
 (require 'org)
 (setq org-src-fontify-natively t)
 
+(setq doc-view-continuous t)
+;; Replace default expand command
+(global-set-key (kbd "M-/") 'hippie-expand)
+
+(eval-when-compile
+  (require 'use-package))
+
 (require 'bryan-themes)
 (require 'bryan-general)
 
 (require 'bryan-interface)
+(require 'bryan-paredit)
 
-(add-hook 'paredit-mode-hook 'evil-paredit-mode)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
-
-(eval-when-compile
-  (require 'use-package))
 
 (require 'bind-key)
 
@@ -61,6 +65,13 @@
 (use-package evil-surround
   :ensure t
   :init (global-evil-surround-mode 1))
+
+(use-package evil-anzu
+  :ensure t
+  :config
+  (progn
+    (with-eval-after-load 'evil
+      (require 'evil-anzu))))
 
 (load "elisp-editing.el")
 (load "setup-clojure.el")
@@ -97,13 +108,6 @@
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
-
-(defun paredit-nonlisp-hook ()
-  "Turn on paredit mode for non-lisps."
-  (interactive)
-  (set (make-local-variable 'paredit-space-for-delimiter-predicates)
-       '((lambda (endp delimiter) nil)))
-  (paredit-mode 1))
 
 (defun c-mode-custom-hook ()
   (setq c-default-style "linux")
@@ -150,13 +154,6 @@
 
 (add-hook 'window-startup-hook 'toggle-frame-maximized)
 
-(defun paredit-wrap-round-from-behind ()
-  (interactive)
-  (forward-sexp -1)
-  (paredit-wrap-round)
-  (insert " ")
-  (forward-char -1))
-
 (bind-key "M-)" 'paredit-wrap-round-from-behind evil-motion-state-map)
 (bind-key "M-)" 'paredit-wrap-round-from-behind evil-insert-state-map)
 
@@ -169,10 +166,6 @@
    "S" 'pop-tag-mark
    "d" 'elisp-slime-nav-describe-elisp-thing-at-point))
 
-(setq doc-view-continuous t)
-;; Replace default expand command
-(global-set-key (kbd "M-/") 'hippie-expand)
-
 (require 'bryan-smart-quotes)
 (require 'bryan-scala)
 (require 'bryan-magit)
@@ -184,10 +177,3 @@
 (require 'bryan-w3m)
 (require 'tramp)
 (require 'bryan-rust)
-
-(use-package evil-anzu
-  :ensure t
-  :config
-  (progn
-    (with-eval-after-load 'evil
-      (require 'evil-anzu))))
