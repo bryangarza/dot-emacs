@@ -74,6 +74,5 @@
         bryan-keybindings
         ))
 
-; Now load other things
 (dolist (file bryan-pkg-full)
   (require file))
