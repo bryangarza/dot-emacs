@@ -46,6 +46,7 @@
         bryan-frontend
         bryan-markdown
         bryan-json
+        bryan-term
         bryan-helm
         bryan-better-splits
         bryan-rename-or-delete-buffer-and-file
