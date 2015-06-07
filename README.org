@@ -77,6 +77,13 @@ If I ever want to pin packages:
 C-x C-f /sudo::/path/to/file
 #+END_EXAMPLE
 
+*** Keybindings
+
+Most of the keybindings I have set can be found in
+=bryan/bryan-keybindings.el=. The majority involve the Super key,
+which on Mac is the Command key. On Windows or GNU/Linux, this is
+probably your Win key, but if it's not bound, then just bind it!
+
 ** Here Be Dragons
 
 This setup is heavily customized, [[http://www.bryangarza.me/contact.html][let me know]] if you run into any problems and
