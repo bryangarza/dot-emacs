@@ -27,6 +27,7 @@
   (progn
     (if (require 'toc-org nil t)
         (add-hook 'org-mode-hook 'toc-org-enable)
-      (warn "toc-org not found"))))
+      (warn "toc-org not found"))
+    (add-to-list 'org-tag-alist '("TOC" . ?T))))
 
 (provide 'bryan-org)
