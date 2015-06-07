@@ -5,6 +5,7 @@ Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@
 * Table of Contents                                                :TOC_2_gh:
  - [[#important][Important!]]
      - [[#paredit][Paredit]]
+     - [[#org-mode][Org mode]]
      - [[#org-present][Org-present]]
      - [[#zooming][Zooming]]
      - [[#unbinding][Unbinding]]
@@ -31,6 +32,12 @@ Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@
 
 - [[http://www.emacswiki.org/emacs/PareditCheatsheet][Paredit Cheatsheet]]
 - [[http://mumble.net/~campbell/emacs/paredit.html][Another Paredit Cheatsheet]]
+
+** Org mode
+
+- [[http://orgmode.org/org.html][The Org Manual]]
+- [[http://orgmode.org/guide/][The compact Org-mode Guide]]
+- [[https://emacsclub.github.io/html/org_tutorial.html][Org-mode Tutorial / Cheat Sheet]]
 
 ** Org-present
 
