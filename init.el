@@ -61,7 +61,6 @@
         bryan-multiple-cursors
         bryan-clean-mode-line
         bryan-toggle-split-or-rotate-windows
-        elisp-slime-nav
         bryan-smart-quotes
         bryan-scala
         bryan-magit
