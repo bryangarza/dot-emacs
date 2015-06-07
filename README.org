@@ -2,14 +2,37 @@
 
 Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@bryangarza/my-descent-into-evil-98f7017475b6][My Descent Into Evil]].
 
-** Important!
+* Table of Contents                                                :TOC_2_gh:
+ - [[#important][Important!]]
+     - [[#paredit][Paredit]]
+     - [[#org-present][Org-present]]
+     - [[#zooming][Zooming]]
+     - [[#unbinding][Unbinding]]
+     - [[#pinning][Pinning]]
+     - [[#helm][Helm]]
+     - [[#circe][Circe]]
+     - [[#aligning-code][Aligning Code]]
+     - [[#editing-with-sudo][Editing with Sudo]]
+     - [[#keybindings][Keybindings]]
+ - [[#here-be-dragons][Here Be Dragons]]
+ - [[#when-cloning][When Cloning]]
+     - [[#ocaml][OCaml]]
+     - [[#irc][IRC]]
+     - [[#submodules][Submodules]]
+ - [[#graphical-vs-console-emacs][Graphical vs Console Emacs]]
+ - [[#languages][Languages]]
+ - [[#packages-and-modes][Packages and Modes]]
+ - [[#license][License]]
+ - [[#internal-notes][Internal Notes]]
 
-*** Paredit
+* Important!
+
+** Paredit
 
 - [[http://www.emacswiki.org/emacs/PareditCheatsheet][Paredit Cheatsheet]]
 - [[http://mumble.net/~campbell/emacs/paredit.html][Another Paredit Cheatsheet]]
 
-*** Org-present
+** Org-present
 
 - left and right for movement
 - =C-c C-== for large text
@@ -18,7 +41,7 @@ Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@
 - =C-c <= to jump to first slide
 - =C-c >= to jump to last slide
 
-*** Zooming
+** Zooming
 
 - =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to increase or
   decrease the buffer text size
@@ -26,7 +49,7 @@ Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@
 - =C-x C-0= to restore the default (global) face height
 - =S-mouse-1= pops up a menu where you can choose these same actions
 
-*** Unbinding
+** Unbinding
 
 This will make the symbol my-nasty-variable's value void:
 
@@ -40,7 +63,7 @@ This will make the symbol my-nasty-function's function definition void:
 (fmakunbound 'my-nasty-function)
 #+END_SRC
 
-*** Pinning
+** Pinning
 
 If I ever want to pin packages:
 
@@ -53,17 +76,17 @@ If I ever want to pin packages:
   :pin melpa-stable)
 #+END_SRC
 
-*** Helm
+** Helm
 
 - [[http://emacs-helm.github.io/helm/][Helm home page]]
 - [[http://tuhdo.github.io/helm-intro.html][Helm intro]]
 
-*** Circe
+** Circe
 
 - [[https://github.com/howardabrams/dot-files/blob/master/emacs-irc.org][Howard Abrams' IRC settings]]
 - [[https://github.com/jorgenschaefer/circe/wiki/Configuration][Circe wiki: Configuration]]
 
-*** Aligning Code
+** Aligning Code
 
 [[https://wiki.haskell.org/Emacs/Indentation#Aligning_code][Haskell wiki: aligning code in Emacs]]
 
@@ -71,34 +94,34 @@ If I ever want to pin packages:
 (bind-key "C-x a r" 'align-regexp)
 #+END_SRC
 
-*** Editing with Sudo
+** Editing with Sudo
 
 #+BEGIN_EXAMPLE
 C-x C-f /sudo::/path/to/file
 #+END_EXAMPLE
 
-*** Keybindings
+** Keybindings
 
 Most of the keybindings I have set can be found in
 =bryan/bryan-keybindings.el=. The majority involve the Super key,
 which on Mac is the Command key. On Windows or GNU/Linux, this is
 probably your Win key, but if it's not bound, then just bind it!
 
-** Here Be Dragons
+* Here Be Dragons
 
 This setup is heavily customized, [[http://www.bryangarza.me/contact.html][let me know]] if you run into any problems and
 we can troubleshoot. Though official support is neither offered nor guaranteed,
 I'd like this configuration to be useful to others.
 
-** When Cloning
+* When Cloning
 
-*** OCaml
+** OCaml
 
 OCaml settings require external installation, see
 [[https://github.com/realworldocaml/book/wiki/Installation-Instructions][Real World OCaml's GitHub wiki]]. If you don't care about OCaml, simply comment
 out =bryan-ocaml= in =bryan-pkg-full=.
 
-*** IRC
+** IRC
 
 Create a file =~/.private.el=:
 
@@ -113,7 +136,7 @@ it is by restarting Emacs. The simpler alternative is ~M-x rcirc~, though I have
 not yet figured out how to get it to identify to Nickserv automatically
 yet. Circe does have automatic identify working.
 
-*** Submodules
+** Submodules
 
 Remember to also clone *submodules*:
 
@@ -121,7 +144,7 @@ Remember to also clone *submodules*:
 git clone --recursive git@github.com:bryangarza/dot-emacs.git
 #+END_SRC
 
-** Graphical vs Console Emacs
+* Graphical vs Console Emacs
 
 This setup will work much better with *Graphical* Emacs than the terminal-based
 Emacs. This is because the terminal gobbles up various key chords. Not to
@@ -137,7 +160,7 @@ this config to work well with console mode though, especially because iTerm 2
 takes control of the ⌘ key, as well as some other chords. Your experience may
 vary.
 
-** Languages
+* Languages
 
 I've configured it for the following languages:
 - HTML
@@ -161,7 +184,7 @@ I've configured it for the following languages:
 Other languages may work out-of-the-box, for example I have not changed any
 settings for Python but the default editing experience is decent as-is.
 
-** Packages and Modes
+* Packages and Modes
 
 Notable packages and modes that I use include
 
@@ -172,7 +195,7 @@ Notable packages and modes that I use include
 - Multiple Cursors
 - Ace Jump
 
-** License
+* License
 
 Copyright (C) 2015 Bryan Garza
 
@@ -188,7 +211,7 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with
 this program.  If not, see <http://www.gnu.org/licenses/>.
 
-** Internal Notes
+* Internal Notes
 
 Because I keep forgetting the Org mode formatting:
 
