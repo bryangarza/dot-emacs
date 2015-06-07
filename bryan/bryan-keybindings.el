@@ -56,4 +56,7 @@
     "S" 'pop-tag-mark
     "d" 'elisp-slime-nav-describe-elisp-thing-at-point))
 
+(add-hook 'term-mode-hook (lambda ()
+                            (define-key term-raw-map (kbd "s-v") 'term-paste)))
+
 (provide 'bryan-keybindings)
