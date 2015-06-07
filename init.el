@@ -35,6 +35,7 @@
 
 (setq bryan-pkg-full
       '(bryan-themes
+        bryan-org
         bryan-general
         bryan-interface
         bryan-paredit
@@ -67,7 +68,6 @@
         bryan-magit
         bryan-pandoc
         bryan-ace-jump
-        bryan-org-present
         bryan-hy
         bryan-rcirc
         bryan-w3m

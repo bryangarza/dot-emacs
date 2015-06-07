@@ -22,7 +22,6 @@
 
 (setq doc-view-continuous t)
 
-(setq org-src-fontify-natively t)
 
 ;; Replace default expand command
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -42,7 +41,6 @@
     (setq-default save-place t)
     (setq save-place-file "~/.emacs.d/saved-places")))
 
-(require 'org)
 (require 'auto-complete)
 (require 'tramp)
 (require 'bind-key)

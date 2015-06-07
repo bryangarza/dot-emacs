@@ -1,4 +1,8 @@
-;; org-present.el
+;; org.el
+
+(require 'org)
+
+(setq org-src-fontify-natively t)
 
 (autoload 'org-present "org-present" nil t)
 
@@ -17,4 +21,12 @@
                  (org-present-show-cursor)
                  (org-present-read-write)))))
 
-(provide 'bryan-org-present)
+(use-package toc-org
+  :ensure t
+  :config
+  (progn
+    (if (require 'toc-org nil t)
+        (add-hook 'org-mode-hook 'toc-org-enable)
+      (warn "toc-org not found"))))
+
+(provide 'bryan-org)
