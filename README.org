@@ -20,10 +20,11 @@ Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@
 
 *** Zooming
 
-You can use =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to increase
-or decrease the buffer text size (=C-+= or =C--= to repeat). To
-restore the default (global) face height, type =C-x C-0=. =S-mouse-1=
-pops up a menu where you can choose these same actions.
+- =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to increase or
+  decrease the buffer text size
+- =C-+= or =C--= to repeat
+- =C-x C-0= to restore the default (global) face height
+- =S-mouse-1= pops up a menu where you can choose these same actions
 
 *** Unbinding
 
