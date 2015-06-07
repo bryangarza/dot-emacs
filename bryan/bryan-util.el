@@ -13,4 +13,9 @@
     (setq recentf-max-saved-items 200
           recentf-max-menu-items  25)))
 
+(use-package expand-region
+  :ensure t
+  :defer t
+  :bind ("C-=" . er/expand-region))
+
 (provide 'bryan-util)
