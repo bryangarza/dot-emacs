@@ -12,9 +12,10 @@
 (add-to-list 'load-path "~/.emacs.d/themes/moe-theme.el/")
 ;; so kawaii~  ✿◕ ‿ ◕✿
 (require 'moe-theme)
+(setq moe-theme-resize-org-title '(2.2 1.8 1.6 1.4 1.2 1.0 1.0 1.0 1.0))
 (setq moe-theme-highlight-buffer-id nil)
-(moe-light)
 (moe-theme-set-color 'green)
+(moe-light)
 
 ;; no underlined text! include `:weight 'normal` to get rid of bold
 ;; (but who would wanna do that?)
