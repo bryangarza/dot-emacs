@@ -4,10 +4,11 @@
   :init
   (progn
     (require 'helm-config)
-    (setq helm-candidate-number-limit 100)
     (when (executable-find "curl")
       (setq helm-google-suggest-use-curl-p t))
     (setq
+     helm-candidate-number-limit           100
+     helm-autoresize-max-height            80 ; it is %.
      helm-scroll-amount                    8
      helm-split-window-in-side-p           t
      helm-move-to-line-cycle-in-source     t
