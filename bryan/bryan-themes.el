@@ -24,7 +24,6 @@
   (lambda (face)
     (set-face-attribute face nil :underline nil))
   (face-list))
-;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
 
 ;; (set-frame-parameter nil 'background-mode 'dark)
 ;; (load-theme 'cyberpunk t)
