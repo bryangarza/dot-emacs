@@ -15,6 +15,7 @@ Read about switching from Vim to Emacs in my Medium post, [[https://medium.com/@
      - [[#aligning-code][Aligning Code]]
      - [[#editing-with-sudo][Editing with Sudo]]
      - [[#keybindings][Keybindings]]
+     - [[#updating-submodules][Updating submodules]]
  - [[#here-be-dragons][Here Be Dragons]]
  - [[#when-cloning][When Cloning]]
      - [[#ocaml][OCaml]]
@@ -113,6 +114,12 @@ Most of the keybindings I have set can be found in
 =bryan/bryan-keybindings.el=. The majority involve the Super key,
 which on Mac is the Command key. On Windows or GNU/Linux, this is
 probably your Win key, but if it's not bound, then just bind it!
+
+** Updating submodules
+
+#+BEGIN_SRC sh
+git submodule foreach git pull origin master
+#+END_SRC
 
 * Here Be Dragons
 
