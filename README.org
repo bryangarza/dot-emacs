@@ -234,3 +234,8 @@ You can make words *bold*, /italic/, _underlined_, =verbatim= and ~code~, and,
 if you must, ‘+strike-through+’. Text in the code and verbatim string is not
 processed for Org mode specific syntax, it is exported verbatim.
 #+END_EXAMPLE
+
+Resizing images on the command line:
+#+BEGIN_SRC shell
+sips -Z 640 *.jpg
+#+END_SRC
