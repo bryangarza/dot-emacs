@@ -14,7 +14,8 @@
 (require 'moe-theme)
 (setq moe-theme-resize-org-title '(2.2 1.8 1.6 1.4 1.2 1.0 1.0 1.0 1.0))
 (setq moe-theme-highlight-buffer-id nil)
-(moe-theme-set-color 'green)
+(moe-theme-set-color 'cyan)
+;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
 (moe-light)
 
 ;; no underlined text! include `:weight 'normal` to get rid of bold
