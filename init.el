@@ -57,6 +57,7 @@
         bryan-c
         bryan-ocaml
         bryan-haskell
+        bryan-elm
         bryan-circe
         bryan-helm-swoop
         bryan-racket
