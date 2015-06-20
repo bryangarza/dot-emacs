@@ -32,6 +32,7 @@
          :sitemap-filename "blogmap"
          :sitemap-sort-files anti-chronologically
          :sitemap-file-entry-format "%t (%d)" ;write title and date in sitemap
+         :sitemap-date-format "%m-%d-%y"
          )))
 
 (provide 'bryan-blog)
