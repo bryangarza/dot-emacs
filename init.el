@@ -74,6 +74,7 @@
         bryan-rust
         bryan-elisp
         bryan-clojure
+        bryan-blog
         bryan-keybindings
         ))
 
