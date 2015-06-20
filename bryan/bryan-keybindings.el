@@ -31,7 +31,8 @@
  ("s-2"     . split-vert-and-switch)
  ("s-3"     . split-horiz-and-switch)
  ("C-c w s" . toggle-window-split)
- ("C-c w r" . rotate-windows))
+ ("C-c w r" . rotate-windows)
+ ("s-A"     . evil-copy-from-above))
 
 (bind-keys :map evil-motion-state-map
            ("C-e" . move-end-of-line))
