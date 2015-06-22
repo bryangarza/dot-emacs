@@ -31,7 +31,7 @@
 
          :auto-sitemap t
          :sitemap-title "Blog"
-         :sitemap-filename "blogmap"
+         :sitemap-filename "blogmap.org"
          :sitemap-sort-files anti-chronologically
          :sitemap-file-entry-format "%t → %d" ;write title and date in sitemap
          :sitemap-date-format "%B %d, %Y"
