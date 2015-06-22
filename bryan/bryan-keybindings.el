@@ -60,4 +60,19 @@
 (add-hook 'term-mode-hook (lambda ()
                             (define-key term-raw-map (kbd "s-v") 'term-paste)))
 
+(define-key org-mode-map "\C-ck" #'endless/insert-key)
+(defun endless/insert-key (key)
+  "Ask for a key then insert its description.
+Will work on both org-mode and any mode that accepts plain html."
+  (interactive "kType key sequence: ")
+  (let* ((is-org-mode (derived-mode-p 'org-mode))
+         (tag (if is-org-mode
+                  "@@html:<kbd>%s</kbd>@@"
+                "<kbd>%s</kbd>")))
+    (if (null (equal key "\r"))
+        (insert
+         (format tag (help-key-description key nil)))
+      (insert (format tag ""))
+      (forward-char (if is-org-mode -8 -6)))))
+
 (provide 'bryan-keybindings)
