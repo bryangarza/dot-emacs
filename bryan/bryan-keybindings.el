@@ -21,6 +21,7 @@
  ("s-l"     . windmove-right)
  ("s-L"     . goto-line)
  ("s-l"     . windmove-right)
+ ("s-m"     . org-publish-current-project)
  ("s-q"     . previous-history-element)
  ("s-d"     . next-history-element)
  ("s-K"     . kill-this-buffer)
