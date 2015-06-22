@@ -2,7 +2,7 @@
 
 (setq org-publish-project-alist
       '(("blog"
-         :base-directory "~/site/blog/"
+         :base-directory "~/bryangarza.github.io/org/blog/"
          :publishing-directory "~/bryangarza.github.io/blog/"
          :recursive t
 
@@ -13,6 +13,7 @@
 
          :html-preamble nil
          :html-postamble "<div id=\"footer\">
+<div id=\"footer-hr\"></div>
 <p><a href=\"https://github.com/bryangarza/\">GitHub</a>, <a href=\"https://twitter.com/bryangarza\">Twitter</a>, <a href=\"https://medium.com/@bryangarza\">Medium</a>, and <a href=\"https://www.quora.com/Bryan-Garza\">Quora</a>. <a href=\"contact.html\"><strong>Contact</strong></a> me!</p></div>"
 
          :html-doctype "html5"
@@ -25,19 +26,19 @@
 <meta name=\"viewport\" content=\"width=560\">
 
 <link rel=\"stylesheet\" href=\"../css/normalize.css\" type=\"text/css\" />
-<link rel=\"stylesheet\" href=\"../css/markdown.css\" type=\"text/css\" />
+<link rel=\"stylesheet\" href=\"../css/org.css\" type=\"text/css\" />
 <link rel=\"stylesheet\" href=\"../css/animate.min.css\" type=\"text/css\" />"
 
          :auto-sitemap t
          :sitemap-title "Blog"
          :sitemap-filename "blogmap"
          :sitemap-sort-files anti-chronologically
-         :sitemap-file-entry-format "%t (%d)" ;write title and date in sitemap
-         :sitemap-date-format "%m-%d-%y"
+         :sitemap-file-entry-format "%t → %d" ;write title and date in sitemap
+         :sitemap-date-format "%B %d, %Y"
          )
 
         ("pages"
-         :base-directory "~/site/pages/"
+         :base-directory "~/bryangarza.github.io/org/pages/"
          :publishing-directory "~/bryangarza.github.io/"
          :recursive t
 
@@ -48,6 +49,7 @@
 
          :html-preamble nil
          :html-postamble "<div id=\"footer\">
+<div id=\"footer-hr\"></div>
 <p><a href=\"https://github.com/bryangarza/\">GitHub</a>, <a href=\"https://twitter.com/bryangarza\">Twitter</a>, <a href=\"https://medium.com/@bryangarza\">Medium</a>, and <a href=\"https://www.quora.com/Bryan-Garza\">Quora</a>. <a href=\"contact.html\"><strong>Contact</strong></a> me!</p></div>"
 
          :html-doctype "html5"
@@ -60,17 +62,8 @@
 <meta name=\"viewport\" content=\"width=560\">
 
 <link rel=\"stylesheet\" href=\"css/normalize.css\" type=\"text/css\" />
-<link rel=\"stylesheet\" href=\"css/markdown.css\" type=\"text/css\" />
+<link rel=\"stylesheet\" href=\"css/org.css\" type=\"text/css\" />
 <link rel=\"stylesheet\" href=\"css/animate.min.css\" type=\"text/css\" />"
-         )
-
-        ("static"
-         :base-directory "~/site/static/"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|txt"
-         :publishing-directory "~/bryangarza.github.io/"
-         :recursive t
-         :publishing-function org-publish-attachment
-         )
-        ))
+         )))
 
 (provide 'bryan-blog)
