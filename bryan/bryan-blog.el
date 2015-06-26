@@ -30,3 +30,8 @@
 <link rel=\"stylesheet\" href=\"css/tables.css\" type=\"text/css\" />"
 
          :auto-sitemap nil)))
+
+;; use <header>, <aside>, and other fancy tags
+(setq org-html-html5-fancy t)
+
+(provide 'bryan-blog)
