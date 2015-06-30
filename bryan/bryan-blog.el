@@ -13,8 +13,8 @@
 
          :html-preamble nil
          :html-postamble "<footer>
-<p>
-∴ <a href=\"/\">Home</a>, <a href=\"about.html\">About</a>, <a href=\"contact.html\">Contact</a>, <a href=\"https://github.com/bryangarza/\">GitHub</a>, <a href=\"https://twitter.com/bryangarza\">Twitter</a>, and <a href=\"https://www.quora.com/Bryan-Garza\">Quora</a></p></footer>"
+<p>∴ <a href=\"about.html\">About</a>, <a href=\"contact.html\">Contact</a>, <a href=\"https://github.com/bryangarza\">GitHub</a>, <a href=\"https://twitter.com/bryangarza\">Twitter</a></p>
+</footer>"
 
          :html-doctype "html5"
          :with-toc nil
@@ -24,6 +24,7 @@
          :html-head-include-scripts nil
 
          :html-head "<meta charset=\"utf-8\">
+<link href=\"http://fonts.googleapis.com/css?family=Kaushan+Script\" rel=\"stylesheet\" type=\"text/css\" />
 <meta name=\"viewport\" content=\"width=560\">
 <link rel=\"stylesheet\" href=\"css/normalize.css\" type=\"text/css\" />
 <link rel=\"stylesheet\" href=\"css/org.css\" type=\"text/css\" />

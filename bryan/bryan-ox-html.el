@@ -51,8 +51,9 @@ holding export options."
        (when title
 	 (format
 	  (if (plist-get info :html-html5-fancy)
-	      "<header>\n<h1 class=\"title\"><a href=\"/\">%s</a></h1>\n%s</header>"
-	    "<h1 class=\"title\"><a href=\"/\">%s%s</a></h1>\n")
+              "<header>\n<h1 id=\"myname\"><a href=\"/\">Bryan Garza</a></h1>
+<p>Hi! Welcome to my blog on Haskell, Emacs, and hacking.<br>Read more <a href=\"about.html\">about me</a>, <a href=\"contact.html\">get in touch</a>, or find me on <i class=\"demo-icon icon-github-circled\"><a href=\"https://github.com/bryangarza\" >&#xe801;</a></i> and <i class=\"demo-icon icon-twitter\"><a href=\"https://twitter.com/bryangarza\">&#xe800;</a></i>.\n</header>\n<header>\n<h1 class=\"title\">%s</h1>\n%s</header>"
+	    "\n<h1 class=\"title\">%s%s</h1>\n")
 	  (org-export-data title info)
 	  (if subtitle
 	      (format
