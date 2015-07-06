@@ -8,15 +8,17 @@
   :ensure t)
 
 (defun haskell-custom-hook ()
+  (require 'haskell-interactive-mode)
+  (require 'haskell-process)
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
   ;; Getting tired of these 2 sometimes
   ;; (flycheck-mode)
   ;; (paredit-mode 1)
   (turn-on-hi2)
-  (inf-haskell-mode)
   (electric-indent-mode nil)
 
   ;; Load the current file (and make a session if not already made).
-  (define-key haskell-mode-map [?\C-c ?\C-l] 'haskell-process-load-file)
+  (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
   ;; Switch to the REPL.
   (define-key haskell-mode-map [?\C-c ?\C-z] 'haskell-interactive-switch)
   ;; “Bring” the REPL, hiding all other windows apart from the source
@@ -36,10 +38,17 @@
   ;; groups. C-u f8 to jump back again.
   (define-key haskell-mode-map [f8] 'haskell-navigate-imports)
 
-  ;; (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+  (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
+  (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
+  (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
   ;; ;; Interactively choose the Cabal command to run.
-  ;; (define-key haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
-  )
+  (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
+
+  (custom-set-variables
+   '(haskell-process-type 'cabal-repl)
+   '(haskell-process-suggest-remove-import-lines t)
+   '(haskell-process-auto-import-loaded-modules t)
+   '(haskell-process-log t)))
 
 
 (use-package haskell-mode
