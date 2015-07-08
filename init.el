@@ -71,7 +71,7 @@
         bryan-ace-jump
         bryan-hy
         bryan-rcirc
-        bryan-w3m
+        ;; bryan-w3m
         bryan-rust
         bryan-elisp
         bryan-clojure
@@ -82,3 +82,5 @@
 
 (dolist (file bryan-pkg-full)
   (require file))
+
+(global-set-key [s-mouse-1] 'browse-url-at-mouse)
