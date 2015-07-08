@@ -16,6 +16,7 @@ Read about switching from Vim to Emacs in my blog post, [[http://www.bryangarza.
      - [[#editing-with-sudo][Editing with Sudo]]
      - [[#keybindings][Keybindings]]
      - [[#updating-submodules][Updating submodules]]
+     - [[#finding-face-under-point][Finding face under point]]
  - [[#here-be-dragons][Here Be Dragons]]
  - [[#when-cloning][When Cloning]]
      - [[#ocaml][OCaml]]
@@ -120,6 +121,12 @@ probably your Win key, but if it's not bound, then just bind it!
 #+BEGIN_SRC sh
 git submodule foreach git pull origin master
 #+END_SRC
+
+** Finding face under point
+
+~what-cursor-position~ with a prefix argument shows the face under point, among other information.
+
+Keyboard shortcut is =C-u C-x ==.
 
 * Here Be Dragons
 
