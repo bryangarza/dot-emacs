@@ -7,6 +7,7 @@ Read about switching from Vim to Emacs in my blog post, [[http://www.bryangarza.
      - [[#paredit][Paredit]]
      - [[#org-mode][Org mode]]
      - [[#org-present][Org-present]]
+     - [[#hydras][Hydras]]
      - [[#zooming][Zooming]]
      - [[#unbinding][Unbinding]]
      - [[#pinning][Pinning]]
@@ -49,6 +50,14 @@ Read about switching from Vim to Emacs in my blog post, [[http://www.bryangarza.
 - =C-c C-q= to quit (which will return you back to vanilla org-mode)
 - =C-c <= to jump to first slide
 - =C-c >= to jump to last slide
+
+** Hydras
+
+- =C-c m= Hydra for all hydras
+- =C-c w= Window movement and manipulation
+- =C-c c= Multiple cursors
+- =C-c o= Org mode headings
+- =C-c a= Avy
 
 ** Zooming
 
