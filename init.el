@@ -84,3 +84,10 @@
   (require file))
 
 (global-set-key [s-mouse-1] 'browse-url-at-mouse)
+
+(use-package evil-ranger
+  :ensure t
+  :config
+  (progn
+    (setq evil-ranger-cleanup-eagerly t)
+    (setq evil-ranger-ignored-extensions '("mkv" "iso" "mp4"))))
