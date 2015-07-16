@@ -33,7 +33,8 @@
   ;;   2. Show the type of the symbol after the space.
   (evil-leader/set-key
     "SPC" 'haskell-mode-contextual-space
-    "s" 'haskell-mode-tag-find)
+    ;; "s" 'haskell-mode-tag-find
+    )
   ;; Jump to the imports. Keep tapping to jump between import
   ;; groups. C-u f8 to jump back again.
   (define-key haskell-mode-map [f8] 'haskell-navigate-imports)
