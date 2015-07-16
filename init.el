@@ -38,6 +38,8 @@
         bryan-org
         bryan-general
         bryan-interface
+        bryan-avy
+        bryan-hydra
         bryan-paredit
         bryan-hooks
         bryan-evil

@@ -3,6 +3,10 @@
 (setq mac-function-modifier 'hyper)
 (global-set-key [(super t)] nil)
 
+(defun pop-for-avy ()
+  (interactive)
+  (set-mark-command 4))
+
 (bind-keys*
  ("M-w"     . execute-extended-command)
  ("s-w"     . execute-extended-command)
@@ -31,8 +35,12 @@
  ("s-1"     . delete-other-windows)
  ("s-2"     . split-vert-and-switch)
  ("s-3"     . split-horiz-and-switch)
- ("C-c w s" . toggle-window-split)
- ("C-c w r" . rotate-windows)
+ ("C-c w"   . bryan-window-stuff-hydra/body)
+ ("C-c c"   . bryan-multiple-cursors-hydra/body)
+ ("C-c o"   . bryan-org-hydra/body)
+ ("C-c a"   . bryan-avy-hydra/body)
+ ("C-c m"   . bryan-hydra-hydra/body)
+ ("M-p"     . pop-for-avy)
  ("s-A"     . evil-copy-from-above))
 
 (bind-keys :map evil-motion-state-map

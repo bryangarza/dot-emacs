@@ -3,6 +3,11 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        bryan-multiple-cursors-hydra/mc/edit-lines-and-exit
+        bryan-multiple-cursors-hydra/mc/mark-all-like-this-and-exit
+        bryan-multiple-cursors-hydra/mc/mark-previous-like-this
+        bryan-multiple-cursors-hydra/mc/skip-to-next-like-this
+        bryan-multiple-cursors-hydra/mc/unmark-previous-like-this
         evil-append
         evil-append-line
         evil-backward-WORD-begin
@@ -23,11 +28,13 @@
         evil-forward-char
         evil-forward-word-begin
         evil-forward-word-end
+        evil-inner-tag
         evil-insert
         evil-insert-line
         evil-insert-resume
         evil-next-line
         evil-normal-state
+        evil-paredit-yank
         evil-previous-line
         evil-set-marker
         keyboard-quit
@@ -42,8 +49,10 @@
 
 (setq mc/cmds-to-run-once
       '(
+        bryan-multiple-cursors-hydra/mc/mark-next-like-this
         evil-scroll-page-up
         evil-search-forward
+        evil-search-next
         helm-mini
         isearch-exit
         magit-status
