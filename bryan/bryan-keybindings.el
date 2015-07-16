@@ -40,6 +40,7 @@
  ("C-c o"   . bryan-org-hydra/body)
  ("C-c a"   . bryan-avy-hydra/body)
  ("C-c m"   . bryan-hydra-hydra/body)
+ ("C-c r"   . evil-ranger)
  ("M-p"     . pop-for-avy)
  ("s-A"     . evil-copy-from-above))
 
