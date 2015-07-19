@@ -93,3 +93,13 @@
   (progn
     (setq evil-ranger-cleanup-eagerly t)
     (setq evil-ranger-ignored-extensions '("mkv" "iso" "mp4"))))
+
+(use-package which-key
+  :ensure t
+  :config
+  (progn
+    (which-key-mode)
+    (which-key-setup-minibuffer)
+    (setq max-mini-window-height 0.49)
+    ;; (which-key-setup-side-window-right)
+    ))
