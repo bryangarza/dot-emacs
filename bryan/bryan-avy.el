@@ -19,6 +19,10 @@
     (global-set-key (kbd "M-g w") 'avy-goto-word-1)
 
     ;; Input zero chars, jump to a word start with a tree.
-    (global-set-key (kbd "M-g e") 'avy-goto-word-0)))
+    (global-set-key (kbd "M-g e") 'avy-goto-word-0)
+
+    (define-key evil-motion-state-map (kbd "p") #'avy-goto-word-1)
+    (define-key evil-motion-state-map (kbd "P") #'avy-goto-line))
+  )
 
 (provide 'bryan-avy)
