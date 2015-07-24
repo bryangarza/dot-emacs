@@ -103,3 +103,15 @@
     (setq max-mini-window-height 0.49)
     ;; (which-key-setup-side-window-right)
     ))
+
+(use-package sqlup-mode
+  :ensure t
+  :config
+  (progn
+    ;; Capitalize keywords in SQL mode
+    (add-hook 'sql-mode-hook 'sqlup-mode)
+    ;; Capitalize keywords in an interactive session (e.g. psql)
+    (add-hook 'sql-interactive-mode-hook 'sqlup-mode)
+    ;; Set a global keyword to use sqlup on a region
+    ;; (global-set-key (kbd "C-c u") 'sqlup-capitalize-keywords-in-region)
+    ))
