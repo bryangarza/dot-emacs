@@ -22,7 +22,12 @@
     (global-set-key (kbd "M-g e") 'avy-goto-word-0)
 
     (define-key evil-motion-state-map (kbd "p") #'avy-goto-word-1)
-    (define-key evil-motion-state-map (kbd "P") #'avy-goto-line))
-  )
+    (define-key evil-motion-state-map (kbd "P") #'avy-goto-line)
+
+    (define-key evil-motion-state-map (kbd "SPC") #'avy-goto-char-2)
+    (define-key evil-motion-state-map (kbd "C-SPC") #'avy-goto-word-1)
+    (define-key evil-motion-state-map (kbd "M-SPC") #'avy-goto-line)
+
+    ))
 
 (provide 'bryan-avy)

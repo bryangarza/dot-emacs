@@ -70,7 +70,7 @@
         bryan-scala
         bryan-magit
         bryan-pandoc
-        bryan-ace-jump
+        ;; bryan-ace-jump
         bryan-hy
         bryan-rcirc
         ;; bryan-w3m
