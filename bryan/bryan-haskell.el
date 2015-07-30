@@ -4,8 +4,8 @@
 ;; (require 'haskell-mode-autoloads)
 ;; (add-to-list 'Info-default-directory-list "~/.emacs.d/lisp/haskell-mode/")
 
-(use-package hi2
-  :ensure t)
+;; (use-package hi2
+;;   :ensure t)
 
 (defun haskell-custom-hook ()
   (require 'haskell-interactive-mode)
@@ -14,7 +14,10 @@
   ;; Getting tired of these 2 sometimes
   ;; (flycheck-mode)
   ;; (paredit-mode 1)
-  (turn-on-hi2)
+  ;; (turn-on-haskell-simple-indent)
+  ;; (turn-on-haskell-indent)
+  (haskell-indentation-mode)
+  ;; (turn-on-hi2)
   (electric-indent-mode nil)
 
   ;; Load the current file (and make a session if not already made).
