@@ -15,6 +15,7 @@
  ("s-D"     . prelude-delete-file-and-buffer)
  ("s-i"     . magit-status)
  ("s-o"     . other-window)
+ ("s-O"     . other-frame)
  ("s-e"     . eval-defun)
  ("s-n"     . next-buffer)
  ("s-p"     . previous-buffer)
