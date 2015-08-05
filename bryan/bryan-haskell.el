@@ -49,7 +49,7 @@
   (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
 
   (custom-set-variables
-   '(haskell-process-type 'cabal-repl)
+   '(haskell-process-type 'stack-ghci)
    '(haskell-process-suggest-remove-import-lines t)
    '(haskell-process-auto-import-loaded-modules t)
    '(haskell-process-log t)))
