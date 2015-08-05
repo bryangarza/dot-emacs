@@ -42,7 +42,7 @@
  ("C-c a"   . bryan-avy-hydra/body)
  ("C-c m"   . bryan-hydra-hydra/body)
  ("C-c r"   . evil-ranger)
- ("M-p"     . pop-for-avy)
+ ("C-;"     . pop-for-avy)
  ("s-A"     . evil-copy-from-above))
 
 (bind-keys :map evil-motion-state-map
