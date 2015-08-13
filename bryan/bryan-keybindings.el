@@ -11,6 +11,7 @@
  ("M-w"     . execute-extended-command)
  ("s-w"     . execute-extended-command)
  ("s-r"     . zshell)
+ ("s-s"     . save-buffer)
  ("s-R"     . prelude-rename-buffer-and-file)
  ("s-D"     . prelude-delete-file-and-buffer)
  ("s-i"     . magit-status)

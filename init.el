@@ -8,6 +8,7 @@
              '("melpa" . "http://melpa.org/packages/") t)
 
 (package-initialize)
+(setq package-enable-at-startup nil)
 
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -34,7 +35,8 @@
   (require 'use-package))
 
 (setq bryan-pkg-full
-      '(bryan-themes
+      '(bryan-company
+        bryan-themes
         bryan-org
         bryan-general
         bryan-interface
@@ -87,7 +89,7 @@
 
 (global-set-key [s-mouse-1] 'browse-url-at-mouse)
 
-(use-package evil-ranger
+(use-package ranger
   :ensure t
   :config
   (progn

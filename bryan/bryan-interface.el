@@ -18,6 +18,6 @@
 ;; (set-face-attribute 'default nil
 ;;                     :family "Droid Sans Mono Slashed" :height 140 :weight 'normal)
 (set-face-attribute 'default nil
-                    :family "Monaco" :height 150 :weight 'normal)
+                    :family "Monaco" :height 130 :weight 'normal)
 
 (provide 'bryan-interface)

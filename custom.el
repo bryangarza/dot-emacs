@@ -12,10 +12,12 @@
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
  '(haskell-process-suggest-remove-import-lines t)
- '(haskell-process-type (quote cabal-repl))
+ '(haskell-process-type (quote stack-ghci))
+ '(mac-command-modifier (quote super))
+ '(mac-option-modifier (quote (:ordinary meta :function alt :mouse alt)))
  '(package-selected-packages
    (quote
-    (sqlup-mode which-key avy evil-ranger markdown-mode elm-mode toc-org evil-anzu rust-mode helm moe-theme w3m git-gutter-fringe perspective auctex-mode auctex hy-mode helm-projectile projectile projectile-mode git-gutter ace-jump-mode pandoc-mode sbt-mode scala-mode2 haskell-mode hi2 elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
+    (company-mode sqlup-mode which-key avy evil-ranger markdown-mode elm-mode toc-org evil-anzu rust-mode helm moe-theme w3m git-gutter-fringe perspective auctex-mode auctex hy-mode helm-projectile projectile projectile-mode git-gutter ace-jump-mode pandoc-mode sbt-mode scala-mode2 haskell-mode hi2 elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
  '(safe-local-variable-values
    (quote
     ((eval when
@@ -27,5 +29,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(haskell-literate-comment-face ((t (:background "black" :foreground "#fcfcfc"))))
+ '(css-property ((t (:inherit font-lock-variable-name-face))))
+ '(haskell-literate-comment-face ((t (:foreground "#fcfcfc"))))
  '(web-mode-current-column-highlight-face ((t (:background "#3e3c36" :foreground "Orange")))))
