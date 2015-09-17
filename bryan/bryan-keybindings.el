@@ -44,7 +44,8 @@
  ("C-c m"   . bryan-hydra-hydra/body)
  ("C-c r"   . evil-ranger)
  ("C-;"     . pop-for-avy)
- ("s-A"     . evil-copy-from-above))
+ ("s-A"     . evil-copy-from-above)
+ ("s-u"     . revert-buffer))
 
 (bind-keys :map evil-motion-state-map
            ("C-e" . move-end-of-line))
