@@ -4,6 +4,15 @@
 
 (setq org-src-fontify-natively t)
 
+(setq org-todo-keywords
+      '((sequence "TODO" "STARTED" "|" "DONE")))
+
+(setq org-faces-easy-properties
+      '((todo . :background) (tag . :foreground) (priority . :foreground)))
+
+(setq org-todo-keyword-faces
+      '(("STARTED" . "yellow")))
+
 (autoload 'org-present "org-present" nil t)
 
 (eval-after-load "org-present"
