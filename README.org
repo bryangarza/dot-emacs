@@ -1,136 +1,137 @@
 #+title: .emacs.d
 
-[[./rms.jpg]]
-
 Read about switching from Vim to Emacs in my blog post, [[http://www.bryangarza.me/my-descent-into-evil.html][My Descent Into Evil]].
 
 * Table of Contents                                                :TOC_2_gh:
- - [[#paredit][Paredit]]
- - [[#org-mode][Org mode]]
- - [[#org-present][Org-present]]
- - [[#hydras][Hydras]]
- - [[#zooming][Zooming]]
- - [[#unbinding][Unbinding]]
- - [[#pinning][Pinning]]
- - [[#helm][Helm]]
- - [[#circe][Circe]]
- - [[#aligning-code][Aligning Code]]
- - [[#editing-with-sudo][Editing with Sudo]]
- - [[#keybindings][Keybindings]]
- - [[#updating-submodules][Updating submodules]]
- - [[#finding-face-under-point][Finding face under point]]
+ - [[#important][Important!]]
+     - [[#paredit][Paredit]]
+     - [[#org-mode][Org mode]]
+     - [[#org-present][Org-present]]
+     - [[#hydras][Hydras]]
+     - [[#zooming][Zooming]]
+     - [[#unbinding][Unbinding]]
+     - [[#pinning][Pinning]]
+     - [[#helm][Helm]]
+     - [[#circe][Circe]]
+     - [[#aligning-code][Aligning Code]]
+     - [[#editing-with-sudo][Editing with Sudo]]
+     - [[#keybindings][Keybindings]]
+     - [[#updating-submodules][Updating submodules]]
+     - [[#finding-face-under-point][Finding face under point]]
  - [[#here-be-dragons][Here Be Dragons]]
  - [[#when-cloning][When Cloning]]
-   - [[#ocaml][OCaml]]
-   - [[#irc][IRC]]
-   - [[#submodules][Submodules]]
+     - [[#ocaml][OCaml]]
+     - [[#irc][IRC]]
+     - [[#submodules][Submodules]]
  - [[#graphical-vs-console-emacs][Graphical vs Console Emacs]]
  - [[#languages][Languages]]
  - [[#packages-and-modes][Packages and Modes]]
  - [[#license][License]]
  - [[#internal-notes][Internal Notes]]
 
-* Paredit
+* Important!
 
- [[http://www.emacswiki.org/emacs/PareditCheatsheet][Paredit Cheatsheet]]
- [[http://mumble.net/~campbell/emacs/paredit.html][Another Paredit Cheatsheet]]
+** Paredit
 
-* Org mode
+- [[http://www.emacswiki.org/emacs/PareditCheatsheet][Paredit Cheatsheet]]
+- [[http://mumble.net/~campbell/emacs/paredit.html][Another Paredit Cheatsheet]]
 
- [[http://orgmode.org/org.html][The Org Manual]]
- [[http://orgmode.org/guide/][The compact Org-mode Guide]]
- [[https://emacsclub.github.io/html/org_tutorial.html][Org-mode Tutorial / Cheat Sheet]]
+** Org mode
 
-* Org-present
+- [[http://orgmode.org/org.html][The Org Manual]]
+- [[http://orgmode.org/guide/][The compact Org-mode Guide]]
+- [[https://emacsclub.github.io/html/org_tutorial.html][Org-mode Tutorial / Cheat Sheet]]
 
- left and right for movement
- =C-c C-== for large text
- =C-c C--= for small text
- =C-c C-q= to quit (which will return you back to vanilla org-mode)
- =C-c <= to jump to first slide
- =C-c >= to jump to last slide
+** Org-present
 
-* Hydras
+- left and right for movement
+- =C-c C-== for large text
+- =C-c C--= for small text
+- =C-c C-q= to quit (which will return you back to vanilla org-mode)
+- =C-c <= to jump to first slide
+- =C-c >= to jump to last slide
 
- =C-c m= Hydra for all hydras
- =C-c w= Window movement and manipulation
- =C-c c= Multiple cursors
- =C-c o= Org mode headings
- =C-c a= Avy
+** Hydras
 
-* Zooming
+- =C-c m= Hydra for all hydras
+- =C-c w= Window movement and manipulation
+- =C-c c= Multiple cursors
+- =C-c o= Org mode headings
+- =C-c a= Avy
 
- =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to increase or
- decrease the buffer text size
- =C-+= or =C--= to repeat
- =C-x C-0= to restore the default (global) face height
- =S-mouse-1= pops up a menu where you can choose these same actions
+** Zooming
 
-* Unbinding
+- =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to increase or
+  decrease the buffer text size
+- =C-+= or =C--= to repeat
+- =C-x C-0= to restore the default (global) face height
+- =S-mouse-1= pops up a menu where you can choose these same actions
 
-his will make the symbol my-nasty-variable's value void:
+** Unbinding
 
-+BEGIN_SRC emacs-lisp
-makunbound 'my-nasty-variable)
-+END_SRC
+This will make the symbol my-nasty-variable's value void:
 
-his will make the symbol my-nasty-function's function definition void:
+#+BEGIN_SRC emacs-lisp
+(makunbound 'my-nasty-variable)
+#+END_SRC
 
-+BEGIN_SRC emacs-lisp
-fmakunbound 'my-nasty-function)
-+END_SRC
+This will make the symbol my-nasty-function's function definition void:
 
-* Pinning
+#+BEGIN_SRC emacs-lisp
+(fmakunbound 'my-nasty-function)
+#+END_SRC
 
-f I ever want to pin packages:
+** Pinning
 
-+BEGIN_SRC emacs-lisp
-setq 'package-archives '(("melpa"        . "http://melpa.org/packages/")
-                         ("melpa-stable" . "http://stable.melpa.org/packages/")))
+If I ever want to pin packages:
 
-use-package company
- :ensure t
- :pin melpa-stable)
-+END_SRC
+#+BEGIN_SRC emacs-lisp
+(setq 'package-archives '(("melpa"        . "http://melpa.org/packages/")
+                          ("melpa-stable" . "http://stable.melpa.org/packages/")))
 
-* Helm
+(use-package company
+  :ensure t
+  :pin melpa-stable)
+#+END_SRC
 
- [[http://emacs-helm.github.io/helm/][Helm home page]]
- [[http://tuhdo.github.io/helm-intro.html][Helm intro]]
+** Helm
 
-* Circe
+- [[http://emacs-helm.github.io/helm/][Helm home page]]
+- [[http://tuhdo.github.io/helm-intro.html][Helm intro]]
 
- [[https://github.com/howardabrams/dot-files/blob/master/emacs-irc.org][Howard Abrams' IRC settings]]
- [[https://github.com/jorgenschaefer/circe/wiki/Configuration][Circe wiki: Configuration]]
+** Circe
 
-* Aligning Code
+- [[https://github.com/howardabrams/dot-files/blob/master/emacs-irc.org][Howard Abrams' IRC settings]]
+- [[https://github.com/jorgenschaefer/circe/wiki/Configuration][Circe wiki: Configuration]]
 
-[https://wiki.haskell.org/Emacs/Indentation#Aligning_code][Haskell wiki: aligning code in Emacs]]
+** Aligning Code
 
-+BEGIN_SRC emacs-lisp
-bind-key "C-x a r" 'align-regexp)
-+END_SRC
+[[https://wiki.haskell.org/Emacs/Indentation#Aligning_code][Haskell wiki: aligning code in Emacs]]
 
-* Editing with Sudo
+#+BEGIN_SRC emacs-lisp
+(bind-key "C-x a r" 'align-regexp)
+#+END_SRC
 
-+BEGIN_EXAMPLE
--x C-f /sudo::/path/to/file
-+END_EXAMPLE
+** Editing with Sudo
 
-* Keybindings
+#+BEGIN_EXAMPLE
+C-x C-f /sudo::/path/to/file
+#+END_EXAMPLE
 
-ost of the keybindings I have set can be found in
-bryan/bryan-keybindings.el=. The majority involve the Super key,
-hich on Mac is the Command key. On Windows or GNU/Linux, this is
-robably your Win key, but if it's not bound, then just bind it!
+** Keybindings
 
-* Updating submodules
+Most of the keybindings I have set can be found in
+=bryan/bryan-keybindings.el=. The majority involve the Super key,
+which on Mac is the Command key. On Windows or GNU/Linux, this is
+probably your Win key, but if it's not bound, then just bind it!
 
-+BEGIN_SRC sh
-it submodule foreach git pull origin master
-+END_SRC
+** Updating submodules
 
-* Finding face under point
+#+BEGIN_SRC sh
+git submodule foreach git pull origin master
+#+END_SRC
+
+** Finding face under point
 
 ~what-cursor-position~ with a prefix argument shows the face under point, among other information.
 
