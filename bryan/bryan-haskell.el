@@ -52,7 +52,9 @@
    '(haskell-process-type 'stack-ghci)
    '(haskell-process-suggest-remove-import-lines t)
    '(haskell-process-auto-import-loaded-modules t)
-   '(haskell-process-log t)))
+   '(haskell-process-log t))
+
+  (setq interactive-haskell-popup-errors nil))
 
 
 (use-package haskell-mode
