@@ -22,6 +22,7 @@
 
 (setq doc-view-continuous t)
 
+(setq-default fill-column 80)
 
 ;; Replace default expand command
 (global-set-key (kbd "M-/") 'hippie-expand)
