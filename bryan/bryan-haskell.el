@@ -54,15 +54,28 @@
    '(haskell-process-auto-import-loaded-modules t)
    '(haskell-process-log t))
 
-  (setq interactive-haskell-popup-errors nil))
+  (setq haskell-interactive-popup-errors nil))
 
+;; (use-package ghc
+;;   :ensure t
+;;   :config
+;;   (progn
+;;     (autoload 'ghc-init "ghc" nil t)
+;;     (autoload 'ghc-debug "ghc" nil t)))
+
+;; (use-package company-ghc
+;;   :ensure t
+;;   :config
+;;   (progn
+;;     (add-to-list 'company-backends 'company-ghc)))
 
 (use-package haskell-mode
   :ensure t
   :config
   (progn
     (bind-key "C-c C-c" 'haskell-compile haskell-mode-map)
-    (bind-key "C-c C-c" 'haskell-compile haskell-mode-map)))
+    ;; (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+    ))
 
 (add-hook 'haskell-mode-hook 'haskell-custom-hook)
 
