@@ -43,3 +43,6 @@
 [submodule "themes/moe-theme.el"]
 	path = themes/moe-theme.el
 	url = git@github.com:bryangarza/moe-theme.el.git
+[submodule "themes/emacs-theme-darktooth"]
+	path = themes/emacs-theme-darktooth
+	url = git@github.com:bryangarza/emacs-theme-darktooth.git
