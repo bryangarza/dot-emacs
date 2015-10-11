@@ -1,5 +1,5 @@
 (setq user-full-name "Bryan Garza"
-      user-mail-address "brygarza@gmail.com")
+      user-mail-address "bryanxmailing@gmail.com")
 
 (require 'cl)
 (require 'package)
@@ -117,3 +117,25 @@
     ;; Set a global keyword to use sqlup on a region
     ;; (global-set-key (kbd "C-c u") 'sqlup-capitalize-keywords-in-region)
     ))
+
+(defun my-gnus-group-list-subscribed-groups ()
+  "List all subscribed groups with or without un-read messages"
+  (interactive)
+  (gnus-group-list-all-groups 5))
+(add-hook 'gnus-group-mode-hook
+          ;; list all the subscribed groups even they contain zero un-read messages
+          (lambda () (local-set-key "o" 'my-gnus-group-list-subscribed-groups )))
+
+(use-package reveal-in-osx-finder
+  ;; To load at the start up
+  :ensure t
+  ;; If you want to configure a keybinding (e.g., C-c z), add the following
+  ;; :config
+  ;; (progn
+  ;;   (global-set-key (kbd "C-c z") 'reveal-in-osx-finder))
+  )
+
+(use-package erlang
+  :ensure t)
+;; is this doing anything? I don't know if I have this on somewhere already...
+(setq doc-view-continuous t)
