@@ -11,7 +11,7 @@
       '((todo . :background) (tag . :foreground) (priority . :foreground)))
 
 (setq org-todo-keyword-faces
-      '(("STARTED" . "yellow")))
+      '(("STARTED" . (:foreground "yellow"))))
 
 (autoload 'org-present "org-present" nil t)
 
