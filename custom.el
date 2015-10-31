@@ -7,23 +7,48 @@
    ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
  '(custom-safe-themes
    (quote
-    ("6e19cbb360fa38bab3e6953bb4971e6ec9f992cd04cccd2396b0f22a6c0a701e" "d9b9fe2ce66ddde133488cb544e643fd0eba4f89af513953eff5d65454b1cacc" "8c04893942f2b96df49680197a36eff8a494364d099a86b4d8c0179578af261c" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" "31a01668c84d03862a970c471edbd377b2430868eccf5e8a9aec6831f1a0908d" "116e71cb86b1f29be10cca6442a5e396327d772dad5cb83a9a9d33416f282603" "874ae997df86ee4f08f2ddf24773c7a4e6b2ef702aa67ae38517aa1b67cd86fb" "a610de13501b8698429995d92d7ebff32ab57df4683fc5d6911bb46f223f5e33" "a1b538af356ee0c961f4063883610d103794301b302f77e8f6463802f1bcbc4c" "3be46993ab66e5677f5917de78acac3bc2979a6618427a2471faa24bfa652b79" "e5cfeed2030181c15b7a966ccb163c632d5ba70ebdf7d254e4a4f99455d5844f" "0c311fb22e6197daba9123f43da98f273d2bfaeeaeb653007ad1ee77f0003037" default)))
+    ("83a27e12cbf3332d5502a953659b768d222a5be4518d52eda046386a66446c19" "40bc0ac47a9bd5b8db7304f8ef628d71e2798135935eb450483db0dbbfff8b11" "603a9c7f3ca3253cb68584cb26c408afcf4e674d7db86badcfe649dd3c538656" default)))
  '(fci-rule-color "#383838")
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
  '(haskell-process-suggest-remove-import-lines t)
  '(haskell-process-type (quote stack-ghci))
+ '(helm-scroll-amount 8)
  '(mac-command-modifier (quote super))
  '(mac-option-modifier (quote meta))
+ '(mouse-scroll-delay 0.35)
  '(package-selected-packages
    (quote
     (company-mode sqlup-mode which-key avy evil-ranger markdown-mode elm-mode toc-org evil-anzu rust-mode helm moe-theme w3m git-gutter-fringe perspective auctex-mode auctex hy-mode helm-projectile projectile projectile-mode git-gutter ace-jump-mode pandoc-mode sbt-mode scala-mode2 haskell-mode hi2 elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
- '(safe-local-variable-values
+ '(pos-tip-background-color "#36473A")
+ '(pos-tip-foreground-color "#FFFFC8")
+ '(safe-local-variable-values (quote nil))
+ '(scroll-bar-mode nil)
+ '(send-mail-function (quote smtpmail-send-it))
+ '(smtpmail-smtp-server "smtp.gmail.com")
+ '(smtpmail-smtp-service 25 t)
+ '(vc-annotate-background "#0E0E0E")
+ '(vc-annotate-color-map
    (quote
-    ((eval when
-           (fboundp
-            (quote rainbow-mode))
-           (rainbow-mode 1))))))
+    ((20 . "#616161")
+     (40 . "#9D9D9D")
+     (60 . "#9D9D9D")
+     (80 . "#C2C2C2")
+     (100 . "#C2C2C2")
+     (120 . "#D9D9D9")
+     (140 . "#D9D9D9")
+     (160 . "#E8E8E8")
+     (180 . "#E8E8E8")
+     (200 . "#E8E8E8")
+     (220 . "#F0F0F0")
+     (240 . "#F0F0F0")
+     (260 . "#F0F0F0")
+     (280 . "#F6F6F6")
+     (300 . "#F6F6F6")
+     (320 . "#F6F6F6")
+     (340 . "#F9F9F9")
+     (360 . "#F9F9F9"))))
+ '(vc-annotate-very-old-color "#D9D9D9"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

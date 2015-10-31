@@ -36,6 +36,7 @@
 
 (setq bryan-pkg-full
       '(bryan-company
+        bryan-paren
         bryan-themes
         bryan-org
         bryan-general
@@ -46,7 +47,6 @@
         bryan-evil
         bryan-avy
         bryan-cider
-        bryan-paren
         bryan-auto-complete
         bryan-frontend
         bryan-markdown
@@ -139,3 +139,63 @@
   :ensure t)
 ;; is this doing anything? I don't know if I have this on somewhere already...
 (setq doc-view-continuous t)
+
+;;;;;; in progress
+
+(defun duplicate-and-comment-line-or-region (&optional beg end)
+  (interactive "r")
+  (setq temp-point (point))
+  (if mark-active
+      (copy-and-comment-region)
+    (duplicate-and-comment-line))
+  (goto-char temp-point))
+
+(defun duplicate-and-comment-line ()
+  (kill-whole-line)
+  (yank)
+  (yank)
+  (previous-line)
+  (comment-region (line-beginning-position) (line-end-position))
+  (previous-line))
+
+(defun duplicate-region ()
+  (let* ((end (region-end))
+         (text (buffer-substring (region-beginning)
+                                 end)))
+    (goto-char end)
+    (insert text)
+    (push-mark end)
+    (setq deactivate-mark nil)
+    (exchange-point-and-mark)))
+
+(defun copy-and-comment-region (beg end)
+  "Duplicate the region and comment-out the copied text.
+See `comment-region' for behavior of a prefix arg."
+  (interactive "r")
+  (copy-region-as-kill beg end)
+  (goto-char end)
+  (yank)
+  (comment-region (+ (- end beg) beg) (+ (- end beg) end)))
+
+(use-package bug-hunter :ensure t)
+
+(defun remove-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
+;; maybe...
+;; (add-hook 'text-mode-hook 'remove-dos-eol)
+
+(add-to-list 'evil-insert-state-modes 'haskell-interactive-mode)
+
+;; http://www.emacswiki.org/emacs/NeoTree
+(use-package neotree
+  :ensure t
+  :config
+  (progn
+    (global-set-key [f8] 'neotree-toggle)
+    (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+    (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
+    (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+    (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
