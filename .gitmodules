@@ -49,3 +49,6 @@
 [submodule "themes/tao-theme-emacs"]
 	path = themes/tao-theme-emacs
 	url = https://github.com/11111000000/tao-theme-emacs.git
+[submodule "lisp/racer"]
+	path = lisp/racer
+	url = https://github.com/phildawes/racer.git
