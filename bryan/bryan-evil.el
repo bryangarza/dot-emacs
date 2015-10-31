@@ -9,7 +9,9 @@
 (use-package evil
   :ensure t
   :init (evil-mode 1)
-  :config (setq evil-move-cursor-back nil))
+  :config
+  (progn (setq evil-move-cursor-back nil)
+         (define-key evil-normal-state-map (kbd "K") 'evil-previous-line)))
 
 (use-package evil-surround
   :ensure t
