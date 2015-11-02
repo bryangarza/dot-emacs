@@ -26,7 +26,7 @@
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-(load-file "~/.private.el")
+;; (load-file "~/.private.el")
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
@@ -62,7 +62,7 @@
         bryan-ocaml
         bryan-haskell
         bryan-elm
-        bryan-circe
+        ;; bryan-circe
         bryan-helm-swoop
         bryan-racket
         bryan-multiple-cursors
