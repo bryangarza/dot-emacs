@@ -24,4 +24,6 @@
     (with-eval-after-load 'evil
       (require 'evil-anzu))))
 
+(add-to-list 'evil-emacs-state-modes 'magit-status-mode)
+
 (provide 'bryan-evil)
