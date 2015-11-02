@@ -50,6 +50,12 @@
 
 (bind-keys :map evil-motion-state-map
            ("C-e" . move-end-of-line))
+(bind-keys :map evil-insert-state-map
+           ("C-e" . move-end-of-line))
+(bind-keys :map evil-visual-state-map
+           ("C-e" . move-end-of-line))
+(bind-keys :map evil-normal-state-map
+           ("C-e" . move-end-of-line))
 ;; ("C-e" . evil-copy-from-below)
 
 (define-key evil-normal-state-map [escape] 'keyboard-quit)
