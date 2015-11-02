@@ -21,9 +21,9 @@
 (setq moe-theme-highlight-buffer-id nil)
 (moe-theme-set-color 'purple)
 ;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
-(moe-light)
-;; (moe-dark)
-(set-background-color "#ffffff")
+;; (moe-light)
+(moe-dark)
+;; (set-background-color "#ffffff")
 
 ;; no underlined text! include `:weight 'normal` to get rid of bold
 ;; (but who would wanna do that?)
@@ -42,6 +42,6 @@
 ;; (load-theme 'leuven)
 
 ;; (setq rainbow-delimiters-outermost-only-face-count 1)
-(setq rainbow-delimiters-max-face-count 2)
+;; (setq rainbow-delimiters-max-face-count 2)
 
 (provide 'bryan-themes)
