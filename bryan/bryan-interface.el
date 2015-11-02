@@ -5,8 +5,8 @@
 
 (column-number-mode t)
 (blink-cursor-mode +1)
-(display-time)
-(display-battery-mode)
+;; (display-time)
+;; (display-battery-mode)
 
 (setq-default indent-tabs-mode nil)
 (setq-default show-trailing-whitespace nil)
