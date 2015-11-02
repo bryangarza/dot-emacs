@@ -199,3 +199,12 @@ See `comment-region' for behavior of a prefix arg."
     (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
     (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
     (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+
+(setq TeX-save-query nil)
+
+(use-package beacon
+  :ensure t
+  :config
+  (progn
+    (beacon-mode 1)
+    (setq beacon-blink-duration 0.5)))
