@@ -1045,7 +1045,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       (auto-complete-mode     . "")
       (magit-auto-revert-mode . "")
       (eldoc-mode             . "")
-      (elisp-slime-nav-mode   . ""))
+      (elisp-slime-nav-mode   . "")
+      (beacon-mode            . "")
+      (which-key-mode         . ""))
     "Alist for `clean-mode-line'.
 
 When you add a new element to the alist, keep in mind that you
