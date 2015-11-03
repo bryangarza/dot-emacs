@@ -1847,3 +1847,12 @@ See `comment-region' for behavior of a prefix arg."
   (progn
     (beacon-mode 1)
     (setq beacon-blink-duration 0.5)))
+
+(use-package popwin
+  :ensure t
+  :config
+  (progn
+    (popwin-mode 1)
+    (setq popwin:popup-window-position 'right)
+    ;; (setq popwin:popup-window-height 15) ; 15 is the default value
+    (setq popwin:popup-window-width 80)))
