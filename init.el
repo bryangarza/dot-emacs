@@ -1827,6 +1827,7 @@ See `comment-region' for behavior of a prefix arg."
 ;; (add-hook 'text-mode-hook 'remove-dos-eol)
 
 (add-to-list 'evil-insert-state-modes 'haskell-interactive-mode)
+(add-to-list 'evil-insert-state-modes 'twittering-edit-mode)
 
 ;; http://www.emacswiki.org/emacs/NeoTree
 (use-package neotree
@@ -1856,3 +1857,6 @@ See `comment-region' for behavior of a prefix arg."
     (setq popwin:popup-window-position 'right)
     ;; (setq popwin:popup-window-height 15) ; 15 is the default value
     (setq popwin:popup-window-width 80)))
+
+(use-package twittering-mode
+  :ensure t)
