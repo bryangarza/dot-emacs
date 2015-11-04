@@ -321,7 +321,7 @@ Should this be undesirable, one can remove them with
     (when (fboundp mode) (funcall mode -1)))
 
   (column-number-mode t)
-  (blink-cursor-mode +1)
+  ;; (blink-cursor-mode t)
   ;; (display-time)
   ;; (display-battery-mode)
 
