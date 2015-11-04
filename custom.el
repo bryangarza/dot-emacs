@@ -5,9 +5,10 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
+ '(blink-cursor-mode nil)
  '(custom-safe-themes
    (quote
-    ("83a27e12cbf3332d5502a953659b768d222a5be4518d52eda046386a66446c19" "40bc0ac47a9bd5b8db7304f8ef628d71e2798135935eb450483db0dbbfff8b11" "603a9c7f3ca3253cb68584cb26c408afcf4e674d7db86badcfe649dd3c538656" default)))
+    ("8dd1433f5e33c1cc917d7a8839b1df645d46269020650d7247654693c94f41c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "83a27e12cbf3332d5502a953659b768d222a5be4518d52eda046386a66446c19" "40bc0ac47a9bd5b8db7304f8ef628d71e2798135935eb450483db0dbbfff8b11" "603a9c7f3ca3253cb68584cb26c408afcf4e674d7db86badcfe649dd3c538656" default)))
  '(fci-rule-color "#383838")
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
