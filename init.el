@@ -1857,6 +1857,3 @@ See `comment-region' for behavior of a prefix arg."
     (setq popwin:popup-window-position 'right)
     ;; (setq popwin:popup-window-height 15) ; 15 is the default value
     (setq popwin:popup-window-width 80)))
-
-(use-package twittering-mode
-  :ensure t)
