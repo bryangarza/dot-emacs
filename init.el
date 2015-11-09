@@ -1856,3 +1856,12 @@ See `comment-region' for behavior of a prefix arg."
     (setq popwin:popup-window-position 'right)
     ;; (setq popwin:popup-window-height 15) ; 15 is the default value
     (setq popwin:popup-window-width 80)))
+
+;; Plan 9 Smart Shell
+;; https://www.masteringemacs.org/article/complete-guide-mastering-eshell
+(require 'em-smart)
+(setq eshell-where-to-jump 'begin)
+(setq eshell-review-quick-commands nil)
+(setq eshell-smart-space-goes-to-end t)
+;; for some reason it doesn't work w/o vvvvvvv
+(eshell-smart-initialize)
