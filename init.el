@@ -43,7 +43,7 @@
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-;; (load-file "~/.private.el")
+(load-file "~/.private.el")
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
@@ -1294,13 +1294,12 @@ want to use in the modeline *in lieu of* the original.")
         rcirc-prompt            "%n> "
         rcirc-omit-responses    '("JOIN" "PART" "QUIT" "NICK" "AWAY")
         rcirc-auto-authenticate-flag t
-        rcirc-server-alist '(("chat.freenode.net"
+        rcirc-server-alist '(("irc.freenode.net"
                               :port 6697
                               :encryption tls
                               :channels ("#haskell"
-                                         "#haskell-beginners"
                                          "#emacs"
-                                         "#emacs-beginners"))))
+                                         "#ocaml"))))
 
   (rcirc-track-minor-mode 1)
   (set-face-foreground 'rcirc-prompt "#d7ff00")
