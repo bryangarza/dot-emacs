@@ -276,8 +276,8 @@ Should this be undesirable, one can remove them with
   (desktop-save-mode t)
   (fset 'yes-or-no-p 'y-or-n-p)
 
-  (setq electric-indent-mode                 t
-        redisplay-dont-pause                 t
+  (electric-indent-mode)
+  (setq redisplay-dont-pause                 t
         apropos-do-all                       t
         require-final-newline                t
         save-interprogram-paste-before-kill  t
@@ -868,7 +868,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     ;; (turn-on-haskell-indent)
     (haskell-indentation-mode)
     ;; (turn-on-hi2)
-    (electric-indent-mode nil)
 
     ;; Load the current file (and make a session if not already made).
     (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
