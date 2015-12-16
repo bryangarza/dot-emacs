@@ -654,6 +654,18 @@ Hydra for hydras
     (interactive)
     (ansi-term "/usr/local/bin/zsh")))
 
+
+(defun bryan-ivy ()
+  (use-package swiper
+    :ensure t
+    :config
+    (progn
+      (ivy-mode 1)
+      (setq ivy-use-virtual-buffers t)))
+
+  (use-package counsel
+    :ensure t))
+
 (defun bryan-helm ()
   (use-package helm
     :init
@@ -718,6 +730,25 @@ Hydra for hydras
   ;;   :defer t
   ;;   :bind (("C-h b" . helm-descbinds)
   ;;          ("C-h w" . helm-descbinds)))
+  )
+
+(defun bryan-set-ivy-bindings ()
+  (global-set-key "\C-s" 'swiper)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  ;; (global-set-key (kbd "<f6>") 'ivy-resume)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  ;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  ;; (global-set-key (kbd "s-f") 'counsel-find-file)
+  ;; (global-set-key (kbd "C-h C-f") 'counsel-describe-function)
+  ;; (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+  ;; (global-set-key (kbd "<f1> l") 'counsel-load-library)
+  ;; (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+  (global-set-key (kbd "C-c g") 'counsel-git)
+  (global-set-key (kbd "C-c j") 'counsel-git-grep)
+  ;; (global-set-key (kbd "C-c k") 'counsel-ag)
+  (global-set-key (kbd "C-x l") 'counsel-locate)
+  ;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
   )
 
 (defun bryan-better-splits ()
@@ -1682,7 +1713,9 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan-markdown)
   (bryan-json)
   (bryan-term)
+  (bryan-ivy)
   (bryan-helm)
+  (bryan-set-ivy-bindings)
   (bryan-better-splits)
   (bryan-rename-or-delete-buffer-and-file)
   (bryan-minibuffer-keyboard-quit)
@@ -1889,7 +1922,7 @@ See `comment-region' for behavior of a prefix arg."
                                       erc-nick-msg-face
                                       erc-direct-msg-face
                                       erc-dangerous-host-face
-                                      erc-notice-face
+                                      ;; erc-notice-face
                                       erc-prompt-face))
 
 ;; (-difference '(a b c d e f) '(a c)) ; (b d e f)
@@ -1931,12 +1964,15 @@ which are defined in ~/.private.el"
 (use-package erc-terminal-notifier
   :ensure t)
 
+(define-key key-translation-map (kbd "<M-down-mouse-1>") (kbd "<down-mouse-2>"))
+
 (use-package znc
   :ensure t)
 
 (use-package slime
   :ensure t
   :config
-  ;; Set your lisp system and, optionally, some contribs
- (setq inferior-lisp-program "/usr/local/bin/clisp")
- (setq slime-contribs '(slime-fancy)))
+  (progn
+    ;; Set your lisp system and, optionally, some contribs
+    (setq inferior-lisp-program "/usr/local/bin/clisp")
+    (setq slime-contribs '(slime-fancy))))
