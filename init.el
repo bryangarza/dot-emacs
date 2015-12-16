@@ -87,10 +87,13 @@
   (require 'moe-theme)
   (setq moe-theme-resize-org-title '(2.2 1.8 1.6 1.4 1.2 1.0 1.0 1.0 1.0))
   (setq moe-theme-highlight-buffer-id nil)
-  (moe-theme-set-color 'purple)
+  (moe-theme-set-color 'red)
   ;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
   ;; (moe-light)
   (moe-dark)
+  ;; (invert-face 'mode-line)
+  (set-face-foreground 'mode-line-buffer-id "#FFFFFF")
+  (set-face-bold 'mode-line-buffer-id nil)
   ;; (set-background-color "#ffffff")
 
   ;; no underlined text! include `:weight 'normal` to get rid of bold
@@ -133,6 +136,7 @@
                                        :box (:line-width 1 :style none)))))))
 
   (setq org-hide-leading-stars t)
+  (setq org-hide-emphasis-markers t)
 
 ;;; org-bullets.el --- Show bullets in org-mode as UTF-8 characters
 ;;; Version: 0.2.4
@@ -1281,13 +1285,7 @@ want to use in the modeline *in lieu of* the original.")
         rcirc-default-full-name "wolfcore"
         rcirc-prompt            "%n> "
         rcirc-omit-responses    '("JOIN" "PART" "QUIT" "NICK" "AWAY")
-        rcirc-auto-authenticate-flag t
-        rcirc-server-alist '(("irc.freenode.net"
-                              :port 6697
-                              :encryption tls
-                              :channels ("#haskell"
-                                         "#emacs"
-                                         "#ocaml"))))
+        rcirc-auto-authenticate-flag t)
 
   (rcirc-track-minor-mode 1)
   (set-face-foreground 'rcirc-prompt "#d7ff00")
@@ -1325,8 +1323,8 @@ want to use in the modeline *in lieu of* the original.")
 
   (defun rcirc-change-title (&rest dontcare)
     (if (string= rcirc-activity-string "[]")
-        (setq frame-title-format "No IRC activity.")
-      (setq frame-title-format rcirc-activity-string))
+        (setq frame-title-format '("Emacs: %b, No IRC activity."))
+      (setq frame-title-format '("Emacs: %b, " rcirc-activity-string)))
     (redisplay))
   (add-hook 'rcirc-update-activity-string-hook 'rcirc-change-title))
 
@@ -1857,3 +1855,88 @@ See `comment-region' for behavior of a prefix arg."
 (setq eshell-smart-space-goes-to-end t)
 ;; for some reason it doesn't work w/o vvvvvvv
 (eshell-smart-initialize)
+
+(setq erc-server-coding-system '(utf-8 . utf-8))
+(add-to-list 'erc-modules 'scrolltobottom)
+
+(defun please-dont-recenter ()
+  (set (make-local-variable 'scroll-conservatively) 100))
+
+(add-to-list 'erc-mode-hook
+             #'(lambda ()
+                 (set (make-local-variable 'scroll-conservatively) 100)))
+(add-to-list 'erc-modules 'move-to-prompt)
+(add-to-list 'erc-modules 'ring)
+;; (erc-update-modules)
+(setq erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
+;; To also exclude messages sent by the server when you join a channel, such as
+;; the nicklist and topic:
+(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+                                    "324" "329" "332" "333" "353" "477"))
+;; (setq erc-track-exclude '("*status"
+;;                           "#haskell"
+;;                           "#emacs"
+;;                           "##prolog"
+;;                           "#emacs-beginners"
+;;                           "#haskell-beginners"
+;;                           "#ocaml"))
+;; (setq erc-track-exclude nil)
+
+(setq erc-current-nick-highlight-type 'all)
+(setq erc-track-faces-priority-list '(erc-error-face
+                                      erc-current-nick-face
+                                      erc-keyword-face
+                                      erc-nick-msg-face
+                                      erc-direct-msg-face
+                                      erc-dangerous-host-face
+                                      erc-notice-face
+                                      erc-prompt-face))
+
+;; (-difference '(a b c d e f) '(a c)) ; (b d e f)
+(defun quieter-erc ()
+  "Minimal distraction for all channels except important ones
+which are defined in ~/.private.el"
+  (interactive)
+  (setq erc-track-priority-faces-only
+        (-difference (my-erc-joined-channels) erc-important-chans)))
+
+(defun my-erc-joined-channels ()
+  "Return all the channels you're in as a list.  This does not include queries."
+  (save-excursion
+    ;; need to get out of ERC mode so we can have *all* channels returned
+    (set-buffer "*scratch*")
+    (mapcar #'(lambda (chanbuf)
+                (with-current-buffer chanbuf (erc-default-target)))
+            (erc-channel-list erc-process))))
+
+(setq erc-join-buffer 'bury)
+(defun rcirc-detach-buffer ()
+  (interactive)
+  (let ((buffer (current-buffer)))
+    (when (and (rcirc-buffer-process)
+           (eq (process-status (rcirc-buffer-process)) 'open))
+      (with-rcirc-server-buffer
+    (setq rcirc-buffer-alist
+          (rassq-delete-all buffer rcirc-buffer-alist)))
+      (rcirc-update-short-buffer-names)
+      (if (rcirc-channel-p rcirc-target)
+      (rcirc-send-string (rcirc-buffer-process)
+                 (concat "DETACH " rcirc-target))))
+    (setq rcirc-target nil)
+    (kill-buffer buffer)))
+
+(use-package erc-hl-nicks
+  :ensure t)
+
+(use-package erc-terminal-notifier
+  :ensure t)
+
+(use-package znc
+  :ensure t)
+
+(use-package slime
+  :ensure t
+  :config
+  ;; Set your lisp system and, optionally, some contribs
+ (setq inferior-lisp-program "/usr/local/bin/clisp")
+ (setq slime-contribs '(slime-fancy)))
