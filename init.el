@@ -558,6 +558,7 @@ Hydra for hydras
 
   (add-to-list 'evil-emacs-state-modes 'magit-status-mode)
   (add-to-list 'evil-emacs-state-modes 'special-mode)
+  (add-to-list 'evil-emacs-state-modes 'dired-mode)
   (add-to-list 'evil-emacs-state-modes 'debugger-mode))
 
 (defun bryan-avy ()
@@ -1064,6 +1065,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       (doc-view-mode           . "dv")
       ;; hidden
       (helm-mode              . "")
+      (ivy-mode               . "")
       (undo-tree-mode         . "")
       (auto-complete-mode     . "")
       (magit-auto-revert-mode . "")
