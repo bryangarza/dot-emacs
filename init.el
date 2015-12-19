@@ -1915,15 +1915,16 @@ See `comment-region' for behavior of a prefix arg."
 ;;                           "#ocaml"))
 ;; (setq erc-track-exclude nil)
 
-(setq erc-current-nick-highlight-type 'all)
-(setq erc-track-faces-priority-list '(erc-error-face
+(setq erc-current-nick-highlight-type 'nick)
+(setq erc-track-faces-priority-list '(;;erc-error-face
                                       erc-current-nick-face
-                                      erc-keyword-face
+                                      ;;erc-keyword-face
                                       erc-nick-msg-face
                                       erc-direct-msg-face
-                                      erc-dangerous-host-face
-                                      ;; erc-notice-face
-                                      erc-prompt-face))
+                                      ;; erc-dangerous-host-face
+                                      ;;erc-notice-face
+                                      ;;erc-prompt-face
+                                      ))
 
 ;; (-difference '(a b c d e f) '(a c)) ; (b d e f)
 (defun quieter-erc ()
@@ -1958,11 +1959,37 @@ which are defined in ~/.private.el"
     (setq rcirc-target nil)
     (kill-buffer buffer)))
 
-(use-package erc-hl-nicks
-  :ensure t)
+;; (use-package erc-hl-nicks
+;;   :ensure t)
 
-(use-package erc-terminal-notifier
-  :ensure t)
+(defun my-erc-terminal-notifier ()
+  (defvar erc-terminal-notifier-command nil "The path to terminal-notifier.")
+  (setq erc-terminal-notifier-command (executable-find "terminal-notifier"))
+
+  (defun erc-terminal-notifier-notify (title message)
+    "Show a message with `terminal-notifier-command`."
+    (start-process "terminal-notifier"
+                   "*terminal-notifier*"
+                   erc-terminal-notifier-command
+                   "-title" title
+                   "-message" message
+                   "-activate" "org.gnu.Emacs"
+                   "-sender" "org.gnu.Emacs"))
+
+  (defun erc-terminal-notifier-text-matched (match-type nick message)
+    "Show a notification, when user's nick is mentioned."
+    (let ((cur-buf (buffer-name (current-buffer))))
+      (when (eq match-type 'current-nick)
+        (unless (or (posix-string-match "^\\** *Users on #" message)
+                    (posix-string-match "^\\*irc*" cur-buf))
+          (erc-terminal-notifier-notify
+           (concat "ERC " cur-buf)
+           (concat "\\<" (nth 0 (erc-parse-user nick)) "> " message))))))
+
+  (if (eq system-type 'darwin)
+      (add-hook 'erc-text-matched-hook 'erc-terminal-notifier-text-matched)))
+
+(my-erc-terminal-notifier)
 
 (define-key key-translation-map (kbd "<M-down-mouse-1>") (kbd "<down-mouse-2>"))
 
