@@ -23,7 +23,7 @@
     (company-mode sqlup-mode which-key avy evil-ranger markdown-mode elm-mode toc-org evil-anzu rust-mode helm moe-theme w3m git-gutter-fringe perspective auctex-mode auctex hy-mode helm-projectile projectile projectile-mode git-gutter ace-jump-mode pandoc-mode sbt-mode scala-mode2 haskell-mode hi2 elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
  '(pos-tip-background-color "#36473A")
  '(pos-tip-foreground-color "#FFFFC8")
- '(safe-local-variable-values (quote nil))
+ '(safe-local-variable-values (quote ((TeX-command-extra-options . "-shell-escape"))))
  '(scroll-bar-mode nil)
  '(send-mail-function (quote smtpmail-send-it))
  '(smtpmail-smtp-server "smtp.gmail.com")

@@ -84,16 +84,16 @@
   ;; so kawaii~  ✿◕ ‿ ◕✿
 
   ;; USUAL SETUP ;;;;;;;;;;;;
-  (require 'moe-theme)
-  (setq moe-theme-resize-org-title '(2.2 1.8 1.6 1.4 1.2 1.0 1.0 1.0 1.0))
-  (setq moe-theme-highlight-buffer-id nil)
-  (moe-theme-set-color 'red)
+  ;; (require 'moe-theme)
+  ;; (setq moe-theme-resize-org-title '(2.2 1.8 1.6 1.4 1.2 1.0 1.0 1.0 1.0))
+  ;; (setq moe-theme-highlight-buffer-id nil)
+  ;; (moe-theme-set-color 'red)
   ;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
   ;; (moe-light)
-  (moe-dark)
+  ;; (moe-dark)
   ;; (invert-face 'mode-line)
-  (set-face-foreground 'mode-line-buffer-id "#FFFFFF")
-  (set-face-bold 'mode-line-buffer-id nil)
+  ;; (set-face-foreground 'mode-line-buffer-id "#FFFFFF")
+  ;; (set-face-bold 'mode-line-buffer-id nil)
   ;; (set-background-color "#ffffff")
 
   ;; no underlined text! include `:weight 'normal` to get rid of bold
@@ -111,6 +111,9 @@
   ;; (load-theme 'dichromacy t)
   ;; (load-theme 'tao-yang)
   ;; (load-theme 'leuven)
+
+  ;; Current favorite.
+  (load-theme 'tango)
 
   ;; (setq rainbow-delimiters-outermost-only-face-count 1)
   ;; (setq rainbow-delimiters-max-face-count 2)
@@ -662,95 +665,13 @@ Hydra for hydras
     :config
     (progn
       (ivy-mode 1)
-      (setq ivy-use-virtual-buffers t)))
+      (setq ivy-use-virtual-buffers t)
+      (setq ivy-height 20)
+      (setq ivy-count-format "%-4d ")
+      (setq ivy-wrap t)))
 
   (use-package counsel
     :ensure t))
-
-(defun bryan-helm ()
-  (use-package helm
-    :init
-    (progn
-      (require 'helm-config)
-      (when (executable-find "curl")
-        (setq helm-google-suggest-use-curl-p t))
-      (setq
-       helm-candidate-number-limit           100
-       helm-autoresize-max-height            80 ; it is %.
-       helm-scroll-amount                    8
-       helm-split-window-in-side-p           t
-       helm-move-to-line-cycle-in-source     t
-       helm-ff-search-library-in-sexp        t
-       helm-ff-file-name-history-use-recentf t
-       helm-M-x-fuzzy-match                  t
-       helm-quick-update                     t
-       helm-bookmark-show-location           t
-       helm-buffers-fuzzy-matching           t
-       helm-apropos-fuzzy-match              t
-       helm-recentf-fuzzy-match              t
-       helm-locate-fuzzy-match               t
-       helm-file-cache-fuzzy-match           t
-       helm-semantic-fuzzy-match             t
-       helm-imenu-fuzzy-match                t
-       helm-lisp-fuzzy-completion            t)
-      (helm-mode)
-      (add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages)
-      (ido-mode -1) ; just in case
-      (helm-autoresize-mode t)
-      (global-unset-key (kbd "C-x c"))
-      (bind-keys :map helm-map
-                 ("<tab>" . helm-execute-persistent-action) ; rebind tab to run persistent action
-                 ("C-i"   . helm-execute-persistent-action) ; make TAB works in terminal
-                 ("C-z"   . helm-select-action))            ; list actions using C-z
-      (bind-key "C-c C-l" 'helm-comint-input-ring shell-mode-map)
-      (bind-key "C-c C-l" 'helm-minibuffer-history minibuffer-local-map))
-    :bind (("C-c h"     . helm-command-prefix)
-           ("M-x"       . helm-M-x)
-           ("s-m"       . helm-man-woman)
-           ("M-y"       . helm-show-kill-ring)
-           ("C-x b"     . helm-mini)
-           ("C-x C-f"   . helm-find-files)
-           ("s-f"       . helm-find-files)
-           ("s-b"       . helm-mini)
-           ("C-h SPC"   . helm-all-mark-rings)
-           ("C-c h M-:" . helm-eval-expression-with-eldoc)
-           ("C-c h o"   . helm-occur)
-           ("s-F"       . helm-occur)))
-
-  ;; (require 'helm-eshell)
-  ;; (add-hook 'eshell-mode-hook
-  ;;               #'(lambda ()
-  ;;                   (bind-key "C-c C-l" 'helm-eshell-history eshell-mode-map)))
-
-  ;; (use-package ac-helm
-  ;;   :defer t
-  ;;   :config (bind-key "C-:" 'ac-complete-with-helm ac-complete-mode-map)
-  ;;   :bind ("C-:" . ac-complete-with-helm))
-
-  ;; (use-package helm-descbinds
-  ;;   :defer t
-  ;;   :bind (("C-h b" . helm-descbinds)
-  ;;          ("C-h w" . helm-descbinds)))
-  )
-
-(defun bryan-set-ivy-bindings ()
-  (global-set-key "\C-s" 'swiper)
-  (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  ;; (global-set-key (kbd "<f6>") 'ivy-resume)
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  ;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  ;; (global-set-key (kbd "s-f") 'counsel-find-file)
-  ;; (global-set-key (kbd "C-h C-f") 'counsel-describe-function)
-  ;; (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-  ;; (global-set-key (kbd "<f1> l") 'counsel-load-library)
-  ;; (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-  (global-set-key (kbd "C-c g") 'counsel-git)
-  (global-set-key (kbd "C-c j") 'counsel-git-grep)
-  ;; (global-set-key (kbd "C-c k") 'counsel-ag)
-  (global-set-key (kbd "C-x l") 'counsel-locate)
-  ;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-  )
 
 (defun bryan-better-splits ()
 
@@ -987,38 +908,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
            lui-time-stamp-position 'right-margin
            lui-time-stamp-format "%H:%M"))))))
 
-(defun bryan-helm-swoop ()
-  (use-package helm-swoop
-    :defer t
-    :bind (("M-i" . helm-swoop)
-           ("M-I" . helm-swoop-back-to-last-point)
-           ("C-c M-i" . helm-multi-swoop)
-           ("C-x M-i" . helm-multi-swoop-all))
-    :config
-    (progn
-      (bind-key "M-i" 'helm-swoop-from-isearch isearch-mode-map)
-      (bind-key "M-i" 'helm-swoop-from-evil-search evil-motion-state-map)
-      (bind-keys :map helm-swoop-map
-                 ("M-i" . helm-multi-swoop-all-from-helm-swoop)
-                 ("C-r" . helm-previous-line)
-                 ("C-s" . helm-next-line))
-      (bind-keys :map helm-multi-swoop-map
-                 ("C-r" . helm-previous-line)
-                 ("C-s" . helm-next-line))
-      ;; Save buffer when helm-multi-swoop-edit complete
-      (setq helm-multi-swoop-edit-save t
-            ;; If this value is t, split window inside the current window
-            helm-swoop-split-with-multiple-windows nil
-            ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
-            helm-swoop-split-direction 'split-window-horizontally
-            ;; If nil, you can slightly boost invoke speed in exchange for text color
-            helm-swoop-speed-or-color t
-            ;; ;; Go to the opposite side of line from the end or beginning of line
-            helm-swoop-move-to-line-cycle t
-            ;; Optional face for line numbers
-            ;; Face name is `helm-swoop-line-number-face`
-            helm-swoop-use-line-number-face t))))
-
 (defun bryan-racket ()
   (setq geiser-active-implementations '(racket))
 
@@ -1064,7 +953,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       (python-mode            . "py")
       (doc-view-mode           . "dv")
       ;; hidden
-      (helm-mode              . "")
       (ivy-mode               . "")
       (undo-tree-mode         . "")
       (auto-complete-mode     . "")
@@ -1610,49 +1498,67 @@ holding export options."
     (set-mark-command 4))
 
   (bind-keys*
-   ("M-w"   . execute-extended-command)
-   ("s-w"   . execute-extended-command)
-   ("C-s-r" . zshell)
-   ("s-r"   . eshell)
-   ("s-v"   . evil-paste-after)
-   ("s-c"   . evil-yank)
-   ("s-a"   . mark-whole-buffer)
-   ("s-s"   . save-buffer)
-   ("s-R"   . prelude-rename-buffer-and-file)
-   ("s-D"   . prelude-delete-file-and-buffer)
-   ("s-i"   . magit-status)
-   ("s-o"   . other-window)
-   ("s-O"   . other-frame)
-   ("s-e"   . eval-defun)
-   ("s-n"   . next-buffer)
-   ("s-p"   . previous-buffer)
-   ("s-P"   . ns-print-buffer)
-   ("s-h"   . windmove-left)
-   ("s-j"   . windmove-down)
-   ("s-k"   . windmove-up)
-   ("s-l"   . windmove-right)
-   ("s-L"   . goto-line)
-   ("s-l"   . windmove-right)
-   ("s-m"   . org-publish-current-project)
-   ("s-q"   . previous-history-element)
-   ("s-d"   . next-history-element)
-   ("s-K"   . kill-this-buffer)
-   ("C-x 2" . split-vert-and-switch)
-   ("C-x 3" . split-horiz-and-switch)
-   ("s-0"   . delete-window)
-   ("s-1"   . delete-other-windows)
-   ("s-2"   . split-vert-and-switch)
-   ("s-3"   . split-horiz-and-switch)
-   ("C-c w" . bryan-window-stuff-hydra/body)
-   ("C-c c" . bryan-multiple-cursors-hydra/body)
-   ("C-c o" . bryan-org-hydra/body)
-   ("C-c a" . bryan-avy-hydra/body)
-   ("C-c m" . bryan-hydra-hydra/body)
-   ("C-c r" . evil-ranger)
-   ("C-;"   . pop-for-avy)
-   ("s-A"   . evil-copy-from-above)
-   ("s-u"   . revert-buffer)
-   ("H-e"   . evil-execute-in-emacs-state))
+   ("C-s-r"   . zshell)
+   ("s-r"     . eshell)
+   ("s-v"     . evil-paste-after)
+   ("s-c"     . evil-yank)
+   ("s-a"     . mark-whole-buffer)
+   ("s-s"     . save-buffer)
+   ("s-R"     . prelude-rename-buffer-and-file)
+   ("s-D"     . prelude-delete-file-and-buffer)
+   ("s-i"     . magit-status)
+   ("s-o"     . other-window)
+   ("s-O"     . other-frame)
+   ("s-e"     . eval-defun)
+   ("s-n"     . next-buffer)
+   ("s-p"     . previous-buffer)
+   ("s-P"     . ns-print-buffer)
+   ("s-h"     . windmove-left)
+   ("s-j"     . windmove-down)
+   ("s-k"     . windmove-up)
+   ("s-l"     . windmove-right)
+   ("s-L"     . goto-line)
+   ("s-l"     . windmove-right)
+   ("s-m"     . org-publish-current-project)
+   ("s-q"     . previous-history-element)
+   ("s-d"     . next-history-element)
+   ("s-K"     . kill-this-buffer)
+   ("C-x 2"   . split-vert-and-switch)
+   ("C-x 3"   . split-horiz-and-switch)
+   ("s-0"     . delete-window)
+   ("s-1"     . delete-other-windows)
+   ("s-2"     . split-vert-and-switch)
+   ("s-3"     . split-horiz-and-switch)
+   ("C-c w"   . bryan-window-stuff-hydra/body)
+   ("C-c c"   . bryan-multiple-cursors-hydra/body)
+   ("C-c o"   . bryan-org-hydra/body)
+   ("C-c a"   . bryan-avy-hydra/body)
+   ("C-c m"   . bryan-hydra-hydra/body)
+   ("C-c r"   . evil-ranger)
+   ("C-;"     . pop-for-avy)
+   ("s-A"     . evil-copy-from-above)
+   ("s-u"     . revert-buffer)
+   ("H-e"     . evil-execute-in-emacs-state)
+   ("M-w"     . counsel-M-x)
+   ("M-x"     . counsel-M-x)
+   ("s-w"     . counsel-M-x)
+   ("s-b"     . ivy-switch-buffer)
+   ("\C-s"    . swiper)
+   ("C-c C-r" . ivy-resume)
+   ("C-x C-f" . counsel-find-file)
+   ("s-f"     . counsel-find-file)
+   ("C-h f"   . counsel-describe-function)
+   ("C-h v"   . counsel-describe-variable)
+   ("<f2> u"  . counsel-unicode-char)
+   ("C-c g"   . counsel-git)
+   ("C-c j"   . counsel-git-grep)
+   ("C-x l"   . counsel-locate)
+   ;; ("<f6>"   . ivy-resume)
+   ;; ("<f1> l" . counsel-load-library)
+   ;; ("<f2> i" . counsel-info-lookup-symbol)
+   ;; ("C-c k"  . counsel-ag)
+   ;; ("C-S-o"  . counsel-rhythmbox)
+   )
 
   (bind-keys :map evil-motion-state-map ("C-e" . move-end-of-line))
   (bind-keys :map evil-insert-state-map ("C-e" . move-end-of-line))
@@ -1716,8 +1622,6 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan-json)
   (bryan-term)
   (bryan-ivy)
-  (bryan-helm)
-  (bryan-set-ivy-bindings)
   (bryan-better-splits)
   (bryan-rename-or-delete-buffer-and-file)
   (bryan-minibuffer-keyboard-quit)
@@ -1728,7 +1632,6 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan-haskell)
   (bryan-elm)
   ;; (bryan-circe)
-  (bryan-helm-swoop)
   (bryan-racket)
   (bryan-multiple-cursors)
   (bryan-clean-mode-line)
@@ -1744,8 +1647,8 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan-rust)
   (bryan-elisp)
   (bryan-clojure)
-  (bryan-ox-html)
-  (bryan-blog)
+  ;; (bryan-ox-html)
+  ;; (bryan-blog)
   (bryan-keybindings))
 
 (bryan-eval-fns)
@@ -1891,6 +1794,7 @@ See `comment-region' for behavior of a prefix arg."
 ;; for some reason it doesn't work w/o vvvvvvv
 (eshell-smart-initialize)
 
+(require 'erc)
 (setq erc-server-coding-system '(utf-8 . utf-8))
 (add-to-list 'erc-modules 'scrolltobottom)
 
@@ -2005,3 +1909,5 @@ which are defined in ~/.private.el"
     ;; Set your lisp system and, optionally, some contribs
     (setq inferior-lisp-program "/usr/local/bin/clisp")
     (setq slime-contribs '(slime-fancy))))
+
+(require 'midnight)
