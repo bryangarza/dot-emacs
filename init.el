@@ -668,7 +668,8 @@ Hydra for hydras
       (setq ivy-use-virtual-buffers t)
       (setq ivy-height 20)
       (setq ivy-count-format "%-4d ")
-      (setq ivy-wrap t)))
+      (setq ivy-wrap t)
+      (setq confirm-nonexistent-file-or-buffer t)))
 
   (use-package counsel
     :ensure t))
