@@ -1,5 +1,5 @@
 (setq user-full-name "Bryan Garza"
-      user-mail-address "bryanxmailing@gmail.com")
+      user-mail-address "brygarza@gmail.com")
 
 (require 'cl)
 (require 'package)
@@ -666,7 +666,7 @@ Hydra for hydras
     (progn
       (ivy-mode 1)
       (setq ivy-use-virtual-buffers t)
-      (setq ivy-height 20)
+      (setq ivy-height 10)
       (setq ivy-count-format "%-4d ")
       (setq ivy-wrap t)
       (setq confirm-nonexistent-file-or-buffer t)))
