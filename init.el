@@ -1499,6 +1499,15 @@ holding export options."
     (interactive)
     (set-mark-command 4))
 
+  (defun smart-line-beginning ()
+    "Move point to the beginning of text on the current line; if that is already
+the current position of point, then move it to the beginning of the line."
+    (interactive)
+    (let ((pt (point)))
+      (beginning-of-line-text)
+      (when (eq pt (point))
+        (beginning-of-line))))
+
   (bind-keys*
    ("C-s-r"   . zshell)
    ("s-r"     . eshell)
@@ -1561,6 +1570,11 @@ holding export options."
    ;; ("C-c k"  . counsel-ag)
    ;; ("C-S-o"  . counsel-rhythmbox)
    )
+
+  (bind-keys :map evil-motion-state-map ("C-a" . smart-line-beginning))
+  (bind-keys :map evil-insert-state-map ("C-a" . smart-line-beginning))
+  (bind-keys :map evil-visual-state-map ("C-a" . smart-line-beginning))
+  (bind-keys :map evil-normal-state-map ("C-a" . smart-line-beginning))
 
   (bind-keys :map evil-motion-state-map ("C-e" . move-end-of-line))
   (bind-keys :map evil-insert-state-map ("C-e" . move-end-of-line))
