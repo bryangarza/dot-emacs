@@ -114,7 +114,8 @@
 
   ;; Current favorite.
   (load-theme 'tango)
-
+  (set-face-foreground 'mode-line "white")
+  (set-face-background 'mode-line "purple")
   ;; (setq rainbow-delimiters-outermost-only-face-count 1)
   ;; (setq rainbow-delimiters-max-face-count 2)
   )
