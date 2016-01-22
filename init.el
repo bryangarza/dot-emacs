@@ -1927,3 +1927,6 @@ which are defined in ~/.private.el"
     (setq slime-contribs '(slime-fancy))))
 
 (require 'midnight)
+
+(setq org-html-validation-link nil)
+(setq org-html-doctype "html5")
