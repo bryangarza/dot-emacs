@@ -1,7 +1,5 @@
 #+title: .emacs.d
 
-Read about switching from Vim to Emacs in my blog post, [[http://www.bryangarza.me/my-descent-into-evil.html][My Descent Into Evil]].
-
 * Table of Contents                                                :TOC_2_gh:
  - [[#important][Important!]]
  - [[#paredit][Paredit]]
@@ -18,6 +16,7 @@ Read about switching from Vim to Emacs in my blog post, [[http://www.bryangarza.
  - [[#keybindings][Keybindings]]
  - [[#updating-submodules][Updating submodules]]
  - [[#finding-face-under-point][Finding face under point]]
+ - [[#ad-handle-definition-warnings][Ad-handle-definition warnings]]
  - [[#here-be-dragons][Here Be Dragons]]
  - [[#when-cloning][When Cloning]]
    - [[#ocaml][OCaml]]
@@ -122,6 +121,17 @@ git submodule foreach git pull origin master
 
 Keyboard shortcut is =C-u C-x ==.
 
+* Ad-handle-definition warnings
+To suppress things like
+#+BEGIN_EXAMPLE
+ad-handle-definition: `org-latex-keyword' got redefined
+#+END_EXAMPLE
+Do:
+#+BEGIN_SRC elisp
+(setq ad-redefinition-action 'accept)
+#+END_SRC
+I didn't though, because they are harmless, and I'd rather know when something
+is being advice'd.
 * Here Be Dragons
 This setup is heavily customized, [[http://www.bryangarza.me/contact.html][let me know]] if you run into any problems and
 we can troubleshoot. Though official support is neither offered nor guaranteed,
@@ -132,7 +142,7 @@ I'd like this configuration to be useful to others.
 
 OCaml settings require external installation, see
 [[https://github.com/realworldocaml/book/wiki/Installation-Instructions][Real World OCaml's GitHub wiki]]. If you don't care about OCaml, simply comment
-out =bryan-ocaml= in =bryan-pkg-full=.
+out =bryan/ocaml= in =bryan/pkg-full=.
 
 ** IRC
 Create a file =~/.private.el=:
@@ -199,10 +209,9 @@ Notable packages and modes that I use include
 
 - Evil
 - Paredit
-- Helm, Helm Swoop
-- Flycheck
-- Multiple Cursors
-- Ace Jump
+- Company
+- Ivy, Swiper
+- Avy
 
 * License
 Copyright (C) 2015 Bryan Garza
