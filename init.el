@@ -6,6 +6,8 @@
 
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("org" . "http://orgmode.org/elpa/") t)
 
 (package-initialize)
 (setq package-enable-at-startup nil)
@@ -121,7 +123,12 @@
   ;; (setq rainbow-delimiters-max-face-count 2)
   )
 
-(defun bryan-org ()
+(defun bryan/org ()
+  (use-package org
+    :ensure org-plus-contrib
+    :config
+    (progn (require 'ox-bibtex)))
+
   ;; (require 'org)
   ;;(add-to-list 'load-path "~/.emacs.d/lisp/org-mode/lisp")
   ;;(add-to-list 'load-path "~/.emacs.d/lisp/org-mode/contrib/lisp")
@@ -274,7 +281,6 @@ Should this be undesirable, one can remove them with
                '("article"
                  "\\documentclass{article}"
                  ("\\section{%s}" . "\\section*{%s}")))
-  (require 'ox-bibtex)
   ;; (setq org-latex-pdf-process '("texi2dvi -p -b -V %f"))
   (setq org-latex-pdf-process (list "latexmk -pdf %f")))
 
