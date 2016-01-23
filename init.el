@@ -51,14 +51,14 @@
 (eval-when-compile
   (require 'use-package))
 
-(defun bryan-company ()
+(defun bryan/company ()
   (use-package company
     :ensure t
     :init
     (progn
       (add-hook 'after-init-hook 'global-company-mode))))
 
-(defun bryan-paren ()
+(defun bryan/paren ()
   (use-package paren
     :ensure t
     :init
@@ -70,7 +70,7 @@
       ;; (set-face-attribute 'show-paren-match-face nil :weight 'medium :underline nil)
       (setq show-paren-delay 0))))
 
-(defun bryan-themes ()
+(defun bryan/themes ()
   (defadvice load-theme
       (before theme-dont-propagate activate)
     (mapc #'disable-theme custom-enabled-themes))
@@ -284,7 +284,7 @@ Should this be undesirable, one can remove them with
   ;; (setq org-latex-pdf-process '("texi2dvi -p -b -V %f"))
   (setq org-latex-pdf-process (list "latexmk -pdf %f")))
 
-(defun bryan-general ()
+(defun bryan/general ()
   (require 'uniquify)
   (setq uniquify-buffer-name-style 'forward)
 
@@ -330,7 +330,7 @@ Should this be undesirable, one can remove them with
   (require 'tramp)
   (require 'bind-key))
 
-(defun bryan-interface ()
+(defun bryan/interface ()
   (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode global-hl-line-mode))
     (when (fboundp mode) (funcall mode -1)))
 
@@ -351,8 +351,8 @@ Should this be undesirable, one can remove them with
   (set-face-attribute 'default nil
                       :family "Monaco" :height 130 :weight 'normal))
 
-(defun bryan-hydra ()
-  (defun bryan-define-hydras ()
+(defun bryan/hydra ()
+  (defun bryan/define-hydras ()
 
     (defun hydra-move-splitter-left (arg)
       "Move window splitter left."
@@ -386,7 +386,7 @@ Should this be undesirable, one can remove them with
           (shrink-window arg)
         (enlarge-window arg)))
 
-    (defhydra bryan-window-stuff-hydra (:hint nil)
+    (defhydra bryan/window-stuff-hydra (:hint nil)
       "
           Split: _v_ert  _s_:horz
      Reorganize: _t_oggle split  _w_indow rotate
@@ -428,7 +428,7 @@ Should this be undesirable, one can remove them with
 
       ("q" nil))
 
-    (defhydra bryan-multiple-cursors-hydra (:hint nil)
+    (defhydra bryan/multiple-cursors-hydra (:hint nil)
       "
      ^Up^            ^Down^        ^Miscellaneous^
 ----------------------------------------------
@@ -445,7 +445,7 @@ Should this be undesirable, one can remove them with
   ("M-p" mc/unmark-previous-like-this)
   ("q" nil))
 
-(defhydra bryan-org-hydra (:color red :hint nil)
+(defhydra bryan/org-hydra (:color red :hint nil)
   "
 Navigation^
 ---------------------------------------------------------
@@ -483,7 +483,7 @@ _g_o to
   ("g" org-goto :exit t)
   ("q" nil))
 
-(defhydra bryan-avy-hydra (:color blue)
+(defhydra bryan/avy-hydra (:color blue)
   "avy-goto"
   ("c" avy-goto-char "char")
   ("C" avy-goto-char-2 "char-2")
@@ -492,7 +492,7 @@ _g_o to
   ("W" avy-goto-word-0 "word-0")
   ("q" nil))
 
-(defhydra bryan-hydra-hydra (:color blue)
+(defhydra bryan/hydra-hydra (:color blue)
   "
 Hydra for hydras
 ----------------
@@ -501,19 +501,19 @@ Hydra for hydras
 [_o_] Org mode
 [_a_] Avy
 "
-("w" bryan-window-stuff-hydra/body)
-("c" bryan-multiple-cursors-hydra/body)
-("o" bryan-org-hydra/body)
-("a" bryan-avy-hydra/body)
+("w" bryan/window-stuff-hydra/body)
+("c" bryan/multiple-cursors-hydra/body)
+("o" bryan/org-hydra/body)
+("a" bryan/avy-hydra/body)
 ("q" nil)))
 
 (use-package hydra
   :ensure t
   :config
   (progn
-    (bryan-define-hydras))))
+    (bryan/define-hydras))))
 
-(defun bryan-paredit ()
+(defun bryan/paredit ()
   (use-package paredit
     :ensure t
     :config
@@ -535,13 +535,13 @@ Hydra for hydras
         (insert " ")
         (forward-char -1)))))
 
-(defun bryan-hooks ()
+(defun bryan/hooks ()
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'text-mode-hook 'turn-on-auto-fill)
   (add-hook 'window-startup-hook 'toggle-frame-maximized))
 
-(defun bryan-evil ()
+(defun bryan/evil ()
   (use-package evil-leader
     :config
     (progn
@@ -571,7 +571,7 @@ Hydra for hydras
   (add-to-list 'evil-emacs-state-modes 'dired-mode)
   (add-to-list 'evil-emacs-state-modes 'debugger-mode))
 
-(defun bryan-avy ()
+(defun bryan/avy ()
   (use-package avy
     :ensure t
     :config
@@ -600,7 +600,7 @@ Hydra for hydras
       (define-key evil-motion-state-map (kbd "C-SPC") #'avy-goto-word-1)
       (define-key evil-motion-state-map (kbd "M-SPC") #'avy-goto-line))))
 
-(defun bryan-cider ()
+(defun bryan/cider ()
   ;; Cider settings
   ;; Enable `eldoc` in Clojure buffers
   (add-hook 'cider-mode-hool #'eldoc-mode)
@@ -612,7 +612,7 @@ Hydra for hydras
   ;; Enable paredit in the REPL buffer
   (add-hook 'cider-repl-mode-hook #'paredit-mode))
 
-(defun bryan-frontend ()
+(defun bryan/frontend ()
   (use-package web-mode
     :config
     (progn
@@ -634,7 +634,7 @@ Hydra for hydras
 
   (add-hook 'js-mode-hook 'paredit-nonlisp-hook))
 
-(defun bryan-markdown ()
+(defun bryan/markdown ()
   (use-package markdown-mode
     :mode (("\\.text\\'" . markdown-mode)
            ("\\.markdown\\'" . markdown-mode)
@@ -642,7 +642,7 @@ Hydra for hydras
 
   (add-hook 'markdown-mode-hook 'pandoc-mode))
 
-(defun bryan-json ()
+(defun bryan/json ()
   (use-package json-mode
     :config
     (progn
@@ -650,14 +650,14 @@ Hydra for hydras
       (setq js-indent-level 2)
       (setq json-reformat:indent-width 4))))
 
-(defun bryan-term ()
+(defun bryan/term ()
   (defun zshell ()
     "start a terminal with zshell"
     (interactive)
     (ansi-term "/usr/local/bin/zsh")))
 
 
-(defun bryan-ivy ()
+(defun bryan/ivy ()
   (use-package swiper
     :ensure t
     :config
@@ -672,7 +672,7 @@ Hydra for hydras
   (use-package counsel
     :ensure t))
 
-(defun bryan-better-splits ()
+(defun bryan/better-splits ()
 
   (defun split-vert-and-switch ()
     (interactive)
@@ -684,7 +684,7 @@ Hydra for hydras
     (split-window-horizontally)
     (other-window 1)))
 
-(defun bryan-rename-or-delete-buffer-and-file ()
+(defun bryan/rename-or-delete-buffer-and-file ()
 
   (defun prelude-rename-buffer-and-file ()
     "Rename current buffer and if the buffer is visiting a file, rename it too."
@@ -711,7 +711,7 @@ Hydra for hydras
             (message "Deleted file %s" filename)
             (kill-buffer)))))))
 
-(defun bryan-minibuffer-keyboard-quit ()
+(defun bryan/minibuffer-keyboard-quit ()
 
   (defun minibuffer-keyboard-quit ()
     "Abort recursive edit.
@@ -723,7 +723,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
       (abort-recursive-edit))))
 
-(defun bryan-util ()
+(defun bryan/util ()
 
   (use-package winner
     :ensure t
@@ -742,7 +742,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     :ensure t
     :bind ("C-=" . er/expand-region)))
 
-(defun bryan-flycheck ()
+(defun bryan/flycheck ()
   (use-package flycheck
     :ensure t
     :defer t
@@ -750,7 +750,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   ;; (add-hook 'after-init-hook #'global-flycheck-mode)
   )
 
-(defun bryan-c ()
+(defun bryan/c ()
   (defun c-mode-custom-hook ()
     (setq c-default-style "linux")
     (setq c-basic-offset 4)
@@ -759,7 +759,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (add-hook 'c-mode-common-hook 'paredit-nonlisp-hook)
   (add-hook 'c-mode-common-hook 'c-mode-custom-hook))
 
-(defun bryan-ocaml ()
+(defun bryan/ocaml ()
   (load "/Users/bryangarza/.emacs.d/lisp/tuareg/tuareg-site-file.el")
   ;; Add opam emacs directory to the load-path
   (setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
@@ -801,7 +801,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   ;; (add-hook 'tuareg-mode-hook 'ocaml-custom-hook)
   )
 
-(defun bryan-haskell ()
+(defun bryan/haskell ()
   ;; (add-to-list 'load-path "~/.emacs.d/lisp/haskell-mode/")
   ;; (require 'haskell-mode-autoloads)
   ;; (add-to-list 'Info-default-directory-list "~/.emacs.d/lisp/haskell-mode/")
@@ -879,11 +879,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
   (add-hook 'haskell-mode-hook 'haskell-custom-hook))
 
-(defun bryan-elm ()
+(defun bryan/elm ()
   (use-package elm-mode
     :ensure t))
 
-(defun bryan-racket ()
+(defun bryan/racket ()
   (setq geiser-active-implementations '(racket))
 
   (defun racket-mode-custom-hook ()
@@ -891,7 +891,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
   (add-hook 'geiser-mode-hook 'racket-mode-custom-hook))
 
-(defun bryan-multiple-cursors ()
+(defun bryan/multiple-cursors ()
   ;; https://github.com/magnars/multiple-cursors.el
   (use-package multiple-cursors
     :ensure t
@@ -901,7 +901,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
            ("C-<" . mc/mark-previous-like-this)
            ("C-c C-<" . mc/mark-all-like-this))))
 
-(defun bryan-clean-mode-line ()
+(defun bryan/clean-mode-line ()
   (defvar mode-line-cleaner-alist
     `((company-mode           . " Co.")
       (paredit-mode           . " π")
@@ -950,7 +950,7 @@ want to use in the modeline *in lieu of* the original.")
   (add-hook 'init-hook 'clean-mode-line)
   (add-hook 'after-change-major-mode-hook 'clean-mode-line))
 
-(defun bryan-toggle-split-or-rotate-windows ()
+(defun bryan/toggle-split-or-rotate-windows ()
 
   (defun toggle-window-split ()
     (interactive)
@@ -1002,7 +1002,7 @@ want to use in the modeline *in lieu of* the original.")
                (set-window-start w2 s1)
                (setq i (1+ i))))))))
 
-(defun bryan-smart-quotes ()
+(defun bryan/smart-quotes ()
 
   (defun replace-smart-quotes (beg end)
     "Replace 'smart quotes' in buffer or region with ascii quotes."
@@ -1021,7 +1021,7 @@ want to use in the modeline *in lieu of* the original.")
 
   (global-set-key (kbd "C-c y") 'yank-and-replace-smart-quotes))
 
-(defun bryan-scala ()
+(defun bryan/scala ()
   (use-package scala-mode2
     :ensure t)
 
@@ -1055,7 +1055,7 @@ want to use in the modeline *in lieu of* the original.")
 
   (add-hook 'sbt-mode-hook 'sbt-mode-custom-hook))
 
-(defun bryan-magit ()
+(defun bryan/magit ()
   (use-package magit
     :ensure t
     :config
@@ -1064,19 +1064,19 @@ want to use in the modeline *in lieu of* the original.")
       (setq magit-status-buffer-switch-function 'switch-to-buffer)
       (setq magit-push-always-verify nil))))
 
-(defun bryan-pandoc ()
+(defun bryan/pandoc ()
   (use-package pandoc-mode
     :ensure t)
 
   (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
 
-(defun bryan-hy ()
+(defun bryan/hy ()
   (use-package hy-mode
     :ensure t)
 
   (add-hook 'hy-mode-hook 'paredit-mode))
 
-(defun bryan-rust ()
+(defun bryan/rust ()
   (use-package rust-mode
     :ensure t)
 
@@ -1093,7 +1093,7 @@ want to use in the modeline *in lieu of* the original.")
   ;; (add-hook 'rust-mode-hook 'rust-custom-hook)
   )
 
-(defun bryan-elisp ()
+(defun bryan/elisp ()
   ;; Automatically load paredit when editing a lisp file
   ;; More at http://www.emacswiki.org/emacs/ParEdit
   (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
@@ -1112,7 +1112,7 @@ want to use in the modeline *in lieu of* the original.")
 
   (require 'elisp-slime-nav))
 
-(defun bryan-clojure ()
+(defun bryan/clojure ()
   ;; Enable paredit for Clojure
   (add-hook 'clojure-mode-hook 'enable-paredit-mode)
 
@@ -1192,7 +1192,7 @@ want to use in the modeline *in lieu of* the original.")
        (define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns)
        (define-key cider-mode-map (kbd "C-c u") 'cider-user-ns))))
 
-(defun bryan-keybindings ()
+(defun bryan/keybindings ()
 
   (setq mac-function-modifier 'hyper)
   (global-set-key [(super t)] nil)
@@ -1242,11 +1242,11 @@ the current position of point, then move it to the beginning of the line."
    ("s-1"     . delete-other-windows)
    ("s-2"     . split-vert-and-switch)
    ("s-3"     . split-horiz-and-switch)
-   ("C-c w"   . bryan-window-stuff-hydra/body)
-   ("C-c c"   . bryan-multiple-cursors-hydra/body)
-   ("C-c o"   . bryan-org-hydra/body)
-   ("C-c a"   . bryan-avy-hydra/body)
-   ("C-c m"   . bryan-hydra-hydra/body)
+   ("C-c w"   . bryan/window-stuff-hydra/body)
+   ("C-c c"   . bryan/multiple-cursors-hydra/body)
+   ("C-c o"   . bryan/org-hydra/body)
+   ("C-c a"   . bryan/avy-hydra/body)
+   ("C-c m"   . bryan/hydra-hydra/body)
    ("C-c r"   . evil-ranger)
    ("C-;"     . pop-for-avy)
    ("s-A"     . evil-copy-from-above)
@@ -1321,48 +1321,48 @@ Will work on both org-mode and any mode that accepts plain html."
         (insert (format tag ""))
         (forward-char (if is-org-mode -8 -6))))))
 
-(defun bryan-eval-fns ()
-  (bryan-company)
-  (bryan-paren)
-  (bryan-themes)
-  (bryan-org)
-  (bryan-general)
-  (bryan-interface)
-  (bryan-hydra)
-  (bryan-paredit)
-  (bryan-hooks)
-  (bryan-evil)
-  (bryan-avy)
-  (bryan-cider)
-  (bryan-frontend)
-  (bryan-markdown)
-  (bryan-json)
-  (bryan-term)
-  (bryan-ivy)
-  (bryan-better-splits)
-  (bryan-rename-or-delete-buffer-and-file)
-  (bryan-minibuffer-keyboard-quit)
-  (bryan-util)
-  (bryan-flycheck)
-  (bryan-c)
-  (bryan-ocaml)
-  (bryan-haskell)
-  (bryan-elm)
-  (bryan-racket)
-  (bryan-multiple-cursors)
-  (bryan-clean-mode-line)
-  (bryan-toggle-split-or-rotate-windows)
-  (bryan-smart-quotes)
-  (bryan-scala)
-  (bryan-magit)
-  (bryan-pandoc)
-  (bryan-hy)
-  (bryan-rust)
-  (bryan-elisp)
-  (bryan-clojure)
-  (bryan-keybindings))
+(defun bryan/eval-fns ()
+  (bryan/company)
+  (bryan/paren)
+  (bryan/themes)
+  (bryan/org)
+  (bryan/general)
+  (bryan/interface)
+  (bryan/hydra)
+  (bryan/paredit)
+  (bryan/hooks)
+  (bryan/evil)
+  (bryan/avy)
+  (bryan/cider)
+  (bryan/frontend)
+  (bryan/markdown)
+  (bryan/json)
+  (bryan/term)
+  (bryan/ivy)
+  (bryan/better-splits)
+  (bryan/rename-or-delete-buffer-and-file)
+  (bryan/minibuffer-keyboard-quit)
+  (bryan/util)
+  (bryan/flycheck)
+  (bryan/c)
+  (bryan/ocaml)
+  (bryan/haskell)
+  (bryan/elm)
+  (bryan/racket)
+  (bryan/multiple-cursors)
+  (bryan/clean-mode-line)
+  (bryan/toggle-split-or-rotate-windows)
+  (bryan/smart-quotes)
+  (bryan/scala)
+  (bryan/magit)
+  (bryan/pandoc)
+  (bryan/hy)
+  (bryan/rust)
+  (bryan/elisp)
+  (bryan/clojure)
+  (bryan/keybindings))
 
-(bryan-eval-fns)
+(bryan/eval-fns)
 
 (global-set-key [s-mouse-1] 'browse-url-at-mouse)
 
