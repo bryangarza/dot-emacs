@@ -1561,21 +1561,6 @@ which are defined in ~/.private.el"
             (erc-channel-list erc-process))))
 
 (setq erc-join-buffer 'bury)
-(defun rcirc-detach-buffer ()
-  (interactive)
-  (let ((buffer (current-buffer)))
-    (when (and (rcirc-buffer-process)
-           (eq (process-status (rcirc-buffer-process)) 'open))
-      (with-rcirc-server-buffer
-    (setq rcirc-buffer-alist
-          (rassq-delete-all buffer rcirc-buffer-alist)))
-      (rcirc-update-short-buffer-names)
-      (if (rcirc-channel-p rcirc-target)
-      (rcirc-send-string (rcirc-buffer-process)
-                 (concat "DETACH " rcirc-target))))
-    (setq rcirc-target nil)
-    (kill-buffer buffer)))
-
 ;; (use-package erc-hl-nicks
 ;;   :ensure t)
 
