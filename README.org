@@ -1,7 +1,7 @@
 #+title: .emacs.d
 
 * Table of Contents                                                :TOC_2_gh:
- - [[#important][Important!]]
+ - [[#submodules][Submodules]]
  - [[#paredit][Paredit]]
  - [[#org-mode][Org mode]]
  - [[#org-present][Org-present]]
@@ -18,17 +18,20 @@
  - [[#finding-face-under-point][Finding face under point]]
  - [[#ad-handle-definition-warnings][Ad-handle-definition warnings]]
  - [[#here-be-dragons][Here Be Dragons]]
- - [[#when-cloning][When Cloning]]
-   - [[#ocaml][OCaml]]
-   - [[#irc][IRC]]
-   - [[#submodules][Submodules]]
+ - [[#ocaml][OCaml]]
  - [[#graphical-vs-console-emacs][Graphical vs Console Emacs]]
  - [[#languages][Languages]]
  - [[#packages-and-modes][Packages and Modes]]
  - [[#license][License]]
  - [[#internal-notes][Internal Notes]]
 
-* Important!
+* Submodules
+Remember to also clone *submodules*:
+
+#+BEGIN_SRC sh
+git clone --recursive git@github.com:bryangarza/dot-emacs.git
+#+END_SRC
+
 * Paredit
 - [[http://www.emacswiki.org/emacs/PareditCheatsheet][Paredit Cheatsheet]]
 - [[http://mumble.net/~campbell/emacs/paredit.html][Another Paredit Cheatsheet]]
@@ -137,33 +140,10 @@ This setup is heavily customized, [[http://www.bryangarza.me/contact.html][let m
 we can troubleshoot. Though official support is neither offered nor guaranteed,
 I'd like this configuration to be useful to others.
 
-* When Cloning
-** OCaml
-
+* OCaml
 OCaml settings require external installation, see
 [[https://github.com/realworldocaml/book/wiki/Installation-Instructions][Real World OCaml's GitHub wiki]]. If you don't care about OCaml, simply comment
 out =bryan/ocaml= in =bryan/pkg-full=.
-
-** IRC
-Create a file =~/.private.el=:
-
-#+BEGIN_SRC emacs-lisp
-(setq freenode-password "YOUR_PASSWORD")
-      freenode-username "YOUR_USERNAME")
-#+END_SRC
-
-You can use ~M-x circe~, though lately it has been acting strangely; sometimes
-the window management is broken by circe and then only way I've been able to fix
-it is by restarting Emacs. The simpler alternative is ~M-x rcirc~, though I have
-not yet figured out how to get it to identify to Nickserv automatically
-yet. Circe does have automatic identify working.
-
-** Submodules
-Remember to also clone *submodules*:
-
-#+BEGIN_SRC sh
-git clone --recursive git@github.com:bryangarza/dot-emacs.git
-#+END_SRC
 
 * Graphical vs Console Emacs
 This setup will work much better with *Graphical* Emacs than the terminal-based
