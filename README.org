@@ -17,7 +17,6 @@
  - [[#updating-submodules][Updating submodules]]
  - [[#finding-face-under-point][Finding face under point]]
  - [[#ad-handle-definition-warnings][Ad-handle-definition warnings]]
- - [[#here-be-dragons][Here Be Dragons]]
  - [[#ocaml][OCaml]]
  - [[#graphical-vs-console-emacs][Graphical vs Console Emacs]]
  - [[#languages][Languages]]
@@ -135,10 +134,6 @@ Do:
 #+END_SRC
 I didn't though, because they are harmless, and I'd rather know when something
 is being advice'd.
-* Here Be Dragons
-This setup is heavily customized, [[http://www.bryangarza.me/contact.html][let me know]] if you run into any problems and
-we can troubleshoot. Though official support is neither offered nor guaranteed,
-I'd like this configuration to be useful to others.
 
 * OCaml
 OCaml settings require external installation, see
