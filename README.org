@@ -140,10 +140,12 @@ Use Graphical Emacs.
 * Languages
 All these are set up:
 - C
+- Common Lisp
 - CSS
 - Clojure
 - Elisp
 - Elm
+- Erlang
 - HTML
 - Haskell
 - Hy
@@ -156,6 +158,7 @@ All these are set up:
 - Rust
 - Scala
 - Scheme
+- SQL
 - Stylus
 
 * License
