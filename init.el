@@ -880,36 +880,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (use-package elm-mode
     :ensure t))
 
-(defun bryan-circe ()
-  (use-package circe
-    :ensure t
-    :config
-    (progn
-      (setq circe-network-options
-            `(("Freenode"
-               :tls t
-               :service 6697
-               :nick ,freenode-username
-               :nickserv-password ,freenode-password
-               :channels ("#haskell" "#emacs"))))
-      (setq circe-reduce-lurker-spam t)
-      (setq circe-server-killed-confirmation 'ask-and-kill-all)
-      (add-hook 'circe-server-mode-hook
-                '(lambda ()
-                   (setq-default show-trailing-whitespace nil)))
-      (setq circe-default-part-message "...")
-      (setq circe-default-quit-message "...")
-      (use-package lui-autopaste
-        :init
-        (progn
-          (add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
-          (defun my-circe-set-margin ()
-            (setq right-margin-width 5))
-          (add-hook 'lui-mode-hook 'my-circe-set-margin)
-          (setq
-           lui-time-stamp-position 'right-margin
-           lui-time-stamp-format "%H:%M"))))))
-
 (defun bryan-racket ()
   (setq geiser-active-implementations '(racket))
 
@@ -1104,168 +1074,11 @@ want to use in the modeline *in lieu of* the original.")
 
   (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
 
-(defun bryan-ace-jump ()
-  (use-package ace-jump-mode
-    :ensure t)
-
-  (progn
-    (autoload
-      'ace-jump-mode
-      "ace-jump-mode"
-      "Emacs quick move minor mode"
-      t))
-  (bind-key "C-c SPC" 'ace-jump-mode)
-
-  (autoload
-    'ace-jump-mode-pop-mark
-    "ace-jump-mode"
-    "Ace jump back:-)"
-    t)
-  (eval-after-load "ace-jump-mode"
-    '(ace-jump-mode-enable-mark-sync))
-  (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
-
-  ;; http://www.emacswiki.org/emacs/Evil#toc17
-
-  ;; AceJump integration is now included in evil, this gist is only preserved for historical reasons.
-  ;; Please use the provided integration (it's far more advanced)
-
-  ;; AceJump is a nice addition to evil's standard motions.
-
-  ;; The following definitions are necessary to define evil motions for ace-jump-mode (version 2).
-
-  ;; ace-jump is actually a series of commands which makes handling by evil
-  ;; difficult (and with some other things as well), using this macro we let it
-  ;; appear as one.
-
-  (defmacro evil-enclose-ace-jump (&rest body)
-    `(let ((old-mark (mark))
-           (ace-jump-mode-scope 'window))
-       (remove-hook 'pre-command-hook #'evil-visual-pre-command t)
-       (remove-hook 'post-command-hook #'evil-visual-post-command t)
-       (unwind-protect
-           (progn
-             ,@body
-             (recursive-edit))
-         (if (evil-visual-state-p)
-             (progn
-               (add-hook 'pre-command-hook #'evil-visual-pre-command nil t)
-               (add-hook 'post-command-hook #'evil-visual-post-command nil t)
-               (set-mark old-mark))
-           (push-mark old-mark)))))
-
-  (evil-define-motion evil-ace-jump-char-mode (count)
-    :type exclusive
-    (evil-enclose-ace-jump
-     (ace-jump-mode 5)))
-
-  (evil-define-motion evil-ace-jump-line-mode (count)
-    :type line
-    (evil-enclose-ace-jump
-     (ace-jump-mode 9)))
-
-  (evil-define-motion evil-ace-jump-word-mode (count)
-    :type exclusive
-    (evil-enclose-ace-jump
-     (ace-jump-mode 1)))
-
-  (evil-define-motion evil-ace-jump-char-to-mode (count)
-    :type exclusive
-    (evil-enclose-ace-jump
-     (ace-jump-mode 5)
-     (forward-char -1)))
-
-  (add-hook 'ace-jump-mode-end-hook 'exit-recursive-edit)
-
-  ;; some proposals for binding:
-
-  (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode)
-  (define-key evil-motion-state-map (kbd "C-SPC") #'evil-ace-jump-word-mode)
-
-  (define-key evil-operator-state-map (kbd "SPC") #'evil-ace-jump-char-mode)      ; similar to f
-  (define-key evil-operator-state-map (kbd "C-SPC") #'evil-ace-jump-char-to-mode) ; similar to t
-  (define-key evil-operator-state-map (kbd "M-SPC") #'evil-ace-jump-word-mode)
-
-  ;; different jumps for different visual modes
-  (defadvice evil-visual-line (before spc-for-line-jump activate)
-    (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-line-mode))
-
-  (defadvice evil-visual-char (before spc-for-char-jump activate)
-    (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode))
-
-  (defadvice evil-visual-block (before spc-for-char-jump activate)
-    (define-key evil-motion-state-map (kbd "SPC") #'evil-ace-jump-char-mode)))
-
 (defun bryan-hy ()
   (use-package hy-mode
     :ensure t)
 
   (add-hook 'hy-mode-hook 'paredit-mode))
-
-(defun bryan-rcirc ()
-  (setq rcirc-default-nick      "wolfcore"
-        rcirc-default-user-name "wolfcore"
-        rcirc-default-full-name "wolfcore"
-        rcirc-prompt            "%n> "
-        rcirc-omit-responses    '("JOIN" "PART" "QUIT" "NICK" "AWAY")
-        rcirc-auto-authenticate-flag t)
-
-  (rcirc-track-minor-mode 1)
-  (set-face-foreground 'rcirc-prompt "#d7ff00")
-  (set-face-background 'rcirc-prompt nil)
-
-  (add-hook 'rcirc-mode-hook
-            (lambda ()
-              (set (make-local-variable 'scroll-conservatively)
-                   8192)))
-
-  (defun-rcirc-command reconnect (arg)
-    "Reconnect the server process."
-    (interactive "i")
-    (if (buffer-live-p rcirc-server-buffer)
-        (with-current-buffer rcirc-server-buffer
-          (let ((reconnect-buffer (current-buffer))
-                (server (or rcirc-server rcirc-default-server))
-                (port (if (boundp 'rcirc-port) rcirc-port rcirc-default-port))
-                (nick (or rcirc-nick rcirc-default-nick))
-                channels)
-            (dolist (buf (buffer-list))
-              (with-current-buffer buf
-                (when (equal reconnect-buffer rcirc-server-buffer)
-                  (remove-hook 'change-major-mode-hook
-                               'rcirc-change-major-mode-hook)
-                  (let ((server-plist (cdr (assoc-string server rcirc-server-alist))))
-                    (when server-plist
-                      (setq channels (plist-get server-plist :channels))))
-                  )))
-            (if process (delete-process process))
-            (rcirc-connect server port nick
-                           nil
-                           nil
-                           channels)))))
-
-  (defun rcirc-change-title (&rest dontcare)
-    (if (string= rcirc-activity-string "[]")
-        (setq frame-title-format '("Emacs: %b, No IRC activity."))
-      (setq frame-title-format '("Emacs: %b, " rcirc-activity-string)))
-    (redisplay))
-  (add-hook 'rcirc-update-activity-string-hook 'rcirc-change-title))
-
-(defun bryan-w3m ()
-  ;; http://www.emacswiki.org/emacs/emacs-w3m
-  ;; http://beatofthegeek.com/2014/02/my-setup-for-using-emacs-as-web-browser.html
-  (use-package w3m
-    :ensure t
-    :config
-    (progn
-      (setq browse-url-browser-function 'w3m-goto-url-new-session)
-      (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
-      (setq w3m-user-agent "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
-      (defun reddit (reddit)
-        "Opens the REDDIT in w3m-new-session"
-        (interactive (list
-                      (read-string "Enter the reddit (default: haskell): " nil nil "haskell" nil)))
-        (browse-url (format "http://m.reddit.com/r/%s" reddit))))))
 
 (defun bryan-rust ()
   (use-package rust-mode
@@ -1382,113 +1195,6 @@ want to use in the modeline *in lieu of* the original.")
        (define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh)
        (define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns)
        (define-key cider-mode-map (kbd "C-c u") 'cider-user-ns))))
-
-(defun bryan-ox-html ()
-  (defun org-html-template (contents info)
-    "Return complete document string after HTML conversion.
-CONTENTS is the transcoded contents string.  INFO is a plist
-holding export options."
-    (concat
-     (when (and (not (org-html-html5-p info)) (org-html-xhtml-p info))
-       (let* ((xml-declaration (plist-get info :html-xml-declaration))
-              (decl (or (and (stringp xml-declaration) xml-declaration)
-                        (cdr (assoc (plist-get info :html-extension)
-                                    xml-declaration))
-                        (cdr (assoc "html" xml-declaration))
-                        "")))
-         (when (not (or (not decl) (string= "" decl)))
-           (format "%s\n"
-                   (format decl
-                           (or (and org-html-coding-system
-                                    (fboundp 'coding-system-get)
-                                    (coding-system-get org-html-coding-system 'mime-charset))
-                               "iso-8859-1"))))))
-     (org-html-doctype info)
-     "\n"
-     (concat "<html"
-             (when (org-html-xhtml-p info)
-               (format
-                " xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"%s\" xml:lang=\"%s\""
-                (plist-get info :language) (plist-get info :language)))
-             ">\n")
-     "<head>\n"
-     (org-html--build-meta-info info)
-     (org-html--build-head info)
-     (org-html--build-mathjax-config info)
-     "</head>\n"
-     "<body>\n"
-     (let ((link-up (org-trim (plist-get info :html-link-up)))
-           (link-home (org-trim (plist-get info :html-link-home))))
-       (unless (and (string= link-up "") (string= link-home ""))
-         (format (plist-get info :html-home/up-format)
-                 (or link-up link-home)
-                 (or link-home link-up))))
-     ;; Preamble.
-     (org-html--build-pre/postamble 'preamble info)
-     ;; Document contents.
-     (let ((div (assq 'content (plist-get info :html-divs))))
-       (format "<%s id=\"%s\">\n" (nth 1 div) (nth 2 div)))
-     ;; Document title.
-     (when (plist-get info :with-title)
-       (let ((title (plist-get info :title))
-             (subtitle (plist-get info :subtitle)))
-         (when title
-           (format
-            (if (plist-get info :html-html5-fancy)
-                "<header>\n<img id=\"shredder\" src=\"img/shredder.png\"><h1 id=\"myname\"><a href=\"/\">Bryan Garza</a></h1>
-<p>Hi! Welcome to my blog on Haskell, Emacs, and hacking.<br>Read more <a href=\"about.html\">about me</a>, <a href=\"contact.html\">get in touch</a>, or find me on <i class=\"demo-icon icon-github-circled\"><a href=\"https://github.com/bryangarza\" >&#xe801;</a></i> and <i class=\"demo-icon icon-twitter\"><a href=\"https://twitter.com/bryangarza\">&#xe800;</a></i>.</p>\n</header>\n<header>\n<h1 class=\"title\">%s</h1>\n%s</header>"
-              "\n<h1 class=\"title\">%s%s</h1>\n")
-            (org-export-data title info)
-            (if subtitle
-                (format
-                 (if (plist-get info :html-html5-fancy)
-                     "<p class=\"subtitle\">%s</p>\n"
-                   "\n<br>\n<span class=\"subtitle\">%s</span>\n")
-                 (org-export-data subtitle info))
-              "")))))
-     contents
-     (format "</%s>\n" (nth 1 (assq 'content (plist-get info :html-divs))))
-     ;; Postamble.
-     (org-html--build-pre/postamble 'postamble info)
-     ;; Closing document.
-     "</body>\n</html>")))
-
-(defun bryan-blog ()
-  (setq org-publish-project-alist
-        '(("blog"
-           :base-directory "~/bryangarza.github.io/org/"
-           :publishing-directory "~/bryangarza.github.io/"
-           :recursive t
-
-           :base-extension "org"
-           :html-extension "html"
-
-           :publishing-function (org-html-publish-to-html)
-
-           :html-preamble nil
-           :html-postamble "<footer>
-<p>∴ <a href=\"about.html\">About</a>, <a href=\"contact.html\">Contact</a>, <a href=\"https://github.com/bryangarza\">GitHub</a>, <a href=\"https://twitter.com/bryangarza\">Twitter</a></p>
-</footer>"
-
-           :html-doctype "html5"
-           :with-toc nil
-           :with-timestamps t
-           :section-numbers nil
-           :html-head-include-default-style nil
-           :html-head-include-scripts nil
-
-           :html-head "<meta charset=\"utf-8\">
-<link href=\"http://fonts.googleapis.com/css?family=Kaushan+Script\" rel=\"stylesheet\" type=\"text/css\" />
-<meta name=\"viewport\" content=\"width=560\">
-<link rel=\"stylesheet\" href=\"css/normalize.css\" type=\"text/css\" />
-<link rel=\"stylesheet\" href=\"css/org.css\" type=\"text/css\" />
-<link rel=\"stylesheet\" href=\"css/styles.css\" type=\"text/css\" />
-<link rel=\"stylesheet\" href=\"css/tables.css\" type=\"text/css\" />"
-
-           :auto-sitemap nil)))
-
-  ;; use <header>, <aside>, and other fancy tags
-  (setq org-html-html5-fancy t))
 
 (defun bryan-keybindings ()
 
@@ -1647,7 +1353,6 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan-ocaml)
   (bryan-haskell)
   (bryan-elm)
-  ;; (bryan-circe)
   (bryan-racket)
   (bryan-multiple-cursors)
   (bryan-clean-mode-line)
@@ -1656,15 +1361,10 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan-scala)
   (bryan-magit)
   (bryan-pandoc)
-  ;; (bryan-ace-jump)
   (bryan-hy)
-  (bryan-rcirc)
-  ;; (bryan-w3m)
   (bryan-rust)
   (bryan-elisp)
   (bryan-clojure)
-  ;; (bryan-ox-html)
-  ;; (bryan-blog)
   (bryan-keybindings))
 
 (bryan-eval-fns)
