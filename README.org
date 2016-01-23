@@ -10,7 +10,6 @@
  - [[#unbinding][Unbinding]]
  - [[#pinning][Pinning]]
  - [[#helm][Helm]]
- - [[#circe][Circe]]
  - [[#aligning-code][Aligning Code]]
  - [[#editing-with-sudo][Editing with Sudo]]
  - [[#keybindings][Keybindings]]
@@ -20,7 +19,6 @@
  - [[#ocaml][OCaml]]
  - [[#graphical-vs-console-emacs][Graphical vs Console Emacs]]
  - [[#languages][Languages]]
- - [[#packages-and-modes][Packages and Modes]]
  - [[#license][License]]
  - [[#internal-notes][Internal Notes]]
 
@@ -91,10 +89,6 @@ If I ever want to pin packages:
 - [[http://emacs-helm.github.io/helm/][Helm home page]]
 - [[http://tuhdo.github.io/helm-intro.html][Helm intro]]
 
-* Circe
-- [[https://github.com/howardabrams/dot-files/blob/master/emacs-irc.org][Howard Abrams' IRC settings]]
-- [[https://github.com/jorgenschaefer/circe/wiki/Configuration][Circe wiki: Configuration]]
-
 * Aligning Code
 [[https://wiki.haskell.org/Emacs/Indentation#Aligning_code][Haskell wiki: aligning code in Emacs]]
 
@@ -109,7 +103,7 @@ C-x C-f /sudo::/path/to/file
 
 * Keybindings
 Most of the keybindings I have set can be found in
-=bryan/bryan-keybindings.el=. The majority involve the Super key,
+~(bryan/keybindings)~. The majority involve the Super key,
 which on Mac is the Command key. On Windows or GNU/Linux, this is
 probably your Win key, but if it's not bound, then just bind it!
 
@@ -141,55 +135,31 @@ OCaml settings require external installation, see
 out =bryan/ocaml= in =bryan/pkg-full=.
 
 * Graphical vs Console Emacs
-This setup will work much better with *Graphical* Emacs than the terminal-based
-Emacs. This is because the terminal gobbles up various key chords. Not to
-mention graphical Emacs has mouse support, can display multiple font sizes, and
-PDFs, and images.
-
-See my Medium post (linked above) for Cocoa Emacs installation instructions with
-=homebrew=. If you're on GNU/Linux, just install the =emacs= package, that
-should come with both the graphical and terminal emacs.
-
-In case you're curious, use ~emacs -nw~ to run in console mode. I haven't found
-this config to work well with console mode though, especially because iTerm 2
-takes control of the ⌘ key, as well as some other chords. Your experience may
-vary.
+Use Graphical Emacs.
 
 * Languages
-I've configured it for the following languages:
-- HTML
-- CSS
-- JavaScript
-- Markdown
-- Elisp
-- Clojure
-- Haskell
-- OCaml
+All these are set up:
 - C
-- Jade
-- Stylus
-- Scheme
-- Racket
-- Scala
-- Hy
-- LaTeX
-- Rust
+- CSS
+- Clojure
+- Elisp
 - Elm
-
-Other languages may work out-of-the-box, for example I have not changed any
-settings for Python but the default editing experience is decent as-is.
-
-* Packages and Modes
-Notable packages and modes that I use include
-
-- Evil
-- Paredit
-- Company
-- Ivy, Swiper
-- Avy
+- HTML
+- Haskell
+- Hy
+- Jade
+- JavaScript
+- LaTeX
+- Markdown
+- OCaml
+- Racket
+- Rust
+- Scala
+- Scheme
+- Stylus
 
 * License
-Copyright (C) 2015 Bryan Garza
+Copyright (C) 2014-2016 Bryan Garza
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
