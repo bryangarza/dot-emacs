@@ -22,9 +22,7 @@
     cider
     exec-path-from-shell
     debbugs
-    auto-complete
     geiser
-    ac-geiser
     auctex)
   "Default packages")
 
@@ -53,7 +51,10 @@
 
 (defun bryan-company ()
   (use-package company
-    :ensure t))
+    :ensure t
+    :init
+    (progn
+      (add-hook 'after-init-hook 'global-company-mode))))
 
 (defun bryan-paren ()
   (use-package paren
@@ -320,7 +321,6 @@ Should this be undesirable, one can remove them with
       (setq-default save-place t)
       (setq save-place-file "~/.emacs.d/saved-places")))
 
-  (require 'auto-complete)
   (require 'tramp)
   (require 'bind-key))
 
@@ -606,15 +606,6 @@ Hydra for hydras
   ;; Enable paredit in the REPL buffer
   (add-hook 'cider-repl-mode-hook #'paredit-mode))
 
-(defun bryan-auto-complete ()
-  (use-package auto-complete
-    :ensure t
-    :defer t
-    :config
-    (progn
-      (require 'auto-complete-config)
-      (auto-complete-mode t))))
-
 (defun bryan-frontend ()
   (use-package web-mode
     :config
@@ -770,10 +761,16 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (use-package merlin
     :init
     (progn
-      ;; Enable auto-complete
-      (setq merlin-use-auto-complete-mode 'easy)
+      ;; How to enable auto-complete (but we're using company-mode, so don't)
+      ;; (setq merlin-use-auto-complete-mode 'easy)
       ;; Use opam switch to lookup ocamlmerlin binary
-      (setq merlin-command 'opam)))
+      (setq merlin-command 'opam)
+      ;; Make company aware of merlin
+      (with-eval-after-load 'company
+        (add-to-list 'company-backends 'merlin-company-backend))
+      ;; Enable company on merlin managed buffers
+      ;; (add-hook 'merlin-mode-hook 'company-mode) ; already enabled globally
+      ))
   ;; Start merlin on OCaml files
   (add-hook 'tuareg-mode-hook 'merlin-mode t)
   (add-hook 'caml-mode-hook 'merlin-mode t)
@@ -886,13 +883,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (defun racket-mode-custom-hook ()
     (bind-key "s-e" 'geiser-eval-definition scheme-mode-map))
 
-  (require 'ac-geiser)
-  (add-hook 'geiser-mode-hook 'ac-geiser-setup)
-  (add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
-  (add-hook 'geiser-mode-hook 'racket-mode-custom-hook)
-
-  (eval-after-load "auto-complete"
-    '(add-to-list 'ac-modes 'geiser-repl-mode)))
+  (add-hook 'geiser-mode-hook 'racket-mode-custom-hook))
 
 (defun bryan-multiple-cursors ()
   ;; https://github.com/magnars/multiple-cursors.el
@@ -906,7 +897,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 
 (defun bryan-clean-mode-line ()
   (defvar mode-line-cleaner-alist
-    `((auto-complete-mode     . " α")
+    `((company-mode           . " Co.")
       (paredit-mode           . " π")
       (inf-haskell-mode       . " λinf")
       (hi2-mode               . " hi2")
@@ -927,7 +918,6 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       ;; hidden
       (ivy-mode               . "")
       (undo-tree-mode         . "")
-      (auto-complete-mode     . "")
       (magit-auto-revert-mode . "")
       (eldoc-mode             . "")
       (elisp-slime-nav-mode   . "")
@@ -1338,7 +1328,6 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan-evil)
   (bryan-avy)
   (bryan-cider)
-  (bryan-auto-complete)
   (bryan-frontend)
   (bryan-markdown)
   (bryan-json)
