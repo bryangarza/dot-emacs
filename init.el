@@ -1198,6 +1198,9 @@ want to use in the modeline *in lieu of* the original.")
     (interactive)
     (set-mark-command 4))
 
+  (use-package zygospore
+    :ensure t)
+
   (defun smart-line-beginning ()
     "Move point to the beginning of text on the current line; if that is already
 the current position of point, then move it to the beginning of the line."
@@ -1236,7 +1239,7 @@ the current position of point, then move it to the beginning of the line."
    ("C-x 2"   . split-vert-and-switch)
    ("C-x 3"   . split-horiz-and-switch)
    ("s-0"     . delete-window)
-   ("s-1"     . delete-other-windows)
+   ("s-1"     . zygospore-toggle-delete-other-windows)
    ("s-2"     . split-vert-and-switch)
    ("s-3"     . split-horiz-and-switch)
    ("C-c w"   . bryan/window-stuff-hydra/body)
