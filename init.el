@@ -1607,3 +1607,10 @@ which are defined in ~/.private.el"
 
 (setq org-html-validation-link nil)
 (setq org-html-doctype "html5")
+
+(use-package nyan-mode
+  :ensure t
+  :config
+  (progn
+    (setq nyan-bar-length 16)
+    (nyan-mode)))
