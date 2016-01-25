@@ -413,8 +413,7 @@ Should this be undesirable, one can remove them with
       ("p" previous-buffer)
       ("n" next-buffer)
       ("b" ido-switch-buffer)
-      ("f" ido-find-file)
-      ;; ("F" projectile-find-file)
+      ("f" counsel-find-file)
 
       ("u" winner-undo)
       ("r" winner-redo)
