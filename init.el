@@ -1266,6 +1266,7 @@ the current position of point, then move it to the beginning of the line."
    ("C-c g"   . counsel-git)
    ("C-c j"   . counsel-git-grep)
    ("C-x l"   . counsel-locate)
+   ("s-;"     . erc-track-switch-buffer)
    ;; ("<f6>"   . ivy-resume)
    ;; ("<f1> l" . counsel-load-library)
    ;; ("<f2> i" . counsel-info-lookup-symbol)
@@ -1507,6 +1508,7 @@ See `comment-region' for behavior of a prefix arg."
 
 (require 'erc)
 (setq erc-server-coding-system '(utf-8 . utf-8))
+(setq erc-track-enable-keybindings t)
 (add-to-list 'erc-modules 'scrolltobottom)
 
 (defun please-dont-recenter ()
