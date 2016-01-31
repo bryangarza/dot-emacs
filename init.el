@@ -1397,7 +1397,7 @@ which are defined in ~/.private.el"
   ;;   (golden-ratio-mode 1))
   )
 
-(require 'bryan-blog)
+(load "~/org/new-site/lisp/blog.el")
 (bryan/blog)
 
 (use-package fill-column-indicator
