@@ -1424,5 +1424,5 @@ which are defined in ~/.private.el"
   :config
   (progn
     (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-    (diff-hl-mode)
+    (global-diff-hl-mode)
     (diff-hl-flydiff-mode)))
