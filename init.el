@@ -1524,7 +1524,32 @@ See `comment-region' for behavior of a prefix arg."
 ;; To also exclude messages sent by the server when you join a channel, such as
 ;; the nicklist and topic:
 (setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-                                    "324" "329" "332" "333" "353" "477"))
+                                "324" "329" "332" "333" "353" "477"))
+
+;; From erc.el:
+;; (MODE   . "%n (%u@%h) has changed mode for %t to %m")
+;; (s332   . "Topic for %c: %T")
+;; (s333   . "%c: topic set by %n, %t")
+;; (s353   . "Users on %c: %u")
+;; (s328   . "%c URL: %u")
+;; (s324   . "%c modes: %m")
+;; (s329   . "%c was created on %t")
+(setq erc-hide-list '("JOIN" "PART" "QUIT" "MODE" "324" "329" "332" "333" "353"))
+
+(defun bryan/erc-channel-info (title msg)
+  (let ((channel (buffer-name)))
+    (with-output-to-temp-buffer (format "*%s Info: %s*" channel title)
+      (princ msg))))
+
+(defun bryan/erc-channel-users ()
+  (let ((users (format "%s" (hash-table-keys erc-channel-users))))
+    (bryan/erc-channel-info "Users" users)))
+
+(defun bryan/erc-channel-topic ()
+  (bryan/erc-channel-info "Topic" erc-channel-topic))
+
+;; (setq erc-log-p nil)
+
 ;; (setq erc-track-exclude '("*status"
 ;;                           "#haskell"
 ;;                           "#emacs"
