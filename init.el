@@ -1406,7 +1406,18 @@ which are defined in ~/.private.el"
   (progn
     (add-hook 'prog-mode-hook 'fci-mode)
     (add-hook 'text-mode-hook 'fci-mode)
-    (add-hook 'org-mode-hook  'fci-mode)))
+    (add-hook 'org-mode-hook  'fci-mode)
+
+    ;; advising org-html-fontify-code because otherwise fci-mode gets in the way
+    ;; of the exports and insert garbage characters
+    ;; https://github.com/alpaker/Fill-Column-Indicator/issues/45#issuecomment-108911964
+    (defun fci-mode-override-advice (&rest args))
+    (advice-add 'org-html-fontify-code :around
+                (lambda (fun &rest args)
+                  (advice-add 'fci-mode :override #'fci-mode-override-advice)
+                  (let ((result  (apply fun args)))
+                    (advice-remove 'fci-mode #'fci-mode-override-advice)
+                    result)))))
 
 (use-package diff-hl
   :ensure t
