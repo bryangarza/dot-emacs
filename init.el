@@ -1261,6 +1261,7 @@ See `comment-region' for behavior of a prefix arg."
 
 (require 'erc)
 (setq erc-server-coding-system '(utf-8 . utf-8))
+(setq erc-track-showcount t)
 (setq erc-track-enable-keybindings t)
 (add-to-list 'erc-modules 'scrolltobottom)
 
