@@ -1295,10 +1295,12 @@ See `comment-region' for behavior of a prefix arg."
       (princ msg))))
 
 (defun bryan/erc-channel-users ()
+  (interactive)
   (let ((users (format "%s" (hash-table-keys erc-channel-users))))
     (bryan/erc-channel-info "Users" users)))
 
 (defun bryan/erc-channel-topic ()
+  (interactive)
   (bryan/erc-channel-info "Topic" erc-channel-topic))
 
 ;; (setq erc-log-p nil)
