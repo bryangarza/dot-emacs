@@ -1290,15 +1290,20 @@ See `comment-region' for behavior of a prefix arg."
 ;; (s329   . "%c was created on %t")
 (setq erc-hide-list '("JOIN" "PART" "QUIT" "MODE" "324" "329" "332" "333" "353"))
 
-(defun bryan/erc-channel-info (title msg)
+(defun bryan/erc-channel-info (title msg &optional extra)
   (let ((channel (buffer-name)))
     (with-output-to-temp-buffer (format "*%s Info: %s*" channel title)
-      (princ msg))))
+      (princ msg)
+      (if extra
+          (princ (format "\n\n%s" extra))))))
 
 (defun bryan/erc-channel-users ()
   (interactive)
-  (let ((users (format "%s" (hash-table-keys erc-channel-users))))
-    (bryan/erc-channel-info "Users" users)))
+  (let* ((xs    (hash-table-keys erc-channel-users))
+         (users (format "%s" xs))
+         (count (length xs))
+         (extra (format "Total users: %d" count)))
+    (bryan/erc-channel-info "Users" users extra)))
 
 (defun bryan/erc-channel-topic ()
   (interactive)
