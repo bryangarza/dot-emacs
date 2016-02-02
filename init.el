@@ -114,9 +114,10 @@
   ;; (load-theme 'dichromacy t)
   ;; (load-theme 'tao-yang)
   ;; (load-theme 'leuven)
+  ;; (load-theme 'tango)
 
   ;; Current favorite.
-  (load-theme 'tango)
+  (load-theme 'tsdh-light)
   (set-face-foreground 'mode-line "white")
   (set-face-background 'mode-line "purple")
   ;; (setq rainbow-delimiters-outermost-only-face-count 1)
