@@ -1349,18 +1349,20 @@ See `comment-region' for behavior of a prefix arg."
 which are defined in ~/.private.el"
   (interactive)
   (setq erc-track-priority-faces-only
-        (-difference (my-erc-joined-channels) erc-important-chans)))
+        (-difference (bryan/erc-joined-channels) erc-important-chans)))
 
 ;; (setq erc-track-priority-faces-only nil)
 (setq erc-track-exclude-server-buffer t)
 
-(defun my-erc-joined-channels ()
+(defun bryan/erc-list-channels-within-buffer (chanbuf)
+  (with-current-buffer chanbuf (erc-default-target)))
+
+(defun bryan/erc-joined-channels ()
   "Return all the channels you're in as a list.  This does not include queries."
   (save-excursion
     ;; need to get out of ERC mode so we can have *all* channels returned
     (set-buffer "*scratch*")
-    (mapcar #'(lambda (chanbuf)
-                (with-current-buffer chanbuf (erc-default-target)))
+    (mapcar #'bryan/erc-list-channels-within-buffer
             (erc-channel-list erc-process))))
 
 (setq erc-join-buffer 'bury)
