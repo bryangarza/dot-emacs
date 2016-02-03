@@ -1348,9 +1348,11 @@ See `comment-region' for behavior of a prefix arg."
   "Minimal distraction for all channels except important ones
 which are defined in ~/.private.el"
   (interactive)
-  (erc-track-remove-from-mode-line)
   (setq erc-track-priority-faces-only
         (-difference (my-erc-joined-channels) erc-important-chans)))
+
+;; (setq erc-track-priority-faces-only nil)
+(setq erc-track-exclude-server-buffer t)
 
 (defun my-erc-joined-channels ()
   "Return all the channels you're in as a list.  This does not include queries."
