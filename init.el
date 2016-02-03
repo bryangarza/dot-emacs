@@ -1262,6 +1262,10 @@ See `comment-region' for behavior of a prefix arg."
 
 (require 'erc)
 (setq erc-server-coding-system '(utf-8 . utf-8))
+(setq erc-timestamp-format "[%I:%M %p]")
+(setq erc-hide-timestamps t)
+(setq erc-echo-timestamps nil)
+(setq erc-echo-timestamp-format "TS'd %A, %I:%M:%S %p")
 (setq erc-track-showcount t)
 (setq erc-track-enable-keybindings t)
 (add-to-list 'erc-modules 'scrolltobottom)
@@ -1269,11 +1273,19 @@ See `comment-region' for behavior of a prefix arg."
 (defun please-dont-recenter ()
   (set (make-local-variable 'scroll-conservatively) 100))
 
-(add-to-list 'erc-mode-hook
-             #'(lambda ()
-                 (set (make-local-variable 'scroll-conservatively) 100)))
+(defun bryan/erc-scroll-conservatively ()
+  (set (make-local-variable 'scroll-conservatively) 100))
+
+(defun bryan/erc-echo-timestamps-only-in-erc-buffers ()
+  (make-local-variable 'erc-echo-timestamps)
+  (setq erc-echo-timestamps t))
+
+(add-hook 'erc-mode-hook #'bryan/erc-scroll-conservatively)
+(add-hook 'erc-mode-hook #'bryan/erc-echo-timestamps-only-in-erc-buffers)
+
 (add-to-list 'erc-modules 'move-to-prompt)
 (add-to-list 'erc-modules 'ring)
+
 ;; (erc-update-modules)
 (setq erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
 ;; To also exclude messages sent by the server when you join a channel, such as
