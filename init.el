@@ -1269,9 +1269,7 @@ See `comment-region' for behavior of a prefix arg."
 (setq erc-track-enable-keybindings t)
 (add-to-list 'erc-modules 'scrolltobottom)
 
-(defun please-dont-recenter ()
-  (set (make-local-variable 'scroll-conservatively) 100))
-
+;; Don't recenter
 (defun bryan/erc-scroll-conservatively ()
   (set (make-local-variable 'scroll-conservatively) 100))
 
