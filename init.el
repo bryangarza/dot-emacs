@@ -56,7 +56,7 @@
     :ensure t
     :init
     (progn
-      (add-hook 'after-init-hook 'global-company-mode))))
+      (add-hook 'after-init-hook #'global-company-mode))))
 
 (defun bryan/paren ()
   (use-package paren
@@ -154,7 +154,7 @@
   (require 'bryan-org-bullets)
   (bryan/org-bullets)
 
-  (autoload 'org-present "org-present" nil t)
+  (autoload #'org-present "org-present" nil t)
 
   (eval-after-load "org-present"
     '(progn
@@ -176,7 +176,7 @@
     :config
     (progn
       (if (require 'toc-org nil t)
-          (add-hook 'org-mode-hook 'toc-org-enable)
+          (add-hook 'org-mode-hook #'toc-org-enable)
         (warn "toc-org not found"))
       (add-to-list 'org-tag-alist '("TOC" . ?T))))
 
@@ -195,7 +195,7 @@
   (setq uniquify-buffer-name-style 'forward)
 
   (desktop-save-mode t)
-  (fset 'yes-or-no-p 'y-or-n-p)
+  (fset 'yes-or-no-p #'y-or-n-p)
 
   (electric-indent-mode)
   (setq redisplay-dont-pause                 t
@@ -216,7 +216,7 @@
   (setq-default fill-column 80)
 
   ;; Replace default expand command
-  (global-set-key (kbd "M-/") 'hippie-expand)
+  (global-set-key (kbd "M-/") #'hippie-expand)
 
   ;; ლ(ಠ益ಠ)ლ ¡porque!
   (put 'upcase-region 'disabled nil)
@@ -225,7 +225,7 @@
   ;; getting errors (when scheme file was opened)
   (semantic-mode 0)
 
-  (bind-key "C-x a r" 'align-regexp)
+  (bind-key "C-x a r" #'align-regexp)
 
   (use-package saveplace
     :config
@@ -266,7 +266,7 @@
     :config
     (progn
 
-      (add-hook 'paredit-mode-hook 'evil-paredit-mode)
+      (add-hook 'paredit-mode-hook #'evil-paredit-mode)
 
       (defun paredit-nonlisp-hook ()
         "Turn on paredit mode for non-lisps."
@@ -284,9 +284,9 @@
 
 (defun bryan/hooks ()
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  (add-hook 'text-mode-hook 'turn-on-auto-fill)
-  (add-hook 'window-startup-hook 'toggle-frame-maximized))
+  (add-hook 'before-save-hook #'delete-trailing-whitespace)
+  (add-hook 'text-mode-hook #'turn-on-auto-fill)
+  (add-hook 'window-startup-hook #'toggle-frame-maximized))
 
 (defun bryan/evil ()
   (use-package evil-leader
@@ -300,7 +300,7 @@
     :init (evil-mode 1)
     :config
     (progn (setq evil-move-cursor-back nil)
-           (define-key evil-normal-state-map (kbd "K") 'evil-previous-line)))
+           (define-key evil-normal-state-map (kbd "K") #'evil-previous-line)))
 
   (use-package evil-surround
     :ensure t
@@ -326,19 +326,19 @@
       (avy-setup-default)
 
       ;; Input one char, jump to it with a tree.
-      (global-set-key (kbd "C-:") 'avy-goto-char)
+      (global-set-key (kbd "C-:") #'avy-goto-char)
 
       ;; Input two consecutive chars, jump to the first one with a tree.
-      (global-set-key (kbd "C-'") 'avy-goto-char-2)
+      (global-set-key (kbd "C-'") #'avy-goto-char-2)
 
       ;; Input zero chars, jump to a line start with a tree.
-      (global-set-key (kbd "M-g f") 'avy-goto-line)
+      (global-set-key (kbd "M-g f") #'avy-goto-line)
 
       ;; Input one char at word start, jump to a word start with a tree.
-      (global-set-key (kbd "M-g w") 'avy-goto-word-1)
+      (global-set-key (kbd "M-g w") #'avy-goto-word-1)
 
       ;; Input zero chars, jump to a word start with a tree.
-      (global-set-key (kbd "M-g e") 'avy-goto-word-0)
+      (global-set-key (kbd "M-g e") #'avy-goto-word-0)
 
       (define-key evil-motion-state-map (kbd "p") #'avy-goto-word-1)
       (define-key evil-motion-state-map (kbd "P") #'avy-goto-line)
@@ -379,7 +379,7 @@
   (use-package jade-mode
     :mode "\\.jade$")
 
-  (add-hook 'js-mode-hook 'paredit-nonlisp-hook))
+  (add-hook 'js-mode-hook #'paredit-nonlisp-hook))
 
 (defun bryan/markdown ()
   (use-package markdown-mode
@@ -387,7 +387,7 @@
            ("\\.markdown\\'" . markdown-mode)
            ("\\.md\\'" . markdown-mode)))
 
-  (add-hook 'markdown-mode-hook 'pandoc-mode))
+  (add-hook 'markdown-mode-hook #'pandoc-mode))
 
 (defun bryan/json ()
   (use-package json-mode
@@ -501,10 +501,10 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (defun c-mode-custom-hook ()
     (setq c-default-style "linux")
     (setq c-basic-offset 4)
-    (bind-key "C-c C-c" 'recompile c-mode-map))
+    (bind-key "C-c C-c" #'recompile c-mode-map))
 
-  (add-hook 'c-mode-common-hook 'paredit-nonlisp-hook)
-  (add-hook 'c-mode-common-hook 'c-mode-custom-hook))
+  (add-hook 'c-mode-common-hook #'paredit-nonlisp-hook)
+  (add-hook 'c-mode-common-hook #'c-mode-custom-hook))
 
 (defun bryan/ocaml ()
   (load "/Users/bryangarza/.emacs.d/lisp/tuareg/tuareg-site-file.el")
@@ -520,13 +520,13 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       (setq merlin-command 'opam)
       ;; Make company aware of merlin
       (with-eval-after-load 'company
-        (add-to-list 'company-backends 'merlin-company-backend))
+        (add-to-list 'company-backends #'merlin-company-backend))
       ;; Enable company on merlin managed buffers
       ;; (add-hook 'merlin-mode-hook 'company-mode) ; already enabled globally
       ))
   ;; Start merlin on OCaml files
-  (add-hook 'tuareg-mode-hook 'merlin-mode t)
-  (add-hook 'caml-mode-hook 'merlin-mode t)
+  (add-hook 'tuareg-mode-hook #'merlin-mode t)
+  (add-hook 'caml-mode-hook #'merlin-mode t)
   (add-to-list 'load-path "/Users/bryangarza/.opam/system/share/emacs/site-lisp")
   (require 'ocp-indent)
   ;; Setup environment variables using opam
@@ -542,9 +542,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   ;; (defun ocaml-custom-hook ()
   ;;   (paredit-mode 1))
   ;; Automatically load utop.el
-  (autoload 'utop "utop" "Toplevel for OCaml" t)
-  (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
-  (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+  (autoload #'utop "utop" "Toplevel for OCaml" t)
+  (autoload #'utop-minor-mode "utop" "Minor mode for utop" t)
+  (add-hook 'tuareg-mode-hook #'utop-minor-mode)
   ;; (add-hook 'tuareg-mode-hook 'ocaml-custom-hook)
   )
 
@@ -558,7 +558,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (defun haskell-custom-hook ()
     (require 'haskell-interactive-mode)
     (require 'haskell-process)
-    (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+    (add-hook 'haskell-mode-hook #'interactive-haskell-mode)
     ;; Getting tired of these 2 sometimes
     ;; (flycheck-mode)
     ;; (paredit-mode 1)
@@ -568,32 +568,32 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     ;; (turn-on-hi2)
 
     ;; Load the current file (and make a session if not already made).
-    (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+    (define-key haskell-mode-map (kbd "C-c C-l") #'haskell-process-load-or-reload)
     ;; Switch to the REPL.
-    (define-key haskell-mode-map [?\C-c ?\C-z] 'haskell-interactive-switch)
+    (define-key haskell-mode-map [?\C-c ?\C-z] #'haskell-interactive-switch)
     ;; “Bring” the REPL, hiding all other windows apart from the source
     ;; and the REPL.
-    (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+    (define-key haskell-mode-map (kbd "C-`") #'haskell-interactive-bring)
     ;; Get the type and info of the symbol at point, print it in the
     ;; message buffer.
-    (define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
-    (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
+    (define-key haskell-mode-map (kbd "C-c C-t") #'haskell-process-do-type)
+    (define-key haskell-mode-map (kbd "C-c C-i") #'haskell-process-do-info)
     ;; Contextually do clever things on the space key, in particular:
     ;;   1. Complete imports, letting you choose the module name.
     ;;   2. Show the type of the symbol after the space.
     (evil-leader/set-key
-      "SPC" 'haskell-mode-contextual-space
-      ;; "s" 'haskell-mode-tag-find
+      "SPC" #'haskell-mode-contextual-space
+      ;; "s" #'haskell-mode-tag-find
       )
     ;; Jump to the imports. Keep tapping to jump between import
     ;; groups. C-u f8 to jump back again.
-    (define-key haskell-mode-map [f8] 'haskell-navigate-imports)
+    (define-key haskell-mode-map [f8] #'haskell-navigate-imports)
 
-    (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
-    (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
-    (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+    (define-key haskell-cabal-mode-map (kbd "C-`") #'haskell-interactive-bring)
+    (define-key haskell-cabal-mode-map (kbd "C-c C-k") #'haskell-interactive-mode-clear)
+    (define-key haskell-cabal-mode-map (kbd "C-c C-c") #'haskell-process-cabal-build)
     ;; ;; Interactively choose the Cabal command to run.
-    (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
+    (define-key haskell-cabal-mode-map (kbd "C-c c") #'haskell-process-cabal)
 
     (custom-set-variables
      '(haskell-process-type 'stack-ghci)
@@ -607,8 +607,8 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   ;;   :ensure t
   ;;   :config
   ;;   (progn
-  ;;     (autoload 'ghc-init "ghc" nil t)
-  ;;     (autoload 'ghc-debug "ghc" nil t)))
+  ;;     (autoload #'ghc-init "ghc" nil t)
+  ;;     (autoload #'ghc-debug "ghc" nil t)))
 
   ;; (use-package company-ghc
   ;;   :ensure t
@@ -620,11 +620,11 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     :ensure t
     :config
     (progn
-      (bind-key "C-c C-c" 'haskell-compile haskell-mode-map)
+      (bind-key "C-c C-c" #'haskell-compile haskell-mode-map)
       ;; (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
       ))
 
-  (add-hook 'haskell-mode-hook 'haskell-custom-hook))
+  (add-hook 'haskell-mode-hook #'haskell-custom-hook))
 
 (defun bryan/elm ()
   (use-package elm-mode
@@ -634,9 +634,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   (setq geiser-active-implementations '(racket))
 
   (defun racket-mode-custom-hook ()
-    (bind-key "s-e" 'geiser-eval-definition scheme-mode-map))
+    (bind-key "s-e" #'geiser-eval-definition scheme-mode-map))
 
-  (add-hook 'geiser-mode-hook 'racket-mode-custom-hook))
+  (add-hook 'geiser-mode-hook #'racket-mode-custom-hook))
 
 (defun bryan/multiple-cursors ()
   ;; https://github.com/magnars/multiple-cursors.el
@@ -694,8 +694,8 @@ want to use in the modeline *in lieu of* the original.")
                (when (eq mode major-mode)
                  (setq mode-name mode-str)))))
 
-  (add-hook 'init-hook 'clean-mode-line)
-  (add-hook 'after-change-major-mode-hook 'clean-mode-line))
+  (add-hook 'init-hook #'clean-mode-line)
+  (add-hook 'after-change-major-mode-hook #'clean-mode-line))
 
 (defun bryan/toggle-split-or-rotate-windows ()
 
@@ -713,8 +713,8 @@ want to use in the modeline *in lieu of* the original.")
                (splitter
                 (if (= (car this-win-edges)
                        (car (window-edges (next-window))))
-                    'split-window-horizontally
-                  'split-window-vertically)))
+                    #'split-window-horizontally
+                  #'split-window-vertically)))
           (delete-other-windows)
           (let ((first-win (selected-window)))
             (funcall splitter)
@@ -766,7 +766,7 @@ want to use in the modeline *in lieu of* the original.")
     (yank)
     (replace-smart-quotes (mark) (point)))
 
-  (global-set-key (kbd "C-c y") 'yank-and-replace-smart-quotes))
+  (global-set-key (kbd "C-c y") #'yank-and-replace-smart-quotes))
 
 (defun bryan/scala ()
   (use-package scala-mode2
@@ -775,12 +775,12 @@ want to use in the modeline *in lieu of* the original.")
   (defun scala-mode-custom-hook ()
     ;; sbt-find-definitions is a command that tries to find (with grep)
     ;; the definition of the thing at point.
-    (local-set-key (kbd "M-.") 'sbt-find-definitions)
+    (local-set-key (kbd "M-.") #'sbt-find-definitions)
 
     ;; use sbt-run-previous-command to re-compile your code after changes
-    (local-set-key (kbd "C-x '") 'sbt-run-previous-command))
+    (local-set-key (kbd "C-x '") #'sbt-run-previous-command))
 
-  (add-hook 'scala-mode-hook 'scala-mode-custom-hook)
+  (add-hook 'scala-mode-hook #'scala-mode-custom-hook)
 
   (use-package sbt-mode
     :ensure t)
@@ -793,14 +793,14 @@ want to use in the modeline *in lieu of* the original.")
 
     ;; Bind C-a to 'comint-bol when in sbt-mode. This will move the
     ;; cursor to just after prompt.
-    (local-set-key (kbd "C-a") 'comint-bol)
+    (local-set-key (kbd "C-a") #'comint-bol)
 
     ;; Bind M-RET to 'comint-accumulate. This will allow you to add
     ;; more than one line to scala console prompt before sending it
     ;; for interpretation. It will keep your command history cleaner.
-    (local-set-key (kbd "M-RET") 'comint-accumulate))
+    (local-set-key (kbd "M-RET") #'comint-accumulate))
 
-  (add-hook 'sbt-mode-hook 'sbt-mode-custom-hook))
+  (add-hook 'sbt-mode-hook #'sbt-mode-custom-hook))
 
 (defun bryan/magit ()
   (use-package magit
@@ -808,20 +808,20 @@ want to use in the modeline *in lieu of* the original.")
     :config
     (progn
       (setq magit-last-seen-setup-instructions "1.4.0")
-      (setq magit-status-buffer-switch-function 'switch-to-buffer)
+      (setq magit-status-buffer-switch-function #'switch-to-buffer)
       (setq magit-push-always-verify nil))))
 
 (defun bryan/pandoc ()
   (use-package pandoc-mode
     :ensure t)
 
-  (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings))
+  (add-hook 'pandoc-mode-hook #'pandoc-load-default-settings))
 
 (defun bryan/hy ()
   (use-package hy-mode
     :ensure t)
 
-  (add-hook 'hy-mode-hook 'paredit-mode))
+  (add-hook 'hy-mode-hook #'paredit-mode))
 
 (defun bryan/rust ()
   (use-package rust-mode
@@ -837,13 +837,13 @@ want to use in the modeline *in lieu of* the original.")
   ;;   (local-set-key (kbd "M-.") #'racer-find-definition)
   ;;   (local-set-key (kbd "TAB") #'racer-complete-or-indent))
 
-  ;; (add-hook 'rust-mode-hook 'rust-custom-hook)
+  ;; (add-hook 'rust-mode-hook #'rust-custom-hook)
   )
 
 (defun bryan/elisp ()
   ;; Automatically load paredit when editing a lisp file
   ;; More at http://www.emacswiki.org/emacs/ParEdit
-  (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+  (autoload #'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
   (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
   (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
   (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
@@ -853,42 +853,42 @@ want to use in the modeline *in lieu of* the original.")
 
   ;; eldoc-mode shows documentation in the minibuffer when writing code
   ;; http://www.emacswiki.org/emacs/ElDoc
-  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-  (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+  (add-hook 'emacs-lisp-mode-hook #'turn-on-eldoc-mode)
+  (add-hook 'lisp-interaction-mode-hook #'turn-on-eldoc-mode)
+  (add-hook 'ielm-mode-hook #'turn-on-eldoc-mode)
 
   (require 'elisp-slime-nav))
 
 (defun bryan/clojure ()
   ;; Enable paredit for Clojure
-  (add-hook 'clojure-mode-hook 'enable-paredit-mode)
+  (add-hook 'clojure-mode-hook #'enable-paredit-mode)
 
   ;; This is useful for working with camel-case tokens, like names of
   ;; Java classes (e.g. JavaClassName)
-  (add-hook 'clojure-mode-hook 'subword-mode)
+  (add-hook 'clojure-mode-hook #'subword-mode)
 
   ;; A little more syntax highlighting
   (require 'clojure-mode-extra-font-locking)
 
   ;; syntax hilighting for midje
   (add-hook 'clojure-mode-hook
-            (lambda ()
-              (setq inferior-lisp-program "lein repl")
-              (font-lock-add-keywords
-               nil
-               '(("(\\(facts?\\)"
-                  (1 font-lock-keyword-face))
-                 ("(\\(background?\\)"
-                  (1 font-lock-keyword-face))))
-              (define-clojure-indent (fact 1))
-              (define-clojure-indent (facts 1))))
+            #'(lambda ()
+                (setq inferior-lisp-program "lein repl")
+                (font-lock-add-keywords
+                 nil
+                 '(("(\\(facts?\\)"
+                    (1 font-lock-keyword-face))
+                   ("(\\(background?\\)"
+                    (1 font-lock-keyword-face))))
+                (define-clojure-indent (fact 1))
+                (define-clojure-indent (facts 1))))
 
 ;;;;
   ;; Cider
 ;;;;
 
   ;; provides minibuffer documentation for the code you're typing into the repl
-  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  (add-hook 'cider-mode-hook #'cider-turn-on-eldoc-mode)
 
   ;; go right to the REPL buffer when it's finished connecting
   (setq cider-repl-pop-to-buffer-on-connect t)
@@ -904,7 +904,7 @@ want to use in the modeline *in lieu of* the original.")
   (setq cider-repl-wrap-history t)
 
   ;; enable paredit in your REPL
-  (add-hook 'cider-repl-mode-hook 'paredit-mode)
+  (add-hook 'cider-repl-mode-hook #'paredit-mode)
 
   ;; Use clojure mode for other extensions
   (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
@@ -934,10 +934,10 @@ want to use in the modeline *in lieu of* the original.")
 
   (eval-after-load 'cider
     '(progn
-       (define-key clojure-mode-map (kbd "C-c C-v") 'cider-start-http-server)
-       (define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh)
-       (define-key clojure-mode-map (kbd "C-c u") 'cider-user-ns)
-       (define-key cider-mode-map (kbd "C-c u") 'cider-user-ns))))
+       (define-key clojure-mode-map (kbd "C-c C-v") #'cider-start-http-server)
+       (define-key clojure-mode-map (kbd "C-M-r") #'cider-refresh)
+       (define-key clojure-mode-map (kbd "C-c u") #'cider-user-ns)
+       (define-key cider-mode-map (kbd "C-c u") #'cider-user-ns))))
 
 (defun bryan/keybindings ()
 
@@ -982,7 +982,7 @@ the current position of point, then move it to the beginning of the line."
    ("s-l"     . windmove-right)
    ("s-L"     . goto-line)
    ("s-l"     . windmove-right)
-   ("s-m"     . org-publish-current-project)
+   ("s-m"     . org-publish-current-file)
    ("s-q"     . previous-history-element)
    ("s-d"     . next-history-element)
    ("s-K"     . kill-this-buffer)
@@ -1026,7 +1026,7 @@ the current position of point, then move it to the beginning of the line."
 
   ;; maybe
   ;; (setcdr evil-insert-state-map nil)
-  ;; (define-key evil-insert-state-map [escape] 'evil-normal-state)
+  ;; (define-key evil-insert-state-map [escape] #'evil-normal-state)
 
   (bind-keys :map evil-motion-state-map ("C-a" . smart-line-beginning))
   (bind-keys :map evil-insert-state-map ("C-a" . smart-line-beginning))
@@ -1039,27 +1039,27 @@ the current position of point, then move it to the beginning of the line."
   (bind-keys :map evil-normal-state-map ("C-e" . move-end-of-line))
   ;; ("C-e" . evil-copy-from-below)
 
-  (define-key evil-normal-state-map [escape] 'keyboard-quit)
-  (define-key evil-visual-state-map [escape] 'keyboard-quit)
-  (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-  (global-set-key [escape] 'evil-exit-emacs-state)
+  (define-key evil-normal-state-map [escape] #'keyboard-quit)
+  (define-key evil-visual-state-map [escape] #'keyboard-quit)
+  (define-key minibuffer-local-map [escape] #'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-ns-map [escape] #'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-completion-map [escape] #'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-must-match-map [escape] #'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-isearch-map [escape] #'minibuffer-keyboard-quit)
+  (global-set-key [escape] #'evil-exit-emacs-state)
 
-  (bind-key "M-)" 'paredit-wrap-round-from-behind evil-motion-state-map)
-  (bind-key "M-)" 'paredit-wrap-round-from-behind evil-insert-state-map)
+  (bind-key "M-)" #'paredit-wrap-round-from-behind evil-motion-state-map)
+  (bind-key "M-)" #'paredit-wrap-round-from-behind evil-insert-state-map)
 
   (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
-    (add-hook hook 'elisp-slime-nav-mode)
+    (add-hook hook #'elisp-slime-nav-mode)
     (evil-leader/set-key
-      "s" 'elisp-slime-nav-find-elisp-thing-at-point
-      "S" 'pop-tag-mark
-      "d" 'elisp-slime-nav-describe-elisp-thing-at-point))
+      "s" #'elisp-slime-nav-find-elisp-thing-at-point
+      "S" #'pop-tag-mark
+      "d" #'elisp-slime-nav-describe-elisp-thing-at-point))
 
-  (add-hook 'term-mode-hook (lambda ()
-                              (define-key term-raw-map (kbd "s-v") 'term-paste)))
+  (add-hook 'term-mode-hook #'(lambda ()
+                                (define-key term-raw-map (kbd "s-v") #'term-paste)))
 
   (define-key org-mode-map "\C-ck" #'endless/insert-key)
   (defun endless/insert-key (key)
@@ -1119,7 +1119,7 @@ Will work on both org-mode and any mode that accepts plain html."
 
 (bryan/eval-fns)
 
-(global-set-key [s-mouse-1] 'browse-url-at-mouse)
+(global-set-key [s-mouse-1] #'browse-url-at-mouse)
 
 (use-package ranger
   :ensure t
@@ -1143,9 +1143,9 @@ Will work on both org-mode and any mode that accepts plain html."
   :config
   (progn
     ;; Capitalize keywords in SQL mode
-    (add-hook 'sql-mode-hook 'sqlup-mode)
+    (add-hook 'sql-mode-hook #'sqlup-mode)
     ;; Capitalize keywords in an interactive session (e.g. psql)
-    (add-hook 'sql-interactive-mode-hook 'sqlup-mode)
+    (add-hook 'sql-interactive-mode-hook #'sqlup-mode)
     ;; Set a global keyword to use sqlup on a region
     ;; (global-set-key (kbd "C-c u") 'sqlup-capitalize-keywords-in-region)
     ))
@@ -1156,7 +1156,7 @@ Will work on both org-mode and any mode that accepts plain html."
   (gnus-group-list-all-groups 5))
 (add-hook 'gnus-group-mode-hook
           ;; list all the subscribed groups even they contain zero un-read messages
-          (lambda () (local-set-key "o" 'my-gnus-group-list-subscribed-groups )))
+          #'(lambda () (local-set-key "o" #'my-gnus-group-list-subscribed-groups)))
 
 (use-package reveal-in-osx-finder
   ;; To load at the start up
@@ -1164,7 +1164,7 @@ Will work on both org-mode and any mode that accepts plain html."
   ;; If you want to configure a keybinding (e.g., C-c z), add the following
   ;; :config
   ;; (progn
-  ;;   (global-set-key (kbd "C-c z") 'reveal-in-osx-finder))
+  ;;   (global-set-key (kbd "C-c z") #'reveal-in-osx-finder))
   )
 
 (use-package erlang
@@ -1217,21 +1217,20 @@ See `comment-region' for behavior of a prefix arg."
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
 ;; maybe...
-;; (add-hook 'text-mode-hook 'remove-dos-eol)
+;; (add-hook 'text-mode-hook #'remove-dos-eol)
 
-(add-to-list 'evil-insert-state-modes 'haskell-interactive-mode)
-(add-to-list 'evil-insert-state-modes 'twittering-edit-mode)
+(add-to-list 'evil-insert-state-modes #'haskell-interactive-mode)
 
 ;; http://www.emacswiki.org/emacs/NeoTree
 (use-package neotree
   :ensure t
   :config
   (progn
-    (global-set-key [f8] 'neotree-toggle)
-    (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
-    (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
-    (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-    (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+    (global-set-key [f8] #'neotree-toggle)
+    (define-key evil-normal-state-local-map (kbd "TAB") #'neotree-enter)
+    (define-key evil-normal-state-local-map (kbd "SPC") #'neotree-enter)
+    (define-key evil-normal-state-local-map (kbd "q") #'neotree-hide)
+    (define-key evil-normal-state-local-map (kbd "RET") #'neotree-enter)))
 
 (setq TeX-save-query nil)
 
@@ -1366,7 +1365,7 @@ which are defined in ~/.private.el"
 ;; (use-package erc-hl-nicks
 ;;   :ensure t)
 
-(setq erc-fill-function 'erc-fill-static)
+(setq erc-fill-function #'erc-fill-static)
 (setq erc-fill-static-center 15)
 
 (defun my-erc-terminal-notifier ()
@@ -1394,7 +1393,7 @@ which are defined in ~/.private.el"
            (concat "\\<" (nth 0 (erc-parse-user nick)) "> " message))))))
 
   (if (eq system-type 'darwin)
-      (add-hook 'erc-text-matched-hook 'erc-terminal-notifier-text-matched)))
+      (add-hook 'erc-text-matched-hook #'erc-terminal-notifier-text-matched)))
 
 (my-erc-terminal-notifier)
 
@@ -1427,9 +1426,9 @@ which are defined in ~/.private.el"
   :ensure t
   ;; :config
   ;; (progn
-  ;;   (add-hook 'prog-mode-hook 'fci-mode)
-  ;;   (add-hook 'text-mode-hook 'fci-mode)
-  ;;   (add-hook 'org-mode-hook  'fci-mode)
+  ;;   (add-hook 'prog-mode-hook #'fci-mode)
+  ;;   (add-hook 'text-mode-hook #'fci-mode)
+  ;;   (add-hook 'org-mode-hook  #'fci-mode)
 
   ;;   ;; advising org-html-fontify-code because otherwise fci-mode gets in the way
   ;;   ;; of the exports and insert garbage characters
@@ -1447,6 +1446,18 @@ which are defined in ~/.private.el"
 ;;   :ensure t
 ;;   :config
 ;;   (progn
-;;     (remove-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+;;     (remove-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)
 ;;     (global-diff-hl-mode)
 ;;     (diff-hl-flydiff-mode)))
+
+(defun endless/sharp ()
+  "Insert #' unless in a string or comment."
+  (interactive)
+  (call-interactively #'self-insert-command)
+  (let ((ppss (syntax-ppss)))
+    (unless (or (elt ppss 3)
+                (elt ppss 4)
+                (eq (char-after) ?'))
+      (insert "'"))))
+
+(define-key emacs-lisp-mode-map "#" #'endless/sharp)
