@@ -52,3 +52,6 @@
 [submodule "lisp/racer"]
 	path = lisp/racer
 	url = https://github.com/phildawes/racer.git
+[submodule "lisp/html-lite.el"]
+	path = lisp/html-lite.el
+	url = git@github.com:bryangarza/html-lite.el.git

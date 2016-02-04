@@ -1421,6 +1421,7 @@ which are defined in ~/.private.el"
   ;;   (golden-ratio-mode 1))
   )
 
+(load "~/.emacs.d/lisp/html-lite.el/html-lite")
 (load "~/org/new-site/lisp/blog.el")
 (bryan/blog)
 
