@@ -19,6 +19,7 @@
  - [[#ocaml][OCaml]]
  - [[#graphical-vs-console-emacs][Graphical vs Console Emacs]]
  - [[#languages][Languages]]
+ - [[#input-methods][Input Methods]]
  - [[#license][License]]
  - [[#internal-notes][Internal Notes]]
 
@@ -161,6 +162,12 @@ All these are set up:
 - SQL
 - Stylus
 
+* Input Methods
+- =C-x RET C-\ method RET= :: ~(set-input-method)~
+- =C-\= :: ~(toggle-input-method)~
+- =C-h I method RET= :: ~(describe-input-method)~
+- =C-h C-\ method RET= :: also ~(describe-input-method)~
+- =M-x list-input-methods= :: Display a list of all the supported input methods.
 * License
 Copyright (C) 2014-2016 Bryan Garza
 
