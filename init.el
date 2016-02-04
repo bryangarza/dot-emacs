@@ -118,8 +118,8 @@
 
   ;; Current favorite.
   (load-theme 'tsdh-light)
-  (set-face-foreground 'mode-line "white")
-  (set-face-background 'mode-line "purple")
+  ;; (set-face-foreground 'mode-line "white")
+  (set-face-background 'mode-line "white")
   ;; (setq rainbow-delimiters-outermost-only-face-count 1)
   ;; (setq rainbow-delimiters-max-face-count 2)
   )
