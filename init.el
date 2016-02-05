@@ -1480,6 +1480,7 @@ which are defined in ~/.private.el"
   :ensure t
   :config
   (progn
+    ;; (eyebrowse-mode t)
     (setq eyebrowse-wrap-around t)
     (eyebrowse-setup-evil-keys)
     (setq eyebrowse-switch-back-and-forth t)))
