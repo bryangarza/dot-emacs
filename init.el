@@ -1480,6 +1480,8 @@ which are defined in ~/.private.el"
   :ensure t
   :config
   (progn
-    (setq eyebrowse-wrap-around t)))
+    (setq eyebrowse-wrap-around t)
+    (eyebrowse-setup-evil-keys)
+    (setq eyebrowse-switch-back-and-forth t)))
 
 (bryan/keybindings)
