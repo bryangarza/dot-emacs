@@ -76,6 +76,9 @@ The default key bindings are:
 | ...       | ...                              |
 | =C-c C-w 9= | Switch to window config 9        |
 
+I also bound all the =s-<n>= keys to switch to that window config. Which you can
+do with another eyebrowse function but that one also sets some other keys I
+don't want to override, so I just did it manually.
 
 Don't feel like putting this in a table....
 From ~(eyebrowse-setup-evil-keys)~
