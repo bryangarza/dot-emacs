@@ -65,16 +65,26 @@ git clone --recursive git@github.com:bryangarza/dot-emacs.git
 * Eyebrowse
 The default key bindings are:
 
-| Key bind    | Function                         |
-|-------------+----------------------------------|
-| =C-c C-w <=   | Switch to previous window config |
-| =C-c C-w >=   | Switch to next window config     |
-| =C-c C-w '= | Switch to last window config     |
-| =C-c C-w "= | Close current window config      |
-| =C-c C-w ,= | Rename current window config     |
-| =C-c C-w 0=   | Switch to window config 0        |
-| ...         | ...                              |
-| =C-c C-w 9=   | Switch to window config 9        |
+| Key bind  | Function                         |
+|-----------+----------------------------------|
+| =C-c C-w <= | Switch to previous window config |
+| =C-c C-w >= | Switch to next window config     |
+| C-c C-w ' | Switch to last window config     |
+| C-c C-w " | Close current window config      |
+| C-c C-w , | Rename current window config     |
+| =C-c C-w 0= | Switch to window config 0        |
+| ...       | ...                              |
+| =C-c C-w 9= | Switch to window config 9        |
+
+
+Don't feel like putting this in a table....
+From ~(eyebrowse-setup-evil-keys)~
+#+BEGIN_SRC elisp
+(define-key evil-motion-state-map (kbd "gt") 'eyebrowse-next-window-config)
+(define-key evil-motion-state-map (kbd "gT") 'eyebrowse-prev-window-config)
+(define-key evil-motion-state-map (kbd "gc") 'eyebrowse-close-window-config)
+(define-key evil-motion-state-map (kbd "zx") 'eyebrowse-last-window-config))
+#+END_SRC
 
 * Unbinding
 This will make the symbol my-nasty-variable's value void:
