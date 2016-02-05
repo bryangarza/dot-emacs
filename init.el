@@ -1392,7 +1392,7 @@ which are defined in ~/.private.el"
                    erc-terminal-notifier-command
                    "-title" title
                    "-message" message
-                   ;; "-activate" "org.gnu.Emacs"
+                   "-activate" "org.gnu.Emacs"
                    "-sender" "org.gnu.Emacs"))
 
   (defun erc-terminal-notifier-text-matched (match-type nick message)
