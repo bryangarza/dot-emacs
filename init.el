@@ -1017,6 +1017,18 @@ the current position of point, then move it to the beginning of the line."
    ("C-c j"   . counsel-git-grep)
    ("C-x l"   . counsel-locate)
    ("s-;"     . erc-track-switch-buffer)
+   ("C-s-n"   . eyebrowse-next-window-config)
+   ("C-s-p"   . eyebrowse-prev-window-config)
+   ("M-0"     . eyebrowse-switch-to-window-config-0)
+   ("M-1"     . eyebrowse-switch-to-window-config-1)
+   ("M-2"     . eyebrowse-switch-to-window-config-2)
+   ("M-3"     . eyebrowse-switch-to-window-config-3)
+   ("M-4"     . eyebrowse-switch-to-window-config-4)
+   ("M-5"     . eyebrowse-switch-to-window-config-5)
+   ("M-6"     . eyebrowse-switch-to-window-config-6)
+   ("M-7"     . eyebrowse-switch-to-window-config-7)
+   ("M-8"     . eyebrowse-switch-to-window-config-8)
+   ("M-9"     . eyebrowse-switch-to-window-config-9)
    ;; ("<f6>"   . ivy-resume)
    ;; ("<f1> l" . counsel-load-library)
    ;; ("<f2> i" . counsel-info-lookup-symbol)
@@ -1114,8 +1126,7 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan/hy)
   (bryan/rust)
   (bryan/elisp)
-  (bryan/clojure)
-  (bryan/keybindings))
+  (bryan/clojure))
 
 (bryan/eval-fns)
 
@@ -1464,3 +1475,11 @@ which are defined in ~/.private.el"
       (insert "'"))))
 
 (define-key emacs-lisp-mode-map "#" #'endless/sharp)
+
+(use-package eyebrowse
+  :ensure t
+  :config
+  (progn
+    (setq eyebrowse-wrap-around t)))
+
+(bryan/keybindings)

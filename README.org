@@ -7,6 +7,7 @@
  - [[#org-present][Org-present]]
  - [[#hydras][Hydras]]
  - [[#zooming][Zooming]]
+ - [[#eyebrowse][Eyebrowse]]
  - [[#unbinding][Unbinding]]
  - [[#pinning][Pinning]]
  - [[#helm][Helm]]
@@ -60,6 +61,20 @@ git clone --recursive git@github.com:bryangarza/dot-emacs.git
 - =C-+= or =C--= to repeat
 - =C-x C-0= to restore the default (global) face height
 - =S-mouse-1= pops up a menu where you can choose these same actions
+
+* Eyebrowse
+The default key bindings are:
+
+| Key bind    | Function                         |
+|-------------+----------------------------------|
+| =C-c C-w <=   | Switch to previous window config |
+| =C-c C-w >=   | Switch to next window config     |
+| =C-c C-w '= | Switch to last window config     |
+| =C-c C-w "= | Close current window config      |
+| =C-c C-w ,= | Rename current window config     |
+| =C-c C-w 0=   | Switch to window config 0        |
+| ...         | ...                              |
+| =C-c C-w 9=   | Switch to window config 9        |
 
 * Unbinding
 This will make the symbol my-nasty-variable's value void:
