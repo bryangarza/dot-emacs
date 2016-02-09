@@ -1,4 +1,4 @@
-(setq user-full-name "Bryan Garza"
+(setq user-full-name    "Bryan Garza"
       user-mail-address "brygarza@gmail.com")
 
 (require 'cl)
