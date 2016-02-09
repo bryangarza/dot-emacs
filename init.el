@@ -527,7 +527,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   ;; Start merlin on OCaml files
   (add-hook 'tuareg-mode-hook #'merlin-mode t)
   (add-hook 'caml-mode-hook #'merlin-mode t)
-  (add-to-list 'load-path "/Users/bryangarza/.opam/system/share/emacs/site-lisp")
+  (add-to-list 'load-path "/Users/bryangarza/.opam/4.02.3/share/emacs/site-lisp")
   (require 'ocp-indent)
   ;; Setup environment variables using opam
   (dolist (var (car (read-from-string
