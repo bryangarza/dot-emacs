@@ -55,3 +55,6 @@
 [submodule "lisp/html-lite.el"]
 	path = lisp/html-lite.el
 	url = git@github.com:bryangarza/html-lite.el.git
+[submodule "themes/atom-one-dark-theme"]
+	path = themes/atom-one-dark-theme
+	url = git@github.com:bryangarza/atom-one-dark-theme.git
