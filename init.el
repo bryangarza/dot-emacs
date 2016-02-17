@@ -254,8 +254,10 @@
 
   ;; (set-face-attribute 'default nil
   ;;                     :family "Droid Sans Mono Slashed" :height 140 :weight 'normal)
+  ;; (set-face-attribute 'default nil
+  ;;                     :family "Monaco" :height 130 :weight 'normal)
   (set-face-attribute 'default nil
-                      :family "Monaco" :height 130 :weight 'normal))
+                      :family "Inconsolata" :height 140 :weight 'normal))
 
 ;; `bryan-hydra` will be evaled along with all the other functions
 (require 'bryan-hydra)
