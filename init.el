@@ -1517,4 +1517,25 @@ which are defined in ~/.private.el"
     (eyebrowse-setup-evil-keys)
     (setq eyebrowse-switch-back-and-forth t)))
 
+(use-package stripe-buffer
+  :ensure t
+  :config
+  (progn
+    ;; (set-face-background 'stripe-highlight "white smoke") ; light
+    (set-face-background 'stripe-highlight "#222222") ; dark
+    (add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
+    ))
+
+(setq auto-mode-alist (cons '("\\.v$" . coq-mode) auto-mode-alist))
+(autoload 'coq-mode "coq" "Major mode for editing Coq vernacular." t)
+
+(load-file "~/.emacs.d/lisp/ProofGeneral-4.3pre150930/ProofGeneral-4.3pre150930/generic/proof-site.el")
+
+(use-package company-coq
+  :ensure t
+  :config (add-hook 'coq-mode-hook #'company-coq-mode))
+
 (bryan/keybindings)
+
+(setq compilation-read-command nil)
+(setq browse-url-browser-function 'browse-url-default-macosx-browser)
