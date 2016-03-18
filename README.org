@@ -8,6 +8,7 @@
  - [[#hydras][Hydras]]
  - [[#zooming][Zooming]]
  - [[#eyebrowse][Eyebrowse]]
+ - [[#steps-to-install-coq-and-proof-general][Steps to Install Coq and Proof General]]
  - [[#unbinding][Unbinding]]
  - [[#pinning][Pinning]]
  - [[#helm][Helm]]
@@ -89,6 +90,20 @@ From ~(eyebrowse-setup-evil-keys)~
 (define-key evil-motion-state-map (kbd "zx") 'eyebrowse-last-window-config))
 #+END_SRC
 
+* Steps to Install Coq and Proof General
+#+BEGIN_EXAMPLE
+brew install coq
+#+END_EXAMPLE
+...and set coq mode for coq files, done in config already.
+=company-coq= auto installs with ~use-package~.
+Download the [[http://proofgeneral.inf.ed.ac.uk/devel][devel version]] of Proof General.
+Unpack the =.tgz= file.
+Recompile for current Emacs:
+#+BEGIN_SRC
+make clean; make compile EMACS=/usr/local/Cellar/emacs-mac/emacs-24.5-z-mac-5.15/Emacs.app/Contents/MacOS/Emacs
+#+END_SRC
+Make sure the right file path for the downloaded version of Proof General is in
+the config. (=proof-site.el=)
 * Unbinding
 This will make the symbol my-nasty-variable's value void:
 
