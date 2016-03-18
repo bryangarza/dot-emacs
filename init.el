@@ -80,18 +80,18 @@
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/color-theme-ujelly")
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-theme-darktooth")
-  ;; (use-package tao-theme
-  ;;   :ensure t)
+  (add-to-list 'load-path "~/.emacs.d/themes/tao-theme-emacs")
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/tao-theme-emacs")
 
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/moe-theme.el/")
-  (add-to-list 'load-path "~/.emacs.d/themes/moe-theme.el/")
+  ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/moe-theme.el/")
+  ;; (add-to-list 'load-path "~/.emacs.d/themes/moe-theme.el/")
   ;; so kawaii~  ✿◕ ‿ ◕✿
 
   ;; USUAL SETUP ;;;;;;;;;;;;
   ;; (require 'moe-theme)
   ;; (setq moe-theme-resize-org-title '(2.2 1.8 1.6 1.4 1.2 1.0 1.0 1.0 1.0))
   ;; (setq moe-theme-highlight-buffer-id nil)
-  ;; (moe-theme-set-color 'red)
+  ;; (moe-theme-set-color 'blue)
   ;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
   ;; (moe-light)
   ;; (moe-dark)
@@ -102,12 +102,12 @@
 
   ;; no underlined text! include `:weight 'normal` to get rid of bold
   ;; (but who would wanna do that?)
-  ;; another example: (set-face-bold-p 'bold nil)
-
-  ;; (mapc
-  ;;   (lambda (face)
-  ;;     (set-face-attribute face nil :underline nil))
-  ;;   (face-list))
+  ;; another example:
+  (load-theme 'tao-yin)
+  (mapc
+    (lambda (face)
+      (set-face-attribute face nil :underline nil :weight 'normal))
+    (face-list))
 
   ;; (set-frame-parameter nil 'background-mode 'dark)
   ;; (load-theme 'cyberpunk t)
@@ -116,14 +116,41 @@
   ;; (load-theme 'tao-yang)
   ;; (load-theme 'leuven)
   ;; (load-theme 'tango)
+  ;; (load-theme 'tsdh-light)
 
-  ;; Current favorite.
-  (load-theme 'tsdh-light)
-  ;; (set-face-foreground 'mode-line "white")
-  (set-face-background 'mode-line "white")
+  ;; (set-face-foreground 'mode-line "black")
+  ;; (set-face-background 'mode-line "white")
+
   ;; (setq rainbow-delimiters-outermost-only-face-count 1)
   ;; (setq rainbow-delimiters-max-face-count 2)
+
+  ;; Current favorite.
+  ;; (load-theme 'tao-yin)
+  (set-face-foreground 'rainbow-delimiters-depth-1-face "PaleTurquoise1")
+  (set-face-foreground 'rainbow-delimiters-depth-2-face "ivory1")
+  (set-face-foreground 'rainbow-delimiters-depth-3-face "dark sea green")
+  (set-face-foreground 'rainbow-delimiters-depth-4-face "plum1")
+  (set-face-foreground 'rainbow-delimiters-depth-5-face "wheat2")
+  (set-face-foreground 'rainbow-delimiters-depth-6-face "medium purple")
+  (set-face-foreground 'rainbow-delimiters-depth-7-face "LightSalmon1")
+  (set-face-foreground 'rainbow-delimiters-depth-8-face "yellow green")
+  (set-cursor-color "orange")
+  (set-face-background 'show-paren-match "white")
+  (set-face-foreground 'show-paren-match "black")
+  ;; (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+
+  ;; (load-theme 'tao-yang)
+  ;; (set-face-foreground 'rainbow-delimiters-depth-1-face "goldenrod")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-2-face "dodger blue")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-3-face "forest green")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-4-face "orchid")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-5-face "light slate grey")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-6-face "dark turquoise")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-7-face "red4")
+  ;; (set-face-foreground 'rainbow-delimiters-depth-8-face "olive drab")
   )
+
+;; (((((((())))))))
 
 (defun bryan/org ()
   (use-package org
