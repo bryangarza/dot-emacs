@@ -314,6 +314,7 @@
 
 (defun bryan/hooks ()
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  ;; (add-hook 'prog-mode-hook #'linum-mode)
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
   (add-hook 'text-mode-hook #'turn-on-auto-fill)
   (add-hook 'window-startup-hook #'toggle-frame-maximized))
@@ -1059,6 +1060,7 @@ the current position of point, then move it to the beginning of the line."
    ("M-7"     . eyebrowse-switch-to-window-config-7)
    ("M-8"     . eyebrowse-switch-to-window-config-8)
    ("M-9"     . eyebrowse-switch-to-window-config-9)
+   ("C-x C-m" . compile)
    ;; ("<f6>"   . ivy-resume)
    ;; ("<f1> l" . counsel-load-library)
    ;; ("<f2> i" . counsel-info-lookup-symbol)
