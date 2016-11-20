@@ -43,7 +43,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/bryan/")
 
-(load-file "~/.private.el")
+;;(load-file "~/.private.el")
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
@@ -76,25 +76,25 @@
     (mapc #'disable-theme custom-enabled-themes))
 
   ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/noctilux")
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/atom-one-dark-theme")
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/color-theme-ujelly")
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-theme-darktooth")
-  (add-to-list 'load-path "~/.emacs.d/themes/tao-theme-emacs")
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/tao-theme-emacs")
+  ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/atom-one-dark-theme")
+  ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el")
+  ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/color-theme-ujelly")
+  ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-theme-darktooth")
+  ;;(add-to-list 'load-path "~/.emacs.d/themes/tao-theme-emacs")
+  ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/tao-theme-emacs")
 
-  ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/moe-theme.el/")
-  ;; (add-to-list 'load-path "~/.emacs.d/themes/moe-theme.el/")
+  ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/moe-theme.el/")
+  (add-to-list 'load-path "~/.emacs.d/themes/moe-theme.el/")
   ;; so kawaii~  ✿◕ ‿ ◕✿
 
   ;; USUAL SETUP ;;;;;;;;;;;;
-  ;; (require 'moe-theme)
+  (require 'moe-theme)
   ;; (setq moe-theme-resize-org-title '(2.2 1.8 1.6 1.4 1.2 1.0 1.0 1.0 1.0))
-  ;; (setq moe-theme-highlight-buffer-id nil)
-  ;; (moe-theme-set-color 'blue)
+  (setq moe-theme-highlight-buffer-id nil)
+  (moe-theme-set-color 'purple)
   ;; (Available colors: blue, orange, green ,magenta, yellow, purple, red, cyan, w/b.)
   ;; (moe-light)
-  ;; (moe-dark)
+  (moe-dark)
   ;; (invert-face 'mode-line)
   ;; (set-face-foreground 'mode-line-buffer-id "#FFFFFF")
   ;; (set-face-bold 'mode-line-buffer-id nil)
@@ -103,11 +103,11 @@
   ;; no underlined text! include `:weight 'normal` to get rid of bold
   ;; (but who would wanna do that?)
   ;; another example:
-  (load-theme 'tao-yin)
-  (mapc
-    (lambda (face)
-      (set-face-attribute face nil :underline nil :weight 'normal))
-    (face-list))
+  ;;(load-theme 'tao-yin)
+  ;;(mapc
+    ;;(lambda (face)
+      ;;(set-face-attribute face nil :underline nil :weight 'normal))
+    ;;(face-list))
 
   ;; (set-frame-parameter nil 'background-mode 'dark)
   ;; (load-theme 'cyberpunk t)
@@ -126,6 +126,7 @@
 
   ;; Current favorite.
   ;; (load-theme 'tao-yin)
+  (rainbow-delimiters-mode)
   (set-face-foreground 'rainbow-delimiters-depth-1-face "PaleTurquoise1")
   (set-face-foreground 'rainbow-delimiters-depth-2-face "ivory1")
   (set-face-foreground 'rainbow-delimiters-depth-3-face "dark sea green")
@@ -137,7 +138,7 @@
   (set-cursor-color "orange")
   (set-face-background 'show-paren-match "white")
   (set-face-foreground 'show-paren-match "black")
-  ;; (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+  (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
 
   ;; (load-theme 'tao-yang)
   ;; (set-face-foreground 'rainbow-delimiters-depth-1-face "goldenrod")
@@ -216,7 +217,22 @@
                  "\\documentclass{article}"
                  ("\\section{%s}" . "\\section*{%s}")))
   ;; (setq org-latex-pdf-process '("texi2dvi -p -b -V %f"))
-  (setq org-latex-pdf-process (list "latexmk -pdf %f")))
+  (setq org-latex-pdf-process (list "latexmk -pdf %f"))
+
+  (defun bryan/journal-entry-with-time-string ()
+    (let ((time (format-time-string "*%I:%M:%S %p*")))
+      (concat time ": %?")))
+
+  (setq org-capture-templates
+        '(
+          ("j" "Journal entry" plain
+           (file+datetree "~/txt/journal.org")
+           (function bryan/journal-entry-with-time-string))
+
+          ("t" "Todo entry" plain
+           (file+datetree "~/txt/todo.org")
+           "**** TODO %?\n")))
+  )
 
 (defun bryan/general ()
   (require 'uniquify)
@@ -284,8 +300,11 @@
   ;;                     :family "Droid Sans Mono Slashed" :height 140 :weight 'normal)
   ;; (set-face-attribute 'default nil
   ;;                     :family "Monaco" :height 130 :weight 'normal)
+  ;; (set-face-attribute 'default nil
+  ;;                     :family "Deja Vu Sans Mono" :height 100 :weight 'normal)
   (set-face-attribute 'default nil
-                      :family "Inconsolata" :height 140 :weight 'normal))
+                      :family "Inconsolata" :height 100 :weight 'normal)
+  )
 
 ;; `bryan-hydra` will be evaled along with all the other functions
 (require 'bryan-hydra)
@@ -580,82 +599,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
   )
 
 (defun bryan/haskell ()
-  ;; (add-to-list 'load-path "~/.emacs.d/lisp/haskell-mode/")
-  ;; (require 'haskell-mode-autoloads)
-  ;; (add-to-list 'Info-default-directory-list "~/.emacs.d/lisp/haskell-mode/")
-
-  ;; (use-package hi2
-  ;;   :ensure t)
-  (defun haskell-custom-hook ()
-    (require 'haskell-interactive-mode)
-    (require 'haskell-process)
-    (add-hook 'haskell-mode-hook #'interactive-haskell-mode)
-    ;; Getting tired of these 2 sometimes
-    ;; (flycheck-mode)
-    ;; (paredit-mode 1)
-    ;; (turn-on-haskell-simple-indent)
-    ;; (turn-on-haskell-indent)
-    (haskell-indentation-mode)
-    ;; (turn-on-hi2)
-
-    ;; Load the current file (and make a session if not already made).
-    (define-key haskell-mode-map (kbd "C-c C-l") #'haskell-process-load-or-reload)
-    ;; Switch to the REPL.
-    (define-key haskell-mode-map [?\C-c ?\C-z] #'haskell-interactive-switch)
-    ;; “Bring” the REPL, hiding all other windows apart from the source
-    ;; and the REPL.
-    (define-key haskell-mode-map (kbd "C-`") #'haskell-interactive-bring)
-    ;; Get the type and info of the symbol at point, print it in the
-    ;; message buffer.
-    (define-key haskell-mode-map (kbd "C-c C-t") #'haskell-process-do-type)
-    (define-key haskell-mode-map (kbd "C-c C-i") #'haskell-process-do-info)
-    ;; Contextually do clever things on the space key, in particular:
-    ;;   1. Complete imports, letting you choose the module name.
-    ;;   2. Show the type of the symbol after the space.
-    (evil-leader/set-key
-      "SPC" #'haskell-mode-contextual-space
-      ;; "s" #'haskell-mode-tag-find
-      )
-    ;; Jump to the imports. Keep tapping to jump between import
-    ;; groups. C-u f8 to jump back again.
-    (define-key haskell-mode-map [f8] #'haskell-navigate-imports)
-
-    (define-key haskell-cabal-mode-map (kbd "C-`") #'haskell-interactive-bring)
-    (define-key haskell-cabal-mode-map (kbd "C-c C-k") #'haskell-interactive-mode-clear)
-    (define-key haskell-cabal-mode-map (kbd "C-c C-c") #'haskell-process-cabal-build)
-    ;; ;; Interactively choose the Cabal command to run.
-    (define-key haskell-cabal-mode-map (kbd "C-c c") #'haskell-process-cabal)
-
-    (custom-set-variables
-     '(haskell-process-type 'stack-ghci)
-     '(haskell-process-suggest-remove-import-lines t)
-     '(haskell-process-auto-import-loaded-modules t)
-     '(haskell-process-log t))
-
-    (setq haskell-interactive-popup-errors nil))
-
-  ;; (use-package ghc
-  ;;   :ensure t
-  ;;   :config
-  ;;   (progn
-  ;;     (autoload #'ghc-init "ghc" nil t)
-  ;;     (autoload #'ghc-debug "ghc" nil t)))
-
-  ;; (use-package company-ghc
-  ;;   :ensure t
-  ;;   :config
-  ;;   (progn
-  ;;     (add-to-list 'company-backends 'company-ghc)))
-
-  (use-package haskell-mode
-    :ensure t
-    :config
-    (progn
-      (bind-key "C-c C-c" #'haskell-compile haskell-mode-map)
-      ;; (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
-      ))
-
-  (add-hook 'haskell-mode-hook #'haskell-custom-hook))
+  (use-package intero
+    :ensure t)
+  (add-hook 'haskell-mode-hook #'intero-mode))
 
 (defun bryan/elm ()
   (use-package elm-mode
@@ -972,7 +918,9 @@ want to use in the modeline *in lieu of* the original.")
 
 (defun bryan/keybindings ()
 
-  (setq mac-function-modifier 'hyper)
+  (setq x-meta-keysym 'super)
+  (setq x-super-keysym 'meta)
+
   (global-set-key [(super t)] nil)
 
   (defun pop-for-avy ()
@@ -990,6 +938,56 @@ the current position of point, then move it to the beginning of the line."
       (beginning-of-line-text)
       (when (eq pt (point))
         (beginning-of-line))))
+
+  (defun enter-journal-entry ()
+    (interactive)
+    (org-capture nil "j"))
+
+  (defun enter-todo-entry ()
+    (interactive)
+    (org-capture nil "t"))
+
+  ;; (evil-leader/set-key
+  ;;   ;;"S" #'pop-tag-mark
+  ;;   ;;"d" #'elisp-slime-nav-describe-elisp-thing-at-point
+  ;;   "r" #'eshell
+  ;;   "r"     #'eshell
+  ;;   "v"     #'evil-paste-after
+  ;;   "c"     #'evil-yank
+  ;;   "a"     #'mark-whole-buffer
+  ;;   "s"     #'Save-buffer
+  ;;   "R"     #'prelude-rename-buffer-and-file
+  ;;   "D"     #'prelude-delete-file-and-buffer
+  ;;   "i"     #'magit-status
+  ;;   "o"     #'other-window
+  ;;   "O"     #'other-frame
+  ;;   "e"     #'eval-defun
+  ;;   "n"     #'next-buffer
+  ;;   "p"     #'previous-buffer
+  ;;   "P"     #'ns-print-buffer
+  ;;   "h"     #'windmove-left
+  ;;   "j"     #'windmove-down
+  ;;   "k"     #'windmove-up
+  ;;   "l"     #'windmove-right
+  ;;   "L"     #'goto-line
+  ;;   "l"     #'windmove-right
+  ;;   "m"     #'org-publish-current-file
+  ;;   "q"     #'previous-history-element
+  ;;   ;;"d"     #'next-history-element
+  ;;   "K"     #'kill-this-buffer
+  ;;   "0"     #'delete-window
+  ;;   "1"     #'zygospore-toggle-delete-other-windows
+  ;;   "2"     #'split-vert-and-switch
+  ;;   "3"     #'split-horiz-and-switch
+  ;;   "A"     #'evil-copy-from-above
+  ;;   "u"     #'revert-buffer
+  ;;   "w"     #'counsel-M-x
+  ;;   "b"     #'ivy-switch-buffer
+  ;;   "f"     #'counsel-find-file
+  ;;   ";"     #'erc-track-switch-buffer
+  ;;   "SPC"   #'enter-journal-entry
+  ;;   ;;"s-SPC" #'enter-todo-entry
+  ;;   )
 
   (bind-keys*
    ("C-s-r"   . zshell)
@@ -1061,11 +1059,14 @@ the current position of point, then move it to the beginning of the line."
    ("M-8"     . eyebrowse-switch-to-window-config-8)
    ("M-9"     . eyebrowse-switch-to-window-config-9)
    ("C-x C-m" . compile)
-   ;; ("<f6>"   . ivy-resume)
-   ;; ("<f1> l" . counsel-load-library)
-   ;; ("<f2> i" . counsel-info-lookup-symbol)
-   ;; ("C-c k"  . counsel-ag)
-   ;; ("C-S-o"  . counsel-rhythmbox)
+   ("s-SPC"   . enter-journal-entry)
+   ("S-s-SPC" . enter-todo-entry)
+   ("M-s-;"   . comment-or-uncomment-region)
+   ("<f6>"   . ivy-resume)
+   ("<f1> l" . counsel-load-library)
+   ("<f2> i" . counsel-info-lookup-symbol)
+   ("C-c k"  . counsel-ag)
+   ("C-S-o"  . counsel-rhythmbox)
    )
 
   ;; maybe
@@ -1144,21 +1145,22 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan/util)
   (bryan/flycheck)
   (bryan/c)
-  (bryan/ocaml)
+  ;;(bryan/ocaml)
   (bryan/haskell)
   (bryan/elm)
-  (bryan/racket)
+  ;;(bryan/racket)
   (bryan/multiple-cursors)
   (bryan/clean-mode-line)
   (bryan/toggle-split-or-rotate-windows)
   (bryan/smart-quotes)
-  (bryan/scala)
+  ;;(bryan/scala)
   (bryan/magit)
   (bryan/pandoc)
   (bryan/hy)
-  (bryan/rust)
+  ;;(bryan/rust)
   (bryan/elisp)
-  (bryan/clojure))
+  ;;(bryan/clojure)
+)
 
 (bryan/eval-fns)
 
@@ -1465,8 +1467,8 @@ which are defined in ~/.private.el"
   )
 
 (load "~/.emacs.d/lisp/html-lite.el/html-lite")
-(load "~/org/new-site/lisp/blog.el")
-(bryan/blog)
+;; (load "~/org/new-site/lisp/blog.el")
+;; (bryan/blog)
 
 (use-package fill-column-indicator
   :ensure t
@@ -1526,16 +1528,16 @@ which are defined in ~/.private.el"
     (add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
     ))
 
-(setq auto-mode-alist (cons '("\\.v$" . coq-mode) auto-mode-alist))
-(autoload 'coq-mode "coq" "Major mode for editing Coq vernacular." t)
+;(setq auto-mode-alist (cons '("\\.v$" . coq-mode) auto-mode-alist))
+;(autoload 'coq-mode "coq" "Major mode for editing Coq vernacular." t)
 
-(load-file "~/.emacs.d/lisp/ProofGeneral-4.3pre150930/ProofGeneral-4.3pre150930/generic/proof-site.el")
+;(load-file "~/.emacs.d/lisp/ProofGeneral-4.3pre150930/ProofGeneral-4.3pre150930/generic/proof-site.el")
 
-(use-package company-coq
-  :ensure t
-  :config (add-hook 'coq-mode-hook #'company-coq-mode))
+;; (use-package company-coq
+;;  :ensure t
+;;  :config (add-hook 'coq-mode-hook #'company-coq-mode))
 
 (bryan/keybindings)
 
 (setq compilation-read-command nil)
-(setq browse-url-browser-function 'browse-url-default-macosx-browser)
+;;(setq browse-url-browser-function 'browse-url-default-macosx-browser)
