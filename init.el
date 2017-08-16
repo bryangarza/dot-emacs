@@ -5,6 +5,7 @@
 (require 'package)
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 (package-initialize)
@@ -139,6 +140,7 @@
   (set-face-background 'show-paren-match "white")
   (set-face-foreground 'show-paren-match "black")
   (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+  (set-face-background hl-line-face "gray13")
 
   ;; (load-theme 'tao-yang)
   ;; (set-face-foreground 'rainbow-delimiters-depth-1-face "goldenrod")
@@ -281,7 +283,9 @@
   (require 'bind-key))
 
 (defun bryan/interface ()
-  (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode global-hl-line-mode))
+  (dolist
+      ;(mode '(tool-bar-mode scroll-bar-mode))
+      (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode global-hl-line-mode))
     (when (fboundp mode) (funcall mode -1)))
 
   (column-number-mode t)
@@ -300,10 +304,10 @@
   ;;                     :family "Droid Sans Mono Slashed" :height 140 :weight 'normal)
   ;; (set-face-attribute 'default nil
   ;;                     :family "Monaco" :height 130 :weight 'normal)
-  ;; (set-face-attribute 'default nil
-  ;;                     :family "Deja Vu Sans Mono" :height 100 :weight 'normal)
   (set-face-attribute 'default nil
-                      :family "Inconsolata" :height 100 :weight 'normal)
+                      :family "Deja Vu Sans Mono" :height 90 :weight 'normal)
+  ;; (set-face-attribute 'default nil
+  ;;                     :family "Inconsolata" :height 120 :weight 'normal)
   )
 
 ;; `bryan-hydra` will be evaled along with all the other functions
@@ -553,55 +557,34 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
     (setq c-basic-offset 4)
     (bind-key "C-c C-c" #'recompile c-mode-map))
 
-  (add-hook 'c-mode-common-hook #'paredit-nonlisp-hook)
+  ;; (add-hook 'c-mode-common-hook #'paredit-nonlisp-hook)
   (add-hook 'c-mode-common-hook #'c-mode-custom-hook))
 
 (defun bryan/ocaml ()
-  (load "/Users/bryangarza/.emacs.d/lisp/tuareg/tuareg-site-file.el")
-  ;; Add opam emacs directory to the load-path
-  (setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
-  (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+  (use-package tuareg
+    :ensure t)
+  (use-package utop
+    :ensure t)
   (use-package merlin
-    :init
-    (progn
-      ;; How to enable auto-complete (but we're using company-mode, so don't)
-      ;; (setq merlin-use-auto-complete-mode 'easy)
-      ;; Use opam switch to lookup ocamlmerlin binary
-      (setq merlin-command 'opam)
-      ;; Make company aware of merlin
-      (with-eval-after-load 'company
-        (add-to-list 'company-backends #'merlin-company-backend))
-      ;; Enable company on merlin managed buffers
-      ;; (add-hook 'merlin-mode-hook 'company-mode) ; already enabled globally
-      ))
-  ;; Start merlin on OCaml files
-  (add-hook 'tuareg-mode-hook #'merlin-mode t)
-  (add-hook 'caml-mode-hook #'merlin-mode t)
-  (add-to-list 'load-path "/Users/bryangarza/.opam/4.02.3/share/emacs/site-lisp")
-  (require 'ocp-indent)
-  ;; Setup environment variables using opam
-  (dolist (var (car (read-from-string
-                     (shell-command-to-string "opam config env --sexp"))))
-    (setenv (car var) (cadr var)))
-  ;; Update the emacs path
-  (setq exec-path (append (parse-colon-path (getenv "PATH"))
-                          (list exec-directory)))
-  ;; Update the emacs load path
-  (add-to-list 'load-path (expand-file-name "../../share/emacs/site-lisp"
-                                            (getenv "OCAML_TOPLEVEL_PATH")))
-  ;; (defun ocaml-custom-hook ()
-  ;;   (paredit-mode 1))
-  ;; Automatically load utop.el
-  (autoload #'utop "utop" "Toplevel for OCaml" t)
-  (autoload #'utop-minor-mode "utop" "Minor mode for utop" t)
-  (add-hook 'tuareg-mode-hook #'utop-minor-mode)
-  ;; (add-hook 'tuareg-mode-hook 'ocaml-custom-hook)
-  )
+    :ensure t)
+
+  ;; (add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)
+  (setq auto-mode-alist
+        (append '(("\\.ml[ily]?$" . tuareg-mode)
+                  ("\\.topml$" . tuareg-mode))
+                auto-mode-alist))
+  (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
+  (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+  (add-hook 'tuareg-mode-hook 'merlin-mode)
+  (setq merlin-use-auto-complete-mode t)
+  (setq merlin-error-after-save nil))
 
 (defun bryan/haskell ()
   (use-package intero
     :ensure t)
-  (add-hook 'haskell-mode-hook #'intero-mode))
+  (add-hook 'haskell-mode-hook #'intero-mode)
+  (setq intero-blacklist '("~/.xmonad"))
+  (add-hook 'haskell-mode-hook 'intero-mode-blacklist))
 
 (defun bryan/elm ()
   (use-package elm-mode
@@ -746,38 +729,45 @@ want to use in the modeline *in lieu of* the original.")
   (global-set-key (kbd "C-c y") #'yank-and-replace-smart-quotes))
 
 (defun bryan/scala ()
-  (use-package scala-mode2
-    :ensure t)
 
-  (defun scala-mode-custom-hook ()
-    ;; sbt-find-definitions is a command that tries to find (with grep)
-    ;; the definition of the thing at point.
-    (local-set-key (kbd "M-.") #'sbt-find-definitions)
+  (use-package ensime
+    :ensure t
+    :pin melpa-stable)
 
-    ;; use sbt-run-previous-command to re-compile your code after changes
-    (local-set-key (kbd "C-x '") #'sbt-run-previous-command))
 
-  (add-hook 'scala-mode-hook #'scala-mode-custom-hook)
+  ;; (use-package scala-mode2
+  ;;   :ensure t)
 
-  (use-package sbt-mode
-    :ensure t)
+  ;; (defun scala-mode-custom-hook ()
+  ;;   ;; sbt-find-definitions is a command that tries to find (with grep)
+  ;;   ;; the definition of the thing at point.
+  ;;   (local-set-key (kbd "M-.") #'sbt-find-definitions)
 
-  (defun sbt-mode-custom-hook ()
-    ;; compilation-skip-threshold tells the compilation minor-mode
-    ;; which type of compiler output can be skipped. 1 = skip info
-    ;; 2 = skip info and warnings.
-    (setq compilation-skip-threshold 1)
+  ;;   ;; use sbt-run-previous-command to re-compile your code after changes
+  ;;   (local-set-key (kbd "C-x '") #'sbt-run-previous-command))
 
-    ;; Bind C-a to 'comint-bol when in sbt-mode. This will move the
-    ;; cursor to just after prompt.
-    (local-set-key (kbd "C-a") #'comint-bol)
+  ;; (add-hook 'scala-mode-hook #'scala-mode-custom-hook)
 
-    ;; Bind M-RET to 'comint-accumulate. This will allow you to add
-    ;; more than one line to scala console prompt before sending it
-    ;; for interpretation. It will keep your command history cleaner.
-    (local-set-key (kbd "M-RET") #'comint-accumulate))
+  ;; (use-package sbt-mode
+  ;;   :ensure t)
 
-  (add-hook 'sbt-mode-hook #'sbt-mode-custom-hook))
+  ;; (defun sbt-mode-custom-hook ()
+  ;;   ;; compilation-skip-threshold tells the compilation minor-mode
+  ;;   ;; which type of compiler output can be skipped. 1 = skip info
+  ;;   ;; 2 = skip info and warnings.
+  ;;   (setq compilation-skip-threshold 1)
+
+  ;;   ;; Bind C-a to 'comint-bol when in sbt-mode. This will move the
+  ;;   ;; cursor to just after prompt.
+  ;;   (local-set-key (kbd "C-a") #'comint-bol)
+
+  ;;   ;; Bind M-RET to 'comint-accumulate. This will allow you to add
+  ;;   ;; more than one line to scala console prompt before sending it
+  ;;   ;; for interpretation. It will keep your command history cleaner.
+  ;;   (local-set-key (kbd "M-RET") #'comint-accumulate))
+
+  ;; (add-hook 'sbt-mode-hook #'sbt-mode-custom-hook)
+  )
 
 (defun bryan/magit ()
   (use-package magit
@@ -1145,15 +1135,15 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan/util)
   (bryan/flycheck)
   (bryan/c)
-  ;;(bryan/ocaml)
+  (bryan/ocaml)
   (bryan/haskell)
   (bryan/elm)
-  ;;(bryan/racket)
+  (bryan/racket)
   (bryan/multiple-cursors)
   (bryan/clean-mode-line)
   (bryan/toggle-split-or-rotate-windows)
   (bryan/smart-quotes)
-  ;;(bryan/scala)
+  (bryan/scala)
   (bryan/magit)
   (bryan/pandoc)
   (bryan/hy)
@@ -1454,7 +1444,7 @@ which are defined in ~/.private.el"
   :config
   (progn
     ;; Set your lisp system and, optionally, some contribs
-    (setq inferior-lisp-program "/usr/local/bin/clisp")
+    (setq inferior-lisp-program "/usr//bin/sbcl")
     (setq slime-contribs '(slime-fancy))))
 
 (require 'midnight)
@@ -1467,8 +1457,8 @@ which are defined in ~/.private.el"
   )
 
 (load "~/.emacs.d/lisp/html-lite.el/html-lite")
-;; (load "~/org/new-site/lisp/blog.el")
-;; (bryan/blog)
+(load "~/txt/bryangarza.github.io/lisp/blog.el")
+(bryan/blog)
 
 (use-package fill-column-indicator
   :ensure t
@@ -1541,3 +1531,19 @@ which are defined in ~/.private.el"
 
 (setq compilation-read-command nil)
 ;;(setq browse-url-browser-function 'browse-url-default-macosx-browser)
+
+(setq diary-file "~/txt/diary")
+
+(use-package lua-mode
+  :ensure t
+  :config
+  (progn
+    (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+    (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+    (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))))
+
+(use-package htmlize
+  :ensure t)
+
+(use-package yaml-mode
+  :ensure t)
