@@ -140,7 +140,7 @@
   (set-face-background 'show-paren-match "white")
   (set-face-foreground 'show-paren-match "black")
   (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
-  (set-face-background hl-line-face "gray13")
+  (set-face-background hl-line-face "gray15")
 
   ;; (load-theme 'tao-yang)
   ;; (set-face-foreground 'rainbow-delimiters-depth-1-face "goldenrod")
