@@ -239,6 +239,7 @@
 (defun bryan/general ()
   (require 'uniquify)
   (setq uniquify-buffer-name-style 'forward)
+  (setq mouse-autoselect-window t)
 
   (desktop-save-mode t)
   (fset 'yes-or-no-p #'y-or-n-p)
