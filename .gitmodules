@@ -60,4 +60,4 @@
 	url = https://github.com/bryangarza/atom-one-dark-theme.git
 [submodule "lisp/helm-projectile"]
 	path = lisp/helm-projectile
-	url = https://github.com/bbatsov/helm-projectile.git
+	url = https://github.com/bryangarza/helm-projectile.git
