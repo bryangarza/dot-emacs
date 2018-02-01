@@ -1,51 +1,51 @@
 [submodule "lisp/web-mode"]
 	path = lisp/web-mode
-	url = git@github.com:fxbois/web-mode.git
+	url = https://github.com/fxbois/web-mode.git
 [submodule "lisp/jade-mode"]
 	path = lisp/jade-mode
-	url = git@github.com:brianc/jade-mode.git
+	url = https://github.com/brianc/jade-mode.git
 [submodule "lisp/tuareg"]
 	path = lisp/tuareg
-	url = git@github.com:ocaml/tuareg.git
+	url = https://github.com/ocaml/tuareg.git
 [submodule "lisp/helm-swoop"]
 	path = lisp/helm-swoop
-	url = git@github.com:ShingoFukuyama/helm-swoop.git
+	url = https://github.com/ShingoFukuyama/helm-swoop.git
 [submodule "lisp/helm-company"]
 	path = lisp/helm-company
 	url = https://github.com/yasuyk/helm-company
 [submodule "lisp/helm-descbinds"]
 	path = lisp/helm-descbinds
-	url = git@github.com:emacs-helm/helm-descbinds.git
+	url = https://github.com/emacs-helm/helm-descbinds.git
 [submodule "themes/cyberpunk-theme.el"]
 	path = themes/cyberpunk-theme.el
-	url = git@github.com:bryangarza/cyberpunk-theme.el.git
+	url = https://github.com/bryangarza/cyberpunk-theme.el.git
 [submodule "themes/noctilux-theme"]
 	path = themes/noctilux-theme
 	url = https://github.com/stafu/noctilux-theme
 [submodule "lisp/elisp-slime-nav"]
 	path = lisp/elisp-slime-nav
-	url = git@github.com:purcell/elisp-slime-nav.git
+	url = https://github.com/purcell/elisp-slime-nav.git
 [submodule "lisp/evil-leader"]
 	path = lisp/evil-leader
-	url = git@github.com:cofi/evil-leader.git
+	url = https://github.com/cofi/evil-leader.git
 [submodule "lisp/use-package"]
 	path = lisp/use-package
-	url = git@github.com:jwiegley/use-package.git
+	url = https://github.com/jwiegley/use-package.git
 [submodule "lisp/org-present"]
 	path = lisp/org-present
-	url = git@github.com:rlister/org-present.git
+	url = https://github.com/rlister/org-present.git
 [submodule "themes/color-theme-ujelly"]
 	path = themes/color-theme-ujelly
-	url = git@github.com:marktran/color-theme-ujelly.git
+	url = https://github.com/marktran/color-theme-ujelly.git
 [submodule "lisp/org-mode"]
 	path = lisp/org-mode
 	url = git://orgmode.org/org-mode.git
 [submodule "themes/moe-theme.el"]
 	path = themes/moe-theme.el
-	url = git@github.com:bryangarza/moe-theme.el.git
+	url = https://github.com/bryangarza/moe-theme.el.git
 [submodule "themes/emacs-theme-darktooth"]
 	path = themes/emacs-theme-darktooth
-	url = git@github.com:bryangarza/emacs-theme-darktooth.git
+	url = https://github.com/bryangarza/emacs-theme-darktooth.git
 [submodule "themes/tao-theme-emacs"]
 	path = themes/tao-theme-emacs
 	url = https://github.com/11111000000/tao-theme-emacs.git
@@ -54,7 +54,10 @@
 	url = https://github.com/phildawes/racer.git
 [submodule "lisp/html-lite.el"]
 	path = lisp/html-lite.el
-	url = git@github.com:bryangarza/html-lite.el.git
+	url = https://github.com/bryangarza/html-lite.el.git
 [submodule "themes/atom-one-dark-theme"]
 	path = themes/atom-one-dark-theme
-	url = git@github.com:bryangarza/atom-one-dark-theme.git
+	url = https://github.com/bryangarza/atom-one-dark-theme.git
+[submodule "lisp/helm-projectile"]
+	path = lisp/helm-projectile
+	url = https://github.com/bbatsov/helm-projectile.git

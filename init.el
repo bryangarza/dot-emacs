@@ -15,7 +15,8 @@
   (package-refresh-contents))
 
 (defvar bryan/packages
-  '(evil-paredit
+  '(use-package
+    evil-paredit
     smartparens
     rainbow-delimiters
     rainbow-mode
@@ -43,6 +44,9 @@
   (normal-top-level-add-subdirs-to-load-path))
 
 (add-to-list 'load-path "~/.emacs.d/bryan/")
+
+(defvar WORKSPACE_ROOT "~/workspace"
+  "The directory where Brazil workspaces are located")
 
 ;;(load-file "~/.private.el")
 
@@ -140,7 +144,7 @@
   (set-face-background 'show-paren-match "white")
   (set-face-foreground 'show-paren-match "black")
   (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
-  (set-face-background hl-line-face "gray15")
+  ;;(set-face-background hl-line-face "gray15")
 
   ;; (load-theme 'tao-yang)
   ;; (set-face-foreground 'rainbow-delimiters-depth-1-face "goldenrod")
@@ -458,6 +462,47 @@
     (interactive)
     (ansi-term "/usr/local/bin/zsh")))
 
+(defun bryan/projectile ()
+  (use-package projectile
+    :ensure t
+    :config (projectile-mode)))
+
+(defun bryan/helm ()
+  (use-package helm
+    :ensure t
+    :config
+    (progn
+      (setq helm-split-window-in-side-p               t ; open helm buffer inside current window, not occupy whole other window
+            helm-move-to-line-cycle-in-source         t ; move to end or beginning of source when reaching top or bottom of source.
+            helm-autoresize-max-height                80; it is %.
+            helm-autoresize-min-height                20 ; it is %.
+            fit-window-to-buffer-horizontally         1
+            helm-browse-project-default-find-files-fn #'helm-browse-project-ag-find-files)
+      (helm-autoresize-mode 1)
+      (helm-projectile-on)
+      (helm-mode 1)))
+  (use-package helm-adaptive
+    :ensure t
+    :config (helm-adaptive-mode 1))
+  (use-package helm-utils
+    :ensure t
+    ;; Popup buffer-name or filename in grep/moccur/imenu-all etc...
+    :config (helm-popup-tip-mode 1))
+  (use-package helm-sys
+    :ensure t
+    :commands (helm-top)
+    :config (helm-top-poll-mode 1))
+  (use-package helm-info
+    :ensure t)
+  (use-package helm-ag
+    :ensure t)
+
+  (require 'helm-projectile)
+  (defun helm-projectile-ag-workspace (&optional options)
+    (interactive (if current-prefix-arg (list (helm-read-string "option: " "" 'helm-ag--extra-options-history))))
+    (helm-projectile-ag-internal WORKSPACE_ROOT options))
+
+  (require 'helm-swoop))
 
 (defun bryan/ivy ()
   (use-package swiper
@@ -630,7 +675,7 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
       (python-mode            . "py")
       (doc-view-mode           . "dv")
       ;; hidden
-      (ivy-mode               . "")
+      (helm-mode               . "")
       (undo-tree-mode         . "")
       (magit-auto-revert-mode . "")
       (eldoc-mode             . "")
@@ -1022,20 +1067,23 @@ the current position of point, then move it to the beginning of the line."
    ("s-A"     . evil-copy-from-above)
    ("s-u"     . revert-buffer)
    ("H-e"     . evil-execute-in-emacs-state)
-   ("M-w"     . counsel-M-x)
-   ("M-x"     . counsel-M-x)
-   ("s-w"     . counsel-M-x)
-   ("s-b"     . ivy-switch-buffer)
-   ("\C-s"    . swiper)
-   ("C-c C-r" . ivy-resume)
-   ("C-x C-f" . counsel-find-file)
-   ("s-f"     . counsel-find-file)
-   ("C-h f"   . counsel-describe-function)
-   ("C-h v"   . counsel-describe-variable)
-   ("<f2> u"  . counsel-unicode-char)
-   ("C-c g"   . counsel-git)
-   ("C-c j"   . counsel-git-grep)
-   ("C-x l"   . counsel-locate)
+   ("M-w"     . helm-M-x)
+   ("M-x"     . helm-M-x)
+   ("s-w"     . helm-M-x)
+   ("C-h r"   . helm-info-emacs)
+   ("s-b"     . helm-mini)
+   ("\C-s"    . helm-swoop)
+   ("C-x s"   . helm-projectile-ag)
+   ("C-c s"   . helm-projectile-ag-workspace)
+   ;("C-c C-r" . ivy-resume)
+   ("C-x C-f" . helm-find-files)
+   ("s-f"     . helm-find-files)
+   ;("C-h f"   . counsel-describe-function)
+   ;("C-h v"   . counsel-describe-variable)
+   ;("<f2> u"  . counsel-unicode-char)
+   ;("C-c g"   . counsel-git)
+   ;("C-c j"   . counsel-git-grep)
+   ;("C-x l"   . counsel-locate)
    ("s-;"     . erc-track-switch-buffer)
    ("C-s-n"   . eyebrowse-next-window-config)
    ("C-s-p"   . eyebrowse-prev-window-config)
@@ -1053,11 +1101,11 @@ the current position of point, then move it to the beginning of the line."
    ("s-SPC"   . enter-journal-entry)
    ("S-s-SPC" . enter-todo-entry)
    ("M-s-;"   . comment-or-uncomment-region)
-   ("<f6>"   . ivy-resume)
-   ("<f1> l" . counsel-load-library)
-   ("<f2> i" . counsel-info-lookup-symbol)
-   ("C-c k"  . counsel-ag)
-   ("C-S-o"  . counsel-rhythmbox)
+   ;("<f6>"   . ivy-resume)
+   ;("<f1> l" . counsel-load-library)
+   ;("<f2> i" . counsel-info-lookup-symbol)
+   ;("C-c k"  . counsel-ag)
+   ;("C-S-o"  . counsel-rhythmbox)
    )
 
   ;; maybe
@@ -1129,7 +1177,8 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan/markdown)
   (bryan/json)
   (bryan/term)
-  (bryan/ivy)
+  (bryan/projectile)
+  (bryan/helm)
   (bryan/better-splits)
   (bryan/rename-or-delete-buffer-and-file)
   (bryan/minibuffer-keyboard-quit)
@@ -1262,7 +1311,23 @@ See `comment-region' for behavior of a prefix arg."
   :ensure t
   :config
   (progn
-    (global-set-key [f8] #'neotree-toggle)
+
+    (defun neotree-project-dir ()
+      "Open NeoTree using the git root."
+      (interactive)
+      (let ((project-dir (projectile-project-root))
+            (file-name (buffer-file-name)))
+        (neotree-toggle)
+        (if project-dir
+            (if (neo-global--window-exists-p)
+                (progn
+                  (neotree-dir project-dir)
+                  (neotree-find file-name)))
+          (message "Could not find git project root."))))
+
+    (global-set-key [f8] #'neotree-project-dir)
+    (setq neo-smart-open t)
+    (setq projectile-switch-project-action 'neotree-projectile-action)
     (define-key evil-normal-state-local-map (kbd "TAB") #'neotree-enter)
     (define-key evil-normal-state-local-map (kbd "SPC") #'neotree-enter)
     (define-key evil-normal-state-local-map (kbd "q") #'neotree-hide)
@@ -1548,3 +1613,11 @@ which are defined in ~/.private.el"
 
 (use-package yaml-mode
   :ensure t)
+
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))

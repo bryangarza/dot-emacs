@@ -15,12 +15,12 @@
  '(haskell-process-suggest-remove-import-lines t)
  '(haskell-process-type (quote stack-ghci))
  '(helm-scroll-amount 8)
- '(mac-command-modifier (quote super))
- '(mac-option-modifier (quote meta))
  '(mouse-scroll-delay 0.35)
+ '(ns-alternate-modifier (quote meta))
+ '(ns-command-modifier (quote super))
  '(package-selected-packages
    (quote
-    (yaml-mode merlin utop tuareg htmlize lua-mode intero zygospore stripe-buffer eyebrowse fill-column-indicator golden-ratio slime znc popwin beacon neotree bug-hunter erlang reveal-in-osx-finder ranger counsel swiper hydra company-mode sqlup-mode which-key avy evil-ranger markdown-mode elm-mode toc-org evil-anzu rust-mode helm moe-theme w3m git-gutter-fringe perspective auctex-mode auctex hy-mode helm-projectile projectile projectile-mode git-gutter ace-jump-mode pandoc-mode sbt-mode scala-mode2 haskell-mode hi2 elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
+    (helm-ag helm-info helm-sys helm-utils helm-adaptive helm-mode yaml-mode merlin utop tuareg htmlize lua-mode intero zygospore stripe-buffer eyebrowse fill-column-indicator golden-ratio slime znc popwin beacon neotree bug-hunter erlang reveal-in-osx-finder ranger counsel swiper hydra company-mode sqlup-mode which-key avy evil-ranger markdown-mode elm-mode toc-org evil-anzu rust-mode helm moe-theme w3m git-gutter-fringe perspective auctex-mode auctex hy-mode projectile projectile-mode git-gutter ace-jump-mode pandoc-mode sbt-mode scala-mode2 haskell-mode hi2 elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
  '(pos-tip-background-color "#36473A")
  '(pos-tip-foreground-color "#FFFFC8")
  '(safe-local-variable-values
