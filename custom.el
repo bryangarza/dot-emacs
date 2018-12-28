@@ -7,35 +7,31 @@
    ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
  '(blink-cursor-mode nil)
  '(custom-safe-themes
-   (quote
-    ("8dd1433f5e33c1cc917d7a8839b1df645d46269020650d7247654693c94f41c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "83a27e12cbf3332d5502a953659b768d222a5be4518d52eda046386a66446c19" "40bc0ac47a9bd5b8db7304f8ef628d71e2798135935eb450483db0dbbfff8b11" "603a9c7f3ca3253cb68584cb26c408afcf4e674d7db86badcfe649dd3c538656" default)))
+   '("8dd1433f5e33c1cc917d7a8839b1df645d46269020650d7247654693c94f41c4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "83a27e12cbf3332d5502a953659b768d222a5be4518d52eda046386a66446c19" "40bc0ac47a9bd5b8db7304f8ef628d71e2798135935eb450483db0dbbfff8b11" "603a9c7f3ca3253cb68584cb26c408afcf4e674d7db86badcfe649dd3c538656" default))
  '(fci-rule-color "#383838")
  '(haskell-process-auto-import-loaded-modules t)
  '(haskell-process-log t)
  '(haskell-process-suggest-remove-import-lines t)
- '(haskell-process-type (quote stack-ghci))
+ '(haskell-process-type 'stack-ghci)
  '(helm-scroll-amount 8)
  '(mouse-scroll-delay 0.35)
- '(ns-alternate-modifier (quote meta))
- '(ns-command-modifier (quote super))
+ '(ns-alternate-modifier 'meta)
+ '(ns-command-modifier 'super)
  '(package-selected-packages
-   (quote
-    (helm-ag helm-info helm-sys helm-utils helm-adaptive helm-mode yaml-mode merlin utop tuareg htmlize lua-mode intero zygospore stripe-buffer eyebrowse fill-column-indicator golden-ratio slime znc popwin beacon neotree bug-hunter erlang reveal-in-osx-finder ranger counsel swiper hydra company-mode sqlup-mode which-key avy evil-ranger markdown-mode elm-mode toc-org evil-anzu rust-mode helm moe-theme w3m git-gutter-fringe perspective auctex-mode auctex hy-mode projectile projectile-mode git-gutter ace-jump-mode pandoc-mode sbt-mode scala-mode2 haskell-mode hi2 elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil)))
+   '(protobuf-mode company-go go-mode o-blog ox-hugo racer cargo helm-ag helm-info helm-sys helm-utils helm-adaptive helm-mode yaml-mode merlin utop tuareg htmlize lua-mode intero zygospore stripe-buffer eyebrowse fill-column-indicator golden-ratio slime znc popwin beacon neotree bug-hunter erlang reveal-in-osx-finder ranger counsel swiper hydra company-mode sqlup-mode which-key avy evil-ranger markdown-mode elm-mode toc-org evil-anzu rust-mode helm moe-theme w3m git-gutter-fringe perspective auctex-mode auctex hy-mode projectile projectile-mode git-gutter ace-jump-mode pandoc-mode sbt-mode scala-mode2 haskell-mode hi2 elisp-slime-nav rainbow-mode expand-region multiple-cursors ac-geiser geiser ac-helm debbugs circe flycheck exec-path-from-shell json-mode company linum-relative magit cider clojure-mode-extra-font-locking smartparens rainbow-delimiters evil-surround evil-paredit paredit evil))
  '(pos-tip-background-color "#36473A")
  '(pos-tip-foreground-color "#FFFFC8")
  '(safe-local-variable-values
-   (quote
-    ((haskell-process-use-ghci . t)
+   '((haskell-process-use-ghci . t)
      (haskell-indent-spaces . 4)
-     (TeX-command-extra-options . "-shell-escape"))))
+     (TeX-command-extra-options . "-shell-escape")))
  '(scroll-bar-mode nil)
- '(send-mail-function (quote smtpmail-send-it))
+ '(send-mail-function 'smtpmail-send-it)
  '(smtpmail-smtp-server "smtp.gmail.com")
  '(smtpmail-smtp-service 25)
  '(vc-annotate-background "#0E0E0E")
  '(vc-annotate-color-map
-   (quote
-    ((20 . "#616161")
+   '((20 . "#616161")
      (40 . "#9D9D9D")
      (60 . "#9D9D9D")
      (80 . "#C2C2C2")
@@ -52,8 +48,11 @@
      (300 . "#F6F6F6")
      (320 . "#F6F6F6")
      (340 . "#F9F9F9")
-     (360 . "#F9F9F9"))))
- '(vc-annotate-very-old-color "#D9D9D9"))
+     (360 . "#F9F9F9")))
+ '(vc-annotate-very-old-color "#D9D9D9")
+ '(znc-servers
+   '(("192.168.1.6" 5000 nil
+      ((znc "wolfcore/freenode:zncpass" ""))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

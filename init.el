@@ -20,8 +20,6 @@
     smartparens
     rainbow-delimiters
     rainbow-mode
-    clojure-mode-extra-font-locking
-    cider
     exec-path-from-shell
     debbugs
     geiser
@@ -61,7 +59,13 @@
     :ensure t
     :init
     (progn
-      (add-hook 'after-init-hook #'global-company-mode))))
+      (add-hook 'after-init-hook #'global-company-mode)
+      (setq company-tooltip-align-annotations t)
+      (setq company-tooltip-limit 20)                      ; bigger popup window
+      (setq company-idle-delay .3)                         ; decrease delay before autocompletion popup shows
+      (setq company-echo-delay 0)                          ; remove annoying blinking
+      (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
+      )))
 
 (defun bryan/paren ()
   (use-package paren
@@ -290,7 +294,8 @@
 (defun bryan/interface ()
   (dolist
       ;(mode '(tool-bar-mode scroll-bar-mode))
-      (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode global-hl-line-mode))
+      ;(mode '(menu-bar-mode tool-bar-mode scroll-bar-mode global-hl-line-mode))
+      (mode '(tool-bar-mode scroll-bar-mode global-hl-line-mode))
     (when (fboundp mode) (funcall mode -1)))
 
   (column-number-mode t)
@@ -299,7 +304,7 @@
   ;; (display-battery-mode)
 
   (setq-default indent-tabs-mode nil)
-  (setq-default show-trailing-whitespace nil)
+  (setq-default show-trailing-whitespace t)
 
   (set-terminal-coding-system 'utf-8)
   (set-keyboard-coding-system 'utf-8)
@@ -309,10 +314,15 @@
   ;;                     :family "Droid Sans Mono Slashed" :height 140 :weight 'normal)
   ;; (set-face-attribute 'default nil
   ;;                     :family "Monaco" :height 130 :weight 'normal)
-  (set-face-attribute 'default nil
-                      :family "Deja Vu Sans Mono" :height 90 :weight 'normal)
+  ;; (set-face-attribute 'default nil
+  ;;                     :family "Deja Vu Sans Mono" :height 90 :weight 'normal)
   ;; (set-face-attribute 'default nil
   ;;                     :family "Inconsolata" :height 120 :weight 'normal)
+
+
+  ;; https://github.com/source-foundry/Hack
+  (set-face-attribute 'default nil
+                      :family "Hack" :height 90 :weight 'normal)
   )
 
 ;; `bryan-hydra` will be evaled along with all the other functions
@@ -406,18 +416,6 @@
       (define-key evil-motion-state-map (kbd "C-SPC") #'avy-goto-word-1)
       (define-key evil-motion-state-map (kbd "M-SPC") #'avy-goto-line))))
 
-(defun bryan/cider ()
-  ;; Cider settings
-  ;; Enable `eldoc` in Clojure buffers
-  (add-hook 'cider-mode-hool #'eldoc-mode)
-  ;; Log communication with the nREPL server
-  (setq nrepl-log-messages t)
-  ;; Hide *nrepl-connection* and *nrepl-server* from some buffer switching
-  ;; comands like `switch-to-buffer` (C-x b)
-  (setq nrepl-hide-special-buffers t)
-  ;; Enable paredit in the REPL buffer
-  (add-hook 'cider-repl-mode-hook #'paredit-mode))
-
 (defun bryan/frontend ()
   (use-package web-mode
     :config
@@ -481,19 +479,20 @@
       (helm-autoresize-mode 1)
       (helm-projectile-on)
       (helm-mode 1)))
-  (use-package helm-adaptive
-    :ensure t
-    :config (helm-adaptive-mode 1))
-  (use-package helm-utils
-    :ensure t
-    ;; Popup buffer-name or filename in grep/moccur/imenu-all etc...
-    :config (helm-popup-tip-mode 1))
-  (use-package helm-sys
-    :ensure t
-    :commands (helm-top)
-    :config (helm-top-poll-mode 1))
-  (use-package helm-info
-    :ensure t)
+  ;; I don't think these packages actually exist... use-package can't find them
+  ;; (use-package helm-adaptive
+  ;;   :ensure t
+  ;;   :config (helm-adaptive-mode 1))
+  ;; (use-package helm-utils
+  ;;   :ensure t
+  ;;   ;; Popup buffer-name or filename in grep/moccur/imenu-all etc...
+  ;;   :config (helm-popup-tip-mode 1))
+  ;; (use-package helm-sys
+  ;;   :ensure t
+  ;;   :commands (helm-top)
+  ;;   :config (helm-top-poll-mode 1))
+  ;; (use-package helm-info
+  ;;   :ensure t)
   (use-package helm-ag
     :ensure t)
 
@@ -838,19 +837,28 @@ want to use in the modeline *in lieu of* the original.")
 
 (defun bryan/rust ()
   (use-package rust-mode
-    :ensure t)
+    :ensure t
+    :config
+    (progn
+      (setq rust-rustfmt-bin "fmt")
+      ; This is formatting weird so disable for now...
+      ;(rust-enable-format-on-save)
+      ))
 
-  ;; (setq racer-rust-src-path "~/.emacs.d/lisp/racer/src/")
-  ;; (setq racer-cmd "~/.emacs.d/lisp/racer/target/release/racer")
-  ;; (add-to-list 'load-path "~/.emacs.d/lisp/racer/editors/emacs/")
-  ;; (eval-after-load "rust-mode" '(require 'racer))
+  (use-package cargo
+    :ensure t
+    :config
+    (progn
+      (add-hook 'rust-mode-hook 'cargo-minor-mode)))
 
-  ;; (defun rust-custom-hook ()
-  ;;   (racer-activate)
-  ;;   (local-set-key (kbd "M-.") #'racer-find-definition)
-  ;;   (local-set-key (kbd "TAB") #'racer-complete-or-indent))
+  (use-package racer
+    :ensure t
+    :config
+    (progn
+      (add-hook 'rust-mode-hook #'racer-mode)
+      (add-hook 'racer-mode-hook #'eldoc-mode)
 
-  ;; (add-hook 'rust-mode-hook #'rust-custom-hook)
+      (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)))
   )
 
 (defun bryan/elisp ()
@@ -873,84 +881,8 @@ want to use in the modeline *in lieu of* the original.")
   (require 'elisp-slime-nav))
 
 (defun bryan/clojure ()
-  ;; Enable paredit for Clojure
-  (add-hook 'clojure-mode-hook #'enable-paredit-mode)
-
-  ;; This is useful for working with camel-case tokens, like names of
-  ;; Java classes (e.g. JavaClassName)
-  (add-hook 'clojure-mode-hook #'subword-mode)
-
-  ;; A little more syntax highlighting
-  (require 'clojure-mode-extra-font-locking)
-
-  ;; syntax hilighting for midje
-  (add-hook 'clojure-mode-hook
-            #'(lambda ()
-                (setq inferior-lisp-program "lein repl")
-                (font-lock-add-keywords
-                 nil
-                 '(("(\\(facts?\\)"
-                    (1 font-lock-keyword-face))
-                   ("(\\(background?\\)"
-                    (1 font-lock-keyword-face))))
-                (define-clojure-indent (fact 1))
-                (define-clojure-indent (facts 1))))
-
-;;;;
-  ;; Cider
-;;;;
-
-  ;; provides minibuffer documentation for the code you're typing into the repl
-  (add-hook 'cider-mode-hook #'cider-turn-on-eldoc-mode)
-
-  ;; go right to the REPL buffer when it's finished connecting
-  (setq cider-repl-pop-to-buffer-on-connect t)
-
-  ;; When there's a cider error, show its buffer and switch to it
-  (setq cider-show-error-buffer t)
-  (setq cider-auto-select-error-buffer t)
-
-  ;; Where to store the cider history.
-  (setq cider-repl-history-file "~/.emacs.d/cider-history")
-
-  ;; Wrap when navigating history.
-  (setq cider-repl-wrap-history t)
-
-  ;; enable paredit in your REPL
-  (add-hook 'cider-repl-mode-hook #'paredit-mode)
-
-  ;; Use clojure mode for other extensions
-  (add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
-  (add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
-  (add-to-list 'auto-mode-alist '("\\.cljs.*$" . clojure-mode))
-  (add-to-list 'auto-mode-alist '("lein-env" . enh-ruby-mode))
-
-
-  ;; key bindings
-  ;; these help me out with the way I usually develop web apps
-  (defun cider-start-http-server ()
-    (interactive)
-    (cider-load-current-buffer)
-    (let ((ns (cider-current-ns)))
-      (cider-repl-set-ns ns)
-      (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns))
-      (cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
-
-
-  (defun cider-refresh ()
-    (interactive)
-    (cider-interactive-eval (format "(user/reset)")))
-
-  (defun cider-user-ns ()
-    (interactive)
-    (cider-repl-set-ns "user"))
-
-  (eval-after-load 'cider
-    '(progn
-       (define-key clojure-mode-map (kbd "C-c C-v") #'cider-start-http-server)
-       (define-key clojure-mode-map (kbd "C-M-r") #'cider-refresh)
-       (define-key clojure-mode-map (kbd "C-c u") #'cider-user-ns)
-       (define-key cider-mode-map (kbd "C-c u") #'cider-user-ns))))
+  (use-package cider
+    :ensure t))
 
 (defun bryan/keybindings ()
 
@@ -1172,7 +1104,6 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan/hooks)
   (bryan/evil)
   (bryan/avy)
-  (bryan/cider)
   (bryan/frontend)
   (bryan/markdown)
   (bryan/json)
@@ -1197,9 +1128,9 @@ Will work on both org-mode and any mode that accepts plain html."
   (bryan/magit)
   (bryan/pandoc)
   (bryan/hy)
-  ;;(bryan/rust)
+  (bryan/rust)
   (bryan/elisp)
-  ;;(bryan/clojure)
+  (bryan/clojure)
 )
 
 (bryan/eval-fns)
@@ -1621,3 +1552,12 @@ which are defined in ~/.private.el"
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+
+(use-package go-mode
+  :ensure t)
+
+(use-package company-go
+  :ensure t)
+
+(use-package protobuf-mode
+  :ensure t)
